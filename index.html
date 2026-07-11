@@ -176,10 +176,10 @@
     background: var(--cube-logo) center / contain no-repeat;
   }
   .brand-word {
-    font-family: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
-    font-size: 1.02rem;
-    letter-spacing: 0.02em;
+    font-size: 1.16rem;
+    letter-spacing: 0.01em;
   }
   nav.primary { display: flex; align-items: center; gap: clamp(0.9rem, 2vw, 1.8rem); }
   nav.primary a {
@@ -367,7 +367,7 @@
     color: var(--ink);
   }
   .mission p::first-letter {
-    font-family: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 3.6em;
     float: left;
@@ -389,12 +389,12 @@
   }
   .ledger-col:first-child { border-left: none; padding-left: 0; }
   .ledger-col h3 {
-    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-    font-size: 0.74rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.16rem;
+    letter-spacing: -0.005em;
     color: var(--duke);
-    margin: 0 0 0.9rem;
+    margin: 0 0 0.8rem;
   }
   .ledger-col p { margin: 0; font-size: 0.98rem; color: var(--ink); }
 
@@ -505,14 +505,22 @@
   .cluster { flex: 1 1 260px; max-width: 380px; }
   .cluster-head {
     text-align: center;
-    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.005em;
     color: var(--duke);
     margin: 0 0 1.4rem;
   }
-  .cluster-head .count { display: block; color: var(--steel); font-size: 0.64rem; margin-top: 0.35rem; }
+  .cluster-head .count {
+    display: block;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--steel);
+    font-size: 0.62rem;
+    margin-top: 0.4rem;
+  }
 
   .bubble-field {
     display: flex;
