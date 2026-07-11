@@ -457,7 +457,11 @@
     padding: 22px 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: grab;
+    touch-action: pan-y;
   }
+  .venture-viewport.dragging { cursor: grabbing; user-select: none; }
+  .venture-viewport.dragging .venture-card { transform: none !important; }
   .venture-viewport::-webkit-scrollbar { display: none; }
   .venture-track {
     display: flex;
@@ -484,31 +488,30 @@
     box-shadow: 0 24px 50px rgba(18,24,43,0.22);
   }
 
-  /* carousel controls */
-  .carousel-nav { display: flex; gap: 0.6rem; }
+  /* carousel controls — sitting on the left/right edges of the carousel */
   .carousel-btn {
-    width: 46px; height: 46px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 52px; height: 52px;
     border-radius: 50%;
     border: 1px solid var(--rule);
     background: var(--glass-bg);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 6px 18px rgba(18,24,43,0.14);
     color: var(--ink);
     display: grid;
     place-items: center;
     cursor: pointer;
-    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
   }
-  .carousel-btn:hover { border-color: var(--sky-1); color: var(--sky-1); transform: translateY(-1px); }
-  .carousel-btn:active { transform: translateY(0); }
-  .carousel-btn svg { width: 20px; height: 20px; }
-  .section-head-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
+  .carousel-btn.prev { left: clamp(0.25rem, 1.5vw, 1rem); }
+  .carousel-btn.next { right: clamp(0.25rem, 1.5vw, 1rem); }
+  .carousel-btn:hover { border-color: var(--sky-1); color: var(--sky-1); }
+  .carousel-btn:active { transform: translateY(-50%) scale(0.94); }
+  .carousel-btn svg { width: 22px; height: 22px; }
   /* image layer — swap --img per card when real photos are embedded */
   .venture-card .card-img {
     position: absolute;
@@ -839,22 +842,18 @@
 
   <section id="built" class="rule-top">
     <div class="wrap">
-      <div class="section-head section-head-row">
-        <div>
-          <div class="eyebrow">The Companies We've Started</div>
-          <h2 class="section-title">Fifteen ventures our members have founded.</h2>
-        </div>
-        <div class="carousel-nav">
-          <button class="carousel-btn" type="button" data-dir="-1" aria-label="Previous ventures">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <button class="carousel-btn" type="button" data-dir="1" aria-label="Next ventures">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
+      <div class="section-head">
+        <div class="eyebrow">The Companies We've Started</div>
+        <h2 class="section-title">Fifteen ventures our members have founded.</h2>
       </div>
       <!-- Image cards: drop a real photo in per card via style="--img:url('data:image/…')" -->
       <div class="venture-carousel">
+       <button class="carousel-btn prev" type="button" data-dir="-1" aria-label="Previous ventures">
+         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+       </button>
+       <button class="carousel-btn next" type="button" data-dir="1" aria-label="Next ventures">
+         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+       </button>
        <div class="venture-viewport">
         <div class="venture-track">
         <article class="venture-card" style="--img-fallback:#C9D6EE;">
@@ -1117,7 +1116,7 @@
   });
 })();
 
-/* Ventures carousel: slow auto-scroll, pause + scale on hover, arrow controls,
+/* Ventures carousel: auto-scroll (slows on hover), drag to scrub, arrow controls,
    seamless loop by cloning the card set once. */
 (function () {
   var viewport = document.querySelector('.venture-viewport');
@@ -1141,8 +1140,11 @@
   function measure() { setWidth = track.children[count].offsetLeft; }
   measure();
 
-  var paused = false;
-  var manualUntil = 0; // pause auto briefly after an arrow click
+  var BASE_SPEED = 0.75;   // px per frame — slightly faster
+  var HOVER_FACTOR = 0.22; // slow (not stop) while reading a card
+  var hovering = false;
+  var dragging = false;
+  var manualUntil = 0;     // ease off auto briefly after an arrow click
 
   function normalize() {
     if (setWidth <= 0) return;
@@ -1151,22 +1153,48 @@
   }
 
   function tick() {
-    if (!reduced && !paused && Date.now() > manualUntil) {
-      viewport.scrollLeft += 0.4;
+    if (!reduced && !dragging && Date.now() > manualUntil) {
+      viewport.scrollLeft += BASE_SPEED * (hovering ? HOVER_FACTOR : 1);
       normalize();
     }
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 
-  // freeze while the viewer hovers a card
-  viewport.addEventListener('pointerenter', function () { paused = true; });
-  viewport.addEventListener('pointerleave', function () { paused = false; });
+  // hover slows the roll so a card can be read (without fully stopping)
+  viewport.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') hovering = true; });
+  viewport.addEventListener('pointerleave', function () { hovering = false; });
+
+  // drag to scrub back and forth
+  var startX = 0, startScroll = 0, moved = 0, activeId = null;
+  viewport.addEventListener('pointerdown', function (e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    dragging = true; activeId = e.pointerId; moved = 0;
+    startX = e.clientX; startScroll = viewport.scrollLeft;
+    viewport.classList.add('dragging');
+    viewport.setPointerCapture(e.pointerId);
+  });
+  viewport.addEventListener('pointermove', function (e) {
+    if (!dragging || e.pointerId !== activeId) return;
+    var dx = e.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    viewport.scrollLeft = startScroll - dx;
+    normalize();
+  });
+  function endDrag(e) {
+    if (!dragging || (activeId !== null && e.pointerId !== activeId)) return;
+    dragging = false; activeId = null;
+    viewport.classList.remove('dragging');
+  }
+  viewport.addEventListener('pointerup', endDrag);
+  viewport.addEventListener('pointercancel', endDrag);
+  // swallow the click that follows a real drag so it doesn't feel jumpy
+  viewport.addEventListener('click', function (e) { if (moved > 6) { e.stopPropagation(); e.preventDefault(); } }, true);
 
   // arrow controls — step by one card width, wrapping cleanly
   function step() { return track.children[1].offsetLeft - track.children[0].offsetLeft; }
   function go(dir) {
-    manualUntil = Date.now() + 1600;
+    manualUntil = Date.now() + 1400;
     if (dir < 0 && viewport.scrollLeft < step()) viewport.scrollLeft += setWidth; // pre-wrap for left
     viewport.scrollBy({ left: dir * step(), behavior: 'smooth' });
     setTimeout(normalize, 450);
