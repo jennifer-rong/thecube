@@ -183,7 +183,7 @@
     font-size: 1.16rem;
     letter-spacing: 0.01em;
   }
-  nav.primary { display: flex; align-items: center; gap: clamp(1.4rem, 2.6vw, 2.4rem); }
+  nav.primary { display: flex; align-items: center; gap: clamp(1.9rem, 3.4vw, 3.4rem); }
   nav.primary .nav-link {
     font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     font-size: 0.74rem;
@@ -456,6 +456,7 @@
 
   /* ---------- Ventures: auto-scrolling carousel ---------- */
   .venture-carousel { position: relative; margin-top: 2.4rem; }
+  .venture-carousel--bleed { margin-top: clamp(1.8rem, 4vw, 2.8rem); }
   .venture-viewport {
     overflow-x: auto;
     overflow-y: hidden;
@@ -472,7 +473,7 @@
     display: flex;
     gap: clamp(1rem, 2vw, 1.6rem);
     width: max-content;
-    padding: 0 clamp(1rem, 4vw, 2.5rem);
+    padding: 0 clamp(0.75rem, 1.5vw, 1.2rem);
   }
   .venture-card {
     position: relative;
@@ -592,94 +593,46 @@
     border-radius: 999px;
   }
 
-  /* ---------- Experience: floating industry clusters ---------- */
-  .exp-intro { max-width: 52ch; }
+  /* ---------- Experience: clean logo wall ---------- */
+  .exp-intro { max-width: 60ch; }
   .exp-intro p { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: var(--ink); margin: 0.6rem 0 0; }
 
-  .clusters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: clamp(1.5rem, 4vw, 3.5rem);
-    margin-top: clamp(2rem, 5vw, 3.4rem);
+  .logo-wall {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    margin-top: clamp(2rem, 5vw, 3.2rem);
   }
-  .cluster { flex: 1 1 260px; max-width: 380px; }
-  .cluster-head {
-    text-align: center;
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 1.2rem;
-    letter-spacing: -0.005em;
-    color: var(--duke);
-    margin: 0 0 1.4rem;
-  }
-  .cluster-head .count {
-    display: block;
-    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--steel);
-    font-size: 0.62rem;
-    margin-top: 0.4rem;
-  }
-
-  .bubble-field {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.7rem 0.6rem;
-  }
-  .bubble {
-    flex: 0 0 auto;
-    width: var(--d, 96px);
-    height: var(--d, 96px);
-    border-radius: 50%;
+  .logo-tile {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    min-height: clamp(96px, 12vw, 132px);
     display: grid;
     place-items: center;
+    padding: 1.4rem 1rem;
     text-align: center;
-    padding: 0.4rem;
-    background: var(--bubble-bg);
-    border: 1px solid var(--bubble-brd);
-    box-shadow: var(--bubble-shadow);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    animation: bob var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: background 0.18s ease;
   }
-  .bubble:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 14px 30px rgba(30,144,255,0.28), inset 0 1px 2px rgba(255,255,255,0.9);
-  }
-  .bubble span {
+  .logo-tile:hover { background: var(--paper-raised); }
+  /* swap in a real logo later: put an <img> inside .logo-tile; the wordmark is the fallback */
+  .logo-name {
     font-family: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 700;
-    font-size: 0.78rem;
-    line-height: 1.15;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
     letter-spacing: -0.01em;
     color: var(--steel);
+    white-space: nowrap;
+    transition: color 0.18s ease;
   }
-  .bubble.d-lg { --d: 118px; }
-  .bubble.d-lg span { font-size: 0.88rem; }
-  .bubble.d-sm { --d: 78px; }
-  .bubble.d-sm span { font-size: 0.68rem; }
-  /* organic offsets so the pile doesn't read as a grid */
-  .bubble:nth-child(3n+1) { transform: translateY(-10px); }
-  .bubble:nth-child(3n+2) { transform: translateY(8px); }
-  .bubble:nth-child(4n)   { transform: translateY(-4px); }
-  .bubble:hover { transform: translateY(-4px) scale(1.04); }
+  .logo-tile:hover .logo-name { color: var(--ink); }
 
-  @keyframes bob {
-    0%, 100% { margin-top: 0; }
-    50% { margin-top: -12px; }
+  @media (max-width: 860px) {
+    .logo-wall { grid-template-columns: repeat(3, 1fr); }
   }
-
-  .experience-note {
-    margin-top: 2.4rem;
-    text-align: center;
-    color: var(--steel);
-    font-size: 0.88rem;
-    font-style: italic;
+  @media (max-width: 560px) {
+    .logo-wall { grid-template-columns: repeat(2, 1fr); }
+    .logo-name { font-size: 0.95rem; }
   }
 
   /* ---------- Get in touch (color block) ---------- */
@@ -847,8 +800,9 @@
       <div class="section-head">
         <h2 class="section-title">What we've built</h2>
       </div>
-      <!-- Image cards: drop a real photo in per card via style="--img:url('data:image/…')" -->
-      <div class="venture-carousel">
+    </div>
+    <!-- Full-bleed carousel: drop a real photo per card via style="--img:url('data:image/…')" -->
+    <div class="venture-carousel venture-carousel--bleed">
        <button class="carousel-btn prev" type="button" data-dir="-1" aria-label="Previous ventures">
          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
        </button>
@@ -1008,7 +962,6 @@
         </article>
         </div>
        </div>
-      </div>
     </div>
   </section>
 
@@ -1016,54 +969,27 @@
     <div class="wrap">
       <div class="section-head exp-intro">
         <h2 class="section-title">Our Experiences</h2>
-        <p>We're proud to have contributed at the following multi-billion dollar public firms and private startups in their infancy.</p>
+        <p>We're proud to have contributed at the following companies, from multi-billion dollar public firms to private startups.</p>
       </div>
 
-      <div class="clusters">
-        <div class="cluster">
-          <p class="cluster-head">Technology <span class="count">Big Tech &amp; Software</span></p>
-          <div class="bubble-field">
-            <div class="bubble d-lg"><span>Google</span></div>
-            <div class="bubble"><span>Meta</span></div>
-            <div class="bubble d-sm"><span>IBM</span></div>
-            <div class="bubble"><span>Microsoft</span></div>
-            <div class="bubble d-sm"><span>Dropbox</span></div>
-            <div class="bubble"><span>Salesforce</span></div>
-            <div class="bubble d-sm"><span>Roblox</span></div>
-            <div class="bubble"><span>Epic Games</span></div>
-            <div class="bubble d-sm"><span>StubHub</span></div>
-            <div class="bubble"><span>Tesla</span></div>
-            <div class="bubble d-sm"><span>X</span></div>
-          </div>
-        </div>
-
-        <div class="cluster">
-          <p class="cluster-head">Finance &amp; Trading <span class="count">Banking, Hedge Funds &amp; Quant</span></p>
-          <div class="bubble-field">
-            <div class="bubble d-lg"><span>Goldman Sachs</span></div>
-            <div class="bubble"><span>Morgan Stanley</span></div>
-            <div class="bubble d-sm"><span>Citi</span></div>
-            <div class="bubble"><span>Bank of America</span></div>
-            <div class="bubble d-sm"><span>SIG</span></div>
-            <div class="bubble"><span>Bridgewater</span></div>
-            <div class="bubble d-sm"><span>IMC</span></div>
-            <div class="bubble"><span>XTX Markets</span></div>
-            <div class="bubble d-sm"><span>Madison Ave</span></div>
-          </div>
-        </div>
-
-        <div class="cluster">
-          <p class="cluster-head">Startups, Venture &amp; Advisory <span class="count">Early-Stage &amp; Consulting</span></p>
-          <div class="bubble-field">
-            <div class="bubble d-lg"><span>Stripe</span></div>
-            <div class="bubble"><span>Harvey</span></div>
-            <div class="bubble d-sm"><span>Riva</span></div>
-            <div class="bubble"><span>VIAM</span></div>
-            <div class="bubble d-sm"><span>Titan</span></div>
-            <div class="bubble d-sm"><span>8VC</span></div>
-            <div class="bubble"><span>McKinsey</span></div>
-          </div>
-        </div>
+      <!-- Logo wall: drop a real logo <img> into each .logo-tile later; wordmark is the fallback -->
+      <div class="logo-wall">
+        <div class="logo-tile"><span class="logo-name">OpenAI</span></div>
+        <div class="logo-tile"><span class="logo-name">xAI</span></div>
+        <div class="logo-tile"><span class="logo-name">Google</span></div>
+        <div class="logo-tile"><span class="logo-name">Meta</span></div>
+        <div class="logo-tile"><span class="logo-name">Apple</span></div>
+        <div class="logo-tile"><span class="logo-name">Microsoft</span></div>
+        <div class="logo-tile"><span class="logo-name">Amazon</span></div>
+        <div class="logo-tile"><span class="logo-name">Stripe</span></div>
+        <div class="logo-tile"><span class="logo-name">Databricks</span></div>
+        <div class="logo-tile"><span class="logo-name">Harvey</span></div>
+        <div class="logo-tile"><span class="logo-name">Citadel</span></div>
+        <div class="logo-tile"><span class="logo-name">Bridgewater</span></div>
+        <div class="logo-tile"><span class="logo-name">SIG</span></div>
+        <div class="logo-tile"><span class="logo-name">Goldman Sachs</span></div>
+        <div class="logo-tile"><span class="logo-name">McKinsey</span></div>
+        <div class="logo-tile"><span class="logo-name">8VC</span></div>
       </div>
     </div>
   </section>
