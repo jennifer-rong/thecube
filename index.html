@@ -190,8 +190,8 @@
     font-size: 1.16rem;
     letter-spacing: 0.01em;
   }
-  nav.primary { display: flex; align-items: center; gap: clamp(0.9rem, 2vw, 1.8rem); }
-  nav.primary a {
+  nav.primary { display: flex; align-items: center; gap: clamp(1.4rem, 2.6vw, 2.4rem); }
+  nav.primary .nav-link {
     font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     font-size: 0.74rem;
     letter-spacing: 0.07em;
@@ -203,7 +203,7 @@
     white-space: nowrap;
     transition: color 0.15s ease, border-color 0.15s ease;
   }
-  nav.primary a:hover { border-bottom-color: var(--sky-1); color: var(--sky-1); }
+  nav.primary .nav-link:hover { border-bottom-color: var(--sky-1); color: var(--sky-1); }
 
   /* Glassy light-blue Join button */
   .nav-join {
@@ -420,22 +420,24 @@
   }
   .section-head { margin-bottom: 2.4rem; max-width: 60ch; }
 
-  /* ---------- Mission ---------- */
-  .mission p {
-    font-size: clamp(1.15rem, 2vw, 1.4rem);
-    line-height: 1.62;
-    max-width: 42ch;
+  /* ---------- Mission band (full-width statement) ---------- */
+  .mission-band {
+    background: var(--paper-raised);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: clamp(3rem, 7vw, 5rem) 0;
+  }
+  .mission-band .eyebrow { margin-bottom: 1.4rem; }
+  .mission-statement {
+    max-width: none;
+    margin: 0;
+    font-size: clamp(1.5rem, 3.4vw, 2.7rem);
+    line-height: 1.28;
+    letter-spacing: -0.01em;
     color: var(--ink);
+    text-wrap: pretty;
   }
-  .mission p::first-letter {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 3.6em;
-    float: left;
-    line-height: 0.82;
-    padding-right: 0.1em;
-    color: var(--duke);
-  }
+  .mission-hl { color: var(--signal); }
 
   /* ---------- What We Do (ledger columns) ---------- */
   .ledger {
@@ -756,12 +758,12 @@
   }
   @media (max-width: 560px) {
     nav.primary { gap: 0.9rem; }
-    nav.primary a { font-size: 0.68rem; letter-spacing: 0.04em; }
+    nav.primary .nav-link { font-size: 0.68rem; letter-spacing: 0.04em; }
     .masthead-inner { padding-left: 1rem; }
     .venture-card { width: 78vw; }
   }
   @media (max-width: 440px) {
-    nav.primary { display: none; }
+    nav.primary .nav-link { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -787,16 +789,16 @@
       <span class="brand-word">THE CUBE</span>
     </a>
     <nav class="primary">
-      <a href="#top">Home</a>
-      <a href="#built">Members</a>
-      <a href="#built">Executive Team</a>
+      <a class="nav-link" href="#top">Home</a>
+      <a class="nav-link" href="#built">Members</a>
+      <a class="nav-link" href="#built">Executive Team</a>
+      <a class="nav-join" href="#contact">
+        Join
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </nav>
-    <a class="nav-join" href="#contact">
-      Join
-      <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
   </div>
 </header>
 
@@ -817,12 +819,10 @@
     </div>
   </section>
 
-  <section class="mission">
+  <section class="mission-band">
     <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">Our Mission</div>
-      </div>
-      <p>The Cube lowers the barriers to entrepreneurship at Duke by giving students the skills, resources, and community to build ventures of all kinds. Our alumni have launched multimillion-dollar companies and been featured by Forbes, CNN, and more.</p>
+      <div class="eyebrow">Our Mission</div>
+      <p class="mission-statement"><span class="mission-hl">The Cube lowers the barriers to entrepreneurship at Duke</span> by giving students the skills, resources, and community to build ventures of all kinds. Our alumni have launched multimillion-dollar companies and been featured by Forbes, CNN, and more.</p>
     </div>
   </section>
 
@@ -853,7 +853,7 @@
     <div class="wrap">
       <div class="section-head">
         <div class="eyebrow">The Companies We've Started</div>
-        <h2 class="section-title">Fifteen ventures our members have founded.</h2>
+        <h2 class="section-title">What we've built</h2>
       </div>
       <!-- Image cards: drop a real photo in per card via style="--img:url('data:image/…')" -->
       <div class="venture-carousel">
