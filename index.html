@@ -673,13 +673,13 @@
   /* ---------- Get in touch (glass-wave band) ---------- */
   .contact {
     position: relative;
-    background-color: #F5F1E7;
+    background-color: #F6F3EC;
     background-image: var(--touch-img);
     background-repeat: no-repeat;
     background-position: center bottom;
-    background-size: cover;
+    background-size: 100% auto;   /* show the full wave banner across the width */
     color: #17203a;
-    padding-bottom: clamp(9rem, 20vw, 15rem);
+    padding-bottom: max(5rem, 30vw); /* clears the wave so content sits above it */
   }
   .contact .eyebrow { color: #5B6B85; }
   .contact h2.section-title { color: #12182B; }
@@ -774,8 +774,8 @@
     </a>
     <nav class="primary">
       <a class="nav-link" href="#top">Home</a>
-      <a class="nav-link" href="#built">Members</a>
-      <a class="nav-link" href="#built">Executive Team</a>
+      <a class="nav-link" href="members.html">Members</a>
+      <a class="nav-link" href="executive-team.html">Executive Team</a>
       <a class="nav-join" href="#contact">
         Join
         <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -1074,13 +1074,6 @@
     </div>
   </section>
 </main>
-
-<footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; width:100%;">
-    <span>The Cube &mdash; Duke University</span>
-    <span>Prototype draft &middot; Not yet live</span>
-  </div>
-</footer>
 
 <script>
 (function () {
