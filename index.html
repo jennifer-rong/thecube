@@ -299,19 +299,29 @@
   .hero-cta:hover .arrow { transform: translateX(5px); }
 
   @media (max-width: 820px) {
-    .hero { flex-direction: column; align-items: stretch; min-height: 0; padding: 7rem 0 0; text-align: left; }
-    .hero-inner { order: 1; }
+    /* visual sits full-bleed behind the text (not stacked below it); a beige
+       scrim behind the copy keeps it legible while the image shows through elsewhere */
+    .hero { padding: 7rem 0 3.5rem; text-align: left; }
     .hero-copy { max-width: 100%; }
     .hero-sub { max-width: 34ch; }
     .hero-media {
-      position: relative;
-      order: 2;
+      left: 0;
       width: 100%;
-      height: clamp(240px, 56vw, 380px);
-      margin-top: 1.8rem;
       background-position: center right;
-      -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
-      mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(115deg,
+        var(--paper) 0%,
+        var(--paper) 42%,
+        color-mix(in srgb, var(--paper) 65%, transparent) 60%,
+        transparent 80%);
+      pointer-events: none;
     }
   }
   .cover-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 0.5rem; }
@@ -497,6 +507,7 @@
     -ms-overflow-style: none;
     cursor: grab;
     touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
   }
   .venture-viewport.dragging { cursor: grabbing; user-select: none; }
   .venture-viewport.dragging .venture-card { transform: none !important; }
@@ -1115,11 +1126,12 @@
   viewport.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') hovering = true; });
   viewport.addEventListener('pointerleave', function () { hovering = false; });
 
-  // drag to scrub back and forth
-  var startX = 0, startScroll = 0, moved = 0, activeId = null;
+  // drag to scrub back and forth (mouse and touch, via Pointer Events)
+  var startX = 0, startScroll = 0, moved = 0, activeId = null, dragPointerType = 'mouse';
   viewport.addEventListener('pointerdown', function (e) {
     if (e.button !== undefined && e.button !== 0) return;
     dragging = true; activeId = e.pointerId; moved = 0;
+    dragPointerType = e.pointerType || 'mouse';
     startX = e.clientX; startScroll = viewport.scrollLeft;
     viewport.classList.add('dragging');
     viewport.setPointerCapture(e.pointerId);
@@ -1135,6 +1147,8 @@
     if (!dragging || (activeId !== null && e.pointerId !== activeId)) return;
     dragging = false; activeId = null;
     viewport.classList.remove('dragging');
+    // touch only: hold position briefly so the auto-roll doesn't yank it away right after a finger lifts
+    if (dragPointerType === 'touch') manualUntil = Date.now() + 1200;
   }
   viewport.addEventListener('pointerup', endDrag);
   viewport.addEventListener('pointercancel', endDrag);
