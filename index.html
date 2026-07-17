@@ -491,53 +491,63 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    border: 1px solid rgba(255,255,255,0.45);
-    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 20px;
     padding: 1.5rem 1.4rem 1.7rem;
     min-height: clamp(280px, 28vw, 360px);
     display: flex;
     flex-direction: column;
-    -webkit-backdrop-filter: blur(22px) saturate(1.8);
-    backdrop-filter: blur(22px) saturate(1.8);
+    -webkit-backdrop-filter: blur(30px) saturate(1.7);
+    backdrop-filter: blur(30px) saturate(1.7);
+    /* stacked inset shadows fake the thickness of a slab of glass:
+       bright bevel on top, shaded bevel at the bottom, inner rim all round */
     box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.5),
-      inset 0 0 0 1px rgba(255,255,255,0.06),
-      0 8px 28px rgba(18,24,43,0.10);
+      inset 0 2px 2px rgba(255,255,255,0.65),
+      inset 0 -3px 6px rgba(40,60,100,0.16),
+      inset 2px 0 2px rgba(255,255,255,0.28),
+      inset -2px 0 4px rgba(40,60,100,0.10),
+      inset 0 0 0 2px rgba(255,255,255,0.14),
+      0 18px 44px rgba(18,24,43,0.16),
+      0 2px 8px rgba(18,24,43,0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     will-change: transform;
   }
   .feature:hover {
-    border-color: rgba(255,255,255,0.6);
+    border-color: rgba(255,255,255,0.7);
     box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.6),
-      inset 0 0 0 1px rgba(255,255,255,0.08),
-      0 16px 44px rgba(18,24,43,0.16);
+      inset 0 2px 2px rgba(255,255,255,0.75),
+      inset 0 -3px 7px rgba(40,60,100,0.18),
+      inset 2px 0 2px rgba(255,255,255,0.32),
+      inset -2px 0 4px rgba(40,60,100,0.12),
+      inset 0 0 0 2px rgba(255,255,255,0.18),
+      0 26px 56px rgba(18,24,43,0.22),
+      0 3px 10px rgba(18,24,43,0.10);
   }
-  /* faint diagonal sheen shared by all glass cards, like light grazing the surface */
+  /* diagonal sheen, like light grazing the face of the slab */
   .feature::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background: linear-gradient(115deg, rgba(255,255,255,0.35) 0%, transparent 32%, transparent 68%, rgba(255,255,255,0.12) 100%);
+    background: linear-gradient(115deg, rgba(255,255,255,0.42) 0%, transparent 34%, transparent 66%, rgba(255,255,255,0.16) 100%);
   }
   .feature > * { position: relative; z-index: 1; }
-  /* bluish-gray glass — light, uneven, barely-there tint so the page shows through */
+  /* darker, heavier blue-gray slab */
   .feature--blue {
     background:
-      radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,0.22), transparent 55%),
-      radial-gradient(90% 70% at 85% 25%, rgba(150,180,220,0.16), transparent 60%),
-      radial-gradient(100% 80% at 55% 95%, rgba(120,145,185,0.12), transparent 65%),
-      rgba(200,214,232,0.10);
+      radial-gradient(120% 90% at 20% 10%, rgba(255,255,255,0.30), transparent 55%),
+      radial-gradient(90% 70% at 85% 25%, rgba(130,160,200,0.34), transparent 60%),
+      radial-gradient(100% 80% at 55% 95%, rgba(85,108,145,0.34), transparent 65%),
+      linear-gradient(160deg, rgba(150,168,196,0.34), rgba(112,132,164,0.42));
   }
-  /* warm beige glass — light, uneven, barely-there tint so the page shows through */
-  .feature--beige {
+  /* light pale-blue slab, in the site's sky palette */
+  .feature--pale {
     background:
-      radial-gradient(120% 90% at 24% 10%, rgba(255,253,247,0.28), transparent 55%),
-      radial-gradient(90% 70% at 80% 28%, rgba(224,210,182,0.16), transparent 60%),
-      radial-gradient(100% 80% at 52% 95%, rgba(200,183,152,0.10), transparent 65%),
-      rgba(233,224,204,0.10);
+      radial-gradient(120% 90% at 24% 10%, rgba(255,255,255,0.40), transparent 55%),
+      radial-gradient(90% 70% at 80% 28%, rgba(130,202,255,0.22), transparent 60%),
+      radial-gradient(100% 80% at 52% 95%, rgba(185,199,234,0.26), transparent 65%),
+      linear-gradient(160deg, rgba(214,232,250,0.32), rgba(185,210,240,0.28));
   }
   .feature-index {
     position: relative;
@@ -1586,13 +1596,13 @@
           <span class="feature-title-rule"></span>
           <p class="feature-desc">Public and private talks with founders, investors, and operators.</p>
         </div>
-        <div class="feature feature--beige">
+        <div class="feature feature--pale">
           <span class="feature-index"><span class="feature-num">02</span><span class="feature-num-rule"></span></span>
           <h3 class="feature-title">Entrepreneurship summits</h3>
           <span class="feature-title-rule"></span>
           <p class="feature-desc">Gatherings that bring the Duke startup community together.</p>
         </div>
-        <div class="feature feature--beige">
+        <div class="feature feature--pale">
           <span class="feature-index"><span class="feature-num">03</span><span class="feature-num-rule"></span></span>
           <h3 class="feature-title">Professional development workshops</h3>
           <span class="feature-title-rule"></span>
