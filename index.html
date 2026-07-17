@@ -433,6 +433,12 @@
     text-wrap: balance;
   }
   .section-head { margin-bottom: 2.4rem; max-width: 60ch; }
+  .built-blurb {
+    margin: 0.9rem 0 0;
+    font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+    line-height: 1.55;
+    color: var(--steel);
+  }
 
   /* ---------- Mission band (full-width statement) ---------- */
   .mission-band {
@@ -470,19 +476,11 @@
     border-radius: 2px;
   }
   .whatwedo-copy {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(1.6rem, 4vw, 3rem);
-  }
-  .whatwedo-copy-col {
     display: flex;
     flex-direction: column;
-    gap: 1.3rem;
-    padding-left: clamp(1.6rem, 4vw, 3rem);
-    border-left: 1px solid var(--rule);
+    gap: 1.2rem;
   }
-  .whatwedo-copy-col:first-child { padding-left: 0; border-left: none; }
-  .whatwedo-copy-col p {
+  .whatwedo-copy p {
     margin: 0;
     font-size: clamp(0.98rem, 1.3vw, 1.08rem);
     line-height: 1.6;
@@ -573,9 +571,6 @@
 
   @media (max-width: 900px) {
     .whatwedo-header { grid-template-columns: 1fr; }
-    .whatwedo-copy { grid-template-columns: 1fr; gap: 1.4rem; }
-    .whatwedo-copy-col { padding-left: 0; border-left: none; padding-top: 1.2rem; border-top: 1px solid var(--rule); }
-    .whatwedo-copy-col:first-child { border-top: none; padding-top: 0; }
   }
   @media (max-width: 780px) {
     .feature-row { grid-template-columns: 1fr; }
@@ -989,8 +984,9 @@
 
   <section id="built" class="rule-top">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head built-head">
         <h2 class="section-title">What we've built</h2>
+        <p class="built-blurb">Cube alumni have built companies across industries, raising more than $169M in funding along the way. This is a snapshot of what our community has gone on to build.</p>
       </div>
     </div>
     <!-- Full-bleed carousel: drop a real photo per card via style="--img:url('data:image/…')" -->
@@ -1484,14 +1480,8 @@
           <span class="whatwedo-title-rule"></span>
         </div>
         <div class="whatwedo-copy">
-          <div class="whatwedo-copy-col">
-            <p>We are a community of computer scientists, engineers, economists, business developers, and more.</p>
-            <p>We provide comprehensive entrepreneurial support all the way from evaluating product-market fit to technical development.</p>
-          </div>
-          <div class="whatwedo-copy-col">
-            <p>We work closely with Duke's entrepreneurship faculty to get our members the resources and expertise necessary to succeed.</p>
-            <p>Moreover, our members and alumni are active in programs like the Duke Start-up Challenge and Melissa &amp; Doug Entrepreneurship program.</p>
-          </div>
+          <p>We are a community of computer scientists, engineers, economists, business developers, and more. We provide comprehensive entrepreneurial support all the way from evaluating product-market fit to technical development.</p>
+          <p>We work closely with Duke's entrepreneurship faculty to get our members the resources and expertise necessary to succeed. Our community is active in programs like the Duke Start-up Challenge and Melissa &amp; Doug Entrepreneurship program.</p>
         </div>
       </div>
       <div class="feature-row">
