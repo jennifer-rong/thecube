@@ -482,9 +482,10 @@
 
   .feature-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1.75fr 1fr;
     gap: clamp(1.2rem, 2.5vw, 2rem);
     margin-top: clamp(2.6rem, 5vw, 4rem);
+    padding: 0 clamp(0.9rem, 2.4vw, 1.6rem);
   }
   .feature {
     position: relative;
@@ -566,7 +567,7 @@
     .whatwedo-header { grid-template-columns: 1fr; }
   }
   @media (max-width: 780px) {
-    .feature-row { grid-template-columns: 1fr; }
+    .feature-row { grid-template-columns: 1fr; padding: 0 clamp(1.25rem, 4vw, 3rem); }
   }
 
   /* ---------- Ventures: auto-scrolling carousel ---------- */
@@ -1475,6 +1476,7 @@
           <p>We work closely with Duke's entrepreneurship faculty to get our members the resources and expertise necessary to succeed. Our community is active in programs like the Duke Start-up Challenge and Melissa &amp; Doug Entrepreneurship program.</p>
         </div>
       </div>
+    </div>
       <div class="feature-row">
         <div class="feature">
           <span class="feature-decor decor-rings-left" aria-hidden="true"></span>
@@ -1498,7 +1500,6 @@
           <p class="feature-desc">Hands-on sessions to build the skills ventures actually need.</p>
         </div>
       </div>
-    </div>
   </section>
 
   <section class="rule-top">
