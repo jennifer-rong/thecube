@@ -72,6 +72,34 @@
   @media (max-width: 560px) { nav.primary .nav-link { display: none; } }
 
   footer.site-foot { flex-shrink: 0; padding: 2.4rem 0 3rem; border-top: 1px solid var(--rule); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--steel); }
+
+  /* Recovered Codex design layer — intentionally kept together for easy rollback. */
+  :root {
+    --font-body: 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-ui: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+  }
+  body {
+    background-color: #F7F5EF;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 96% 20% at 24% 13%, rgba(190,220,241,.30) 0%, rgba(211,229,242,.17) 34%, rgba(232,239,244,.06) 58%, transparent 82%),
+      radial-gradient(circle 38vw at 74% 31%, rgba(190,220,241,.23) 0%, rgba(211,229,242,.13) 38%, rgba(232,239,244,.04) 62%, transparent 84%),
+      radial-gradient(ellipse 116% 23% at 30% 50%, rgba(190,220,241,.32) 0%, rgba(211,229,242,.18) 36%, rgba(232,239,244,.06) 61%, transparent 84%),
+      radial-gradient(ellipse 88% 21% at 92% 70%, rgba(190,220,241,.24) 0%, rgba(211,229,242,.14) 36%, rgba(232,239,244,.045) 61%, transparent 83%),
+      radial-gradient(circle 42vw at -4% 89%, rgba(190,220,241,.26) 0%, rgba(211,229,242,.14) 38%, rgba(232,239,244,.05) 62%, transparent 84%),
+      linear-gradient(180deg, #F8F6F1 0%, #F5F4EF 52%, #F8F6F1 100%);
+    background-size: 180px 180px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    background-position: 0 0, center, center, center, center, center, center;
+    background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  }
+  .page-header { background: transparent; }
+  .team-body, footer.site-foot { border-color: rgba(18,24,43,.09); }
+  .eyebrow, nav.primary .nav-link, .nav-join, .team-note, footer.site-foot { font-family: var(--font-ui); }
+  .eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .1em; }
+  nav.primary .nav-link, .nav-join { font-size: .82rem; font-weight: 600; letter-spacing: .035em; }
+  .team-note { font-size: .78rem; font-weight: 600; letter-spacing: .08em; }
+  footer.site-foot { font-size: .76rem; font-weight: 600; letter-spacing: .035em; }
+  @media (max-width: 560px) { nav.primary .nav-link { font-size: .75rem; letter-spacing: .025em; } }
 </style>
 </head>
 <body>
