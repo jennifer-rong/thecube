@@ -1062,7 +1062,16 @@
   .hero-cta { font-size: .9rem; font-weight: 600; letter-spacing: .065em; }
   .btn { font-size: .84rem; font-weight: 600; letter-spacing: .04em; }
   .feature-num { font-size: .78rem; font-weight: 700; letter-spacing: .035em; }
-  .duke-ventures-label { font-size: .78rem; font-weight: 600; letter-spacing: .08em; }
+  .duke-ventures-label {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: none;
+    color: var(--ink);
+    text-wrap: balance;
+  }
   .card-tag span { font-size: .64rem; font-weight: 600; letter-spacing: .045em; }
   .mailing-btn { font-size: .86rem; font-weight: 600; letter-spacing: .035em; }
   footer { font-size: .76rem; font-weight: 600; letter-spacing: .035em; }
@@ -1674,7 +1683,7 @@
     </div>
   </section>
 
-  <section class="rule-top whatwedo">
+  <section class="whatwedo">
     <div class="wrap">
       <div class="whatwedo-header">
         <div class="section-head whatwedo-title-col">
@@ -1688,19 +1697,16 @@
     </div>
       <div class="feature-row">
         <div class="feature feature--blue">
-          <span class="feature-index"><span class="feature-num">01</span><span class="feature-num-rule"></span></span>
           <h3 class="feature-title">Speaking events</h3>
           <span class="feature-title-rule"></span>
           <p class="feature-desc">Public and private talks with founders, investors, and operators.</p>
         </div>
         <div class="feature feature--pale">
-          <span class="feature-index"><span class="feature-num">02</span><span class="feature-num-rule"></span></span>
           <h3 class="feature-title">Entrepreneurship summits</h3>
           <span class="feature-title-rule"></span>
           <p class="feature-desc">Gatherings that bring the Duke startup community together.</p>
         </div>
         <div class="feature feature--pale">
-          <span class="feature-index"><span class="feature-num">03</span><span class="feature-num-rule"></span></span>
           <h3 class="feature-title">Professional development workshops</h3>
           <span class="feature-title-rule"></span>
           <p class="feature-desc">Hands-on sessions to build the skills ventures actually need.</p>
