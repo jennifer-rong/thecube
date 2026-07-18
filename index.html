@@ -1113,9 +1113,7 @@
   .card-foot-icon { display: none; }
 
   .duke-ventures { padding: .75rem 0 0; }
-  .duke-marquee-track { animation: dukeMarquee var(--duke-marquee-duration, 22s) linear infinite; animation-play-state: paused; }
-  .duke-marquee-track.is-ready { animation-play-state: running; }
-  .duke-marquee:hover .duke-marquee-track.is-ready { animation-duration: var(--duke-marquee-hover-duration, 78s); }
+  .duke-marquee-track { animation: none; will-change: transform; }
   .whatwedo.rule-top { margin-top: clamp(2.5rem, 5vw, 4rem); }
   @keyframes dukeMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
@@ -1798,17 +1796,38 @@
       track.appendChild(clone);
     });
   }
-  function setSteadySpeed() {
-    var loopDistance = track.scrollWidth / 2;
-    var pixelsPerSecond = 34;
-    var normalDuration = loopDistance / pixelsPerSecond;
-    track.style.setProperty('--duke-marquee-duration', normalDuration.toFixed(2) + 's');
-    track.style.setProperty('--duke-marquee-hover-duration', (normalDuration / 0.28).toFixed(2) + 's');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loopDistance = 0;
+  var position = 0;
+  var speedFactor = 1;
+  var hoverTarget = 1;
+  var lastTime = 0;
+
+  function measure() {
+    var previousDistance = loopDistance;
+    loopDistance = track.scrollWidth / 2;
+    position = previousDistance > 0 ? position * (loopDistance / previousDistance) : -loopDistance;
   }
-  setSteadySpeed();
-  track.classList.add('is-ready');
-  window.addEventListener('load', setSteadySpeed, { once: true });
-  window.addEventListener('resize', setSteadySpeed);
+  function tick(time) {
+    if (!lastTime) lastTime = time;
+    var seconds = Math.min((time - lastTime) / 1000, 0.05);
+    lastTime = time;
+    speedFactor += (hoverTarget - speedFactor) * Math.min(1, seconds * 7);
+    if (!reduced && loopDistance > 0) {
+      position += 34 * speedFactor * seconds;
+      if (position >= 0) position -= loopDistance;
+      track.style.transform = 'translate3d(' + position.toFixed(3) + 'px,0,0)';
+    }
+    requestAnimationFrame(tick);
+  }
+  marquee.addEventListener('pointerenter', function (e) {
+    if (e.pointerType !== 'touch') hoverTarget = 0.28;
+  });
+  marquee.addEventListener('pointerleave', function () { hoverTarget = 1; });
+  measure();
+  requestAnimationFrame(tick);
+  window.addEventListener('load', measure, { once: true });
+  window.addEventListener('resize', measure);
 })();
 
 /* Ventures carousel: auto-scroll (slows on hover), drag to scrub, arrow controls,
@@ -1839,6 +1858,8 @@
   var BASE_SPEED = 0.75;   // px per frame — slightly faster
   var HOVER_FACTOR = 0.28; // unmistakably slower, but always moving
   var speedFactor = 1;
+  var autoPosition = viewport.scrollLeft;
+  var lastFrame = 0;
   var hovering = false;
   var dragging = false;
   var manualUntil = 0;     // ease off auto briefly after an arrow click
@@ -1849,12 +1870,17 @@
     else if (viewport.scrollLeft < 0) viewport.scrollLeft += setWidth;
   }
 
-  function tick() {
+  function tick(time) {
+    if (!lastFrame) lastFrame = time;
+    var frameScale = Math.min((time - lastFrame) / (1000 / 60), 3);
+    lastFrame = time;
     if (!reduced && !dragging && Date.now() > manualUntil) {
       var targetFactor = hovering ? HOVER_FACTOR : 1;
-      speedFactor += (targetFactor - speedFactor) * 0.045;
-      viewport.scrollLeft += BASE_SPEED * speedFactor;
-      normalize();
+      speedFactor += (targetFactor - speedFactor) * Math.min(1, 0.045 * frameScale);
+      autoPosition += BASE_SPEED * speedFactor * frameScale;
+      if (setWidth > 0 && autoPosition >= setWidth) autoPosition -= setWidth;
+      else if (setWidth > 0 && autoPosition < 0) autoPosition += setWidth;
+      viewport.scrollLeft = autoPosition;
     }
     requestAnimationFrame(tick);
   }
@@ -1871,6 +1897,7 @@
     dragging = true; activeId = e.pointerId; moved = 0;
     dragPointerType = e.pointerType || 'mouse';
     startX = e.clientX; startScroll = viewport.scrollLeft;
+    autoPosition = startScroll;
     viewport.classList.add('dragging');
     viewport.setPointerCapture(e.pointerId);
   });
@@ -1880,6 +1907,7 @@
     moved = Math.max(moved, Math.abs(dx));
     viewport.scrollLeft = startScroll - dx;
     normalize();
+    autoPosition = viewport.scrollLeft;
   });
   function endDrag(e) {
     if (!dragging || (activeId !== null && e.pointerId !== activeId)) return;
