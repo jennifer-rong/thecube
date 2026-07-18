@@ -630,7 +630,6 @@
     width: max-content;
     animation: dukeMarquee 34s linear infinite;
   }
-  .duke-marquee:hover .duke-marquee-track { animation-play-state: paused; }
   .duke-logo-cell {
     flex: 0 0 auto;
     display: flex;
@@ -1116,7 +1115,7 @@
   .duke-ventures { padding: .75rem 0 0; }
   .duke-marquee-track { animation: dukeMarquee var(--duke-marquee-duration, 22s) linear infinite; animation-play-state: paused; }
   .duke-marquee-track.is-ready { animation-play-state: running; }
-  .duke-marquee:hover .duke-marquee-track.is-ready { animation-play-state: paused; }
+  .duke-marquee:hover .duke-marquee-track.is-ready { animation-duration: var(--duke-marquee-hover-duration, 78s); }
   @keyframes dukeMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
   .contact {
@@ -1801,7 +1800,9 @@
   function setSteadySpeed() {
     var loopDistance = track.scrollWidth / 2;
     var pixelsPerSecond = 34;
-    track.style.setProperty('--duke-marquee-duration', (loopDistance / pixelsPerSecond).toFixed(2) + 's');
+    var normalDuration = loopDistance / pixelsPerSecond;
+    track.style.setProperty('--duke-marquee-duration', normalDuration.toFixed(2) + 's');
+    track.style.setProperty('--duke-marquee-hover-duration', (normalDuration / 0.28).toFixed(2) + 's');
   }
   setSteadySpeed();
   track.classList.add('is-ready');
@@ -1814,7 +1815,8 @@
 (function () {
   var viewport = document.querySelector('.venture-viewport');
   var track = document.querySelector('.venture-track');
-  if (!viewport || !track) return;
+  var carousel = document.querySelector('.venture-carousel');
+  if (!viewport || !track || !carousel) return;
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var originals = Array.prototype.slice.call(track.children);
@@ -1834,7 +1836,7 @@
   measure();
 
   var BASE_SPEED = 0.75;   // px per frame — slightly faster
-  var HOVER_FACTOR = 0.42; // slow (not stop) while reading a card
+  var HOVER_FACTOR = 0.28; // unmistakably slower, but always moving
   var speedFactor = 1;
   var hovering = false;
   var dragging = false;
@@ -1858,8 +1860,8 @@
   requestAnimationFrame(tick);
 
   // hover slows the roll so a card can be read (without fully stopping)
-  viewport.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') hovering = true; });
-  viewport.addEventListener('pointerleave', function () { hovering = false; });
+  carousel.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') hovering = true; });
+  carousel.addEventListener('pointerleave', function () { hovering = false; });
 
   // drag to scrub back and forth (mouse and touch, via Pointer Events)
   var startX = 0, startScroll = 0, moved = 0, activeId = null, dragPointerType = 'mouse';
