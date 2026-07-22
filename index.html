@@ -1152,22 +1152,23 @@
   .card-pane {
     left: 10px;
     right: 10px;
-    bottom: 10px;
-    padding: .72rem .9rem .68rem;
-    border-radius: 16px;
+    bottom: 8px;
+    padding: .5rem .82rem .48rem;
+    border-radius: 15px;
     background: rgba(255,255,255,.32);
     border-color: rgba(255,255,255,.48);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.52), 0 6px 16px rgba(18,24,43,.09);
     -webkit-backdrop-filter: blur(10px) saturate(1.12);
     backdrop-filter: blur(10px) saturate(1.12);
   }
-  .card-stats { grid-template-columns: 1fr 1fr; gap: 0; margin: .55rem 0 .5rem; padding: .05rem 0; }
+  .card-name { font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1; }
+  .card-stats { grid-template-columns: 1fr 1fr; gap: 0; margin: .38rem 0 .34rem; padding: 0; }
   .card-stat { min-width: 0; padding: 0 .85rem 0 0; border: 0; border-radius: 0; background: transparent; }
   .card-stat + .card-stat { padding: 0 0 0 .9rem; border-left: 1px solid color-mix(in srgb, var(--steel) 30%, transparent); }
-  .card-stat-label { font-size: .6rem; font-weight: 500; line-height: 1.2; letter-spacing: .075em; }
-  .card-stat-value { font-family: var(--font-body); font-weight: 500; font-size: clamp(1.08rem, 1.65vw, 1.3rem); line-height: 1.15; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
-  .card-foot { padding-top: .5rem; }
-  .card-foot-desc { position: relative; display: -webkit-box; flex: 1 1 auto; min-width: 0; height: 2.6em; padding-left: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: .74rem; line-height: 1.3; color: var(--ink); }
+  .card-stat-label { font-size: .55rem; font-weight: 500; line-height: 1.15; letter-spacing: .075em; }
+  .card-stat-value { font-family: var(--font-body); font-weight: 500; font-size: clamp(.98rem, 1.5vw, 1.16rem); line-height: 1.08; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
+  .card-foot { padding-top: .34rem; }
+  .card-foot-desc { position: relative; display: -webkit-box; flex: 1 1 auto; min-width: 0; height: 2.44em; padding-left: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: .7rem; line-height: 1.22; color: var(--ink); }
   .card-foot-icon { display: none; }
 
   .duke-ventures { padding: .75rem 0 0; }
