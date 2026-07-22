@@ -452,6 +452,12 @@
     text-wrap: balance;
   }
   .section-head { margin-bottom: 2.4rem; max-width: 60ch; }
+  /* Left-column editorial copy ends at the page midpoint. */
+  .built-head,
+  .exp-intro {
+    width: calc(50% - clamp(.75rem, 2vw, 1.5rem));
+    max-width: none;
+  }
   .built-blurb {
     margin: 0.9rem 0 0;
     font-family: var(--font-body);
@@ -1009,8 +1015,12 @@
   .card-arrow svg { width: 13px; height: 13px; }
 
   /* ---------- Experience: clean logo wall ---------- */
-  .exp-intro { max-width: 60ch; }
   .exp-intro p { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: var(--ink); margin: 0.6rem 0 0; }
+
+  @media (max-width: 720px) {
+    .built-head,
+    .exp-intro { width: 100%; }
+  }
 
   .logo-wall {
     --cg: clamp(1.5rem, 4vw, 3.4rem);
