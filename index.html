@@ -467,7 +467,7 @@
     overflow: hidden;
     background: transparent;
     border: 0;
-    padding: clamp(3.75rem, 7vw, 5.5rem) 0;
+    padding: clamp(3.75rem, 7vw, 5.5rem) 0 clamp(1.5rem, 3vw, 2.25rem);
   }
   .mission-band::before {
     content: "";
@@ -536,7 +536,7 @@
     margin-top: clamp(1.2rem, 2.5vw, 1.8rem);
   }
   @media (max-width: 720px) {
-    .mission-band { padding: 3.75rem 0 4.5rem; }
+    .mission-band { padding: 3.75rem 0 1.75rem; }
     .mission-band::before { inset: -2rem -35%; background-position: 61% 50%; }
     .mission-layout { min-height: 25rem; grid-template-columns: 1fr; gap: 2rem; }
     .mission-band .mission-heading { margin-top: 0; font-size: clamp(2rem, 9vw, 2.7rem); }
@@ -546,6 +546,7 @@
   #built {
     position: relative;
     isolation: isolate;
+    padding-top: clamp(1.5rem, 3.5vw, 2.25rem);
   }
   #built::before {
     content: "";
