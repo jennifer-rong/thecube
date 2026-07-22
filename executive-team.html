@@ -65,11 +65,102 @@
   .page-sub { font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--steel); margin: 0; font-style: italic; }
 
   main { flex: 1 0 auto; }
-  .team-body { padding: clamp(2.4rem, 5vw, 3.6rem) 0 clamp(4rem, 8vw, 6rem); border-top: 1px solid var(--rule); }
-  .team-note { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--steel); }
-  .exec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.9rem, 2vw, 1.4rem); margin-top: 1.8rem; }
-  .exec-slot { aspect-ratio: 3 / 4; border-radius: 12px; background: var(--paper-raised); border: 1px dashed var(--rule); }
-  @media (max-width: 760px) { .exec-grid { grid-template-columns: repeat(2, 1fr); } }
+  .team-body {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(5rem, 9vw, 8rem) 0 clamp(6rem, 11vw, 10rem);
+    border: 0;
+    background:
+      linear-gradient(180deg, rgba(247,245,239,0) 0%, rgba(226,238,249,.64) 15%, rgba(218,233,247,.76) 52%, rgba(234,242,249,.52) 85%, rgba(247,245,239,0) 100%);
+  }
+  .team-body::before,
+  .team-body::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(8px);
+  }
+  .team-body::before {
+    width: min(68vw, 850px);
+    aspect-ratio: 1;
+    left: -22vw;
+    top: 3%;
+    background: radial-gradient(circle, rgba(172,211,242,.42), rgba(209,229,244,.16) 48%, transparent 72%);
+  }
+  .team-body::after {
+    width: min(58vw, 720px);
+    aspect-ratio: 1;
+    right: -18vw;
+    bottom: -18%;
+    background: radial-gradient(circle, rgba(183,215,242,.38), rgba(218,233,246,.13) 50%, transparent 74%);
+  }
+  .exec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.8vw, 2.4rem);
+    align-items: start;
+  }
+  .exec-card {
+    position: relative;
+    padding: clamp(.65rem, 1.2vw, .85rem);
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(255,255,255,.58), rgba(244,249,253,.3));
+    border: 1px solid rgba(255,255,255,.76);
+    box-shadow: 0 18px 44px rgba(55,84,115,.12), 0 1px 0 rgba(255,255,255,.9) inset;
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(18px) saturate(1.2);
+    transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease;
+  }
+  .exec-card:nth-child(2) { margin-top: clamp(3rem, 7vw, 6rem); }
+  .exec-card:nth-child(3) { margin-top: clamp(.5rem, 2vw, 1.8rem); }
+  .exec-card:nth-child(4) { margin-top: clamp(4.5rem, 9vw, 7.5rem); }
+  .exec-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 24px 54px rgba(55,84,115,.17), 0 1px 0 rgba(255,255,255,.94) inset;
+  }
+  .exec-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 34%, rgba(255,255,255,.72), transparent 24%),
+      linear-gradient(145deg, rgba(204,218,231,.86), rgba(233,239,245,.74));
+    border: 1px solid rgba(75,100,126,.12);
+    box-shadow: 0 1px 0 rgba(255,255,255,.72) inset;
+  }
+  .exec-photo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .exec-meta { padding: .95rem .3rem .35rem; text-align: center; }
+  .exec-name {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.45vw, 1.16rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -.015em;
+  }
+  .exec-role {
+    margin: .28rem 0 0;
+    color: var(--steel);
+    font-family: var(--font-body);
+    font-size: clamp(.82rem, 1.1vw, .94rem);
+    line-height: 1.35;
+  }
+  @media (max-width: 800px) {
+    .exec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .exec-card:nth-child(2), .exec-card:nth-child(4) { margin-top: 3rem; }
+    .exec-card:nth-child(3) { margin-top: 0; }
+  }
+  @media (max-width: 480px) {
+    .exec-grid { gap: 1rem; }
+    .exec-card { border-radius: 16px; }
+    .exec-card:nth-child(2), .exec-card:nth-child(4) { margin-top: 2rem; }
+    .exec-photo { border-radius: 10px; }
+  }
   @media (max-width: 560px) { nav.primary .nav-link { display: none; } }
 
   footer.site-foot { flex-shrink: 0; padding: 2.4rem 0 3rem; border-top: 1px solid var(--rule); font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--steel); }
@@ -134,9 +225,23 @@
 
   <section class="team-body">
     <div class="wrap">
-      <span class="team-note">Team headshots coming soon</span>
       <div class="exec-grid">
-        <div class="exec-slot"></div><div class="exec-slot"></div><div class="exec-slot"></div><div class="exec-slot"></div>
+        <article class="exec-card">
+          <div class="exec-photo" role="img" aria-label="Headshot placeholder"></div>
+          <div class="exec-meta"><h2 class="exec-name">First Last</h2><p class="exec-role">Title</p></div>
+        </article>
+        <article class="exec-card">
+          <div class="exec-photo" role="img" aria-label="Headshot placeholder"></div>
+          <div class="exec-meta"><h2 class="exec-name">First Last</h2><p class="exec-role">Title</p></div>
+        </article>
+        <article class="exec-card">
+          <div class="exec-photo" role="img" aria-label="Headshot placeholder"></div>
+          <div class="exec-meta"><h2 class="exec-name">First Last</h2><p class="exec-role">Title</p></div>
+        </article>
+        <article class="exec-card">
+          <div class="exec-photo" role="img" aria-label="Headshot placeholder"></div>
+          <div class="exec-meta"><h2 class="exec-name">First Last</h2><p class="exec-role">Title</p></div>
+        </article>
       </div>
     </div>
   </section>
