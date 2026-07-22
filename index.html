@@ -1170,6 +1170,22 @@
   .card-foot { padding-top: .34rem; }
   .card-foot-desc { position: relative; display: -webkit-box; flex: 1 1 auto; min-width: 0; height: 2.44em; padding-left: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: .7rem; line-height: 1.22; color: var(--ink); }
   .card-foot-icon { display: none; }
+  .venture-card--dark .card-pane {
+    background: rgba(8,13,24,.5);
+    border-color: rgba(255,255,255,.3);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 6px 16px rgba(0,0,0,.18);
+  }
+  .venture-card--dark .card-name,
+  .venture-card--dark .card-stat-value,
+  .venture-card--dark .card-foot-desc { color: #fff; }
+  .venture-card--dark .card-stat-label { color: rgba(255,255,255,.72); }
+  .venture-card--dark .card-stat + .card-stat,
+  .venture-card--dark .card-foot { border-color: rgba(255,255,255,.24); }
+  .venture-card--dark .card-arrow {
+    color: #fff;
+    border-color: rgba(255,255,255,.48);
+    background: rgba(255,255,255,.08);
+  }
 
   .duke-ventures { padding: .75rem 0 0; }
   .duke-marquee-track { animation: none; will-change: transform; }
@@ -1248,7 +1264,7 @@
        </button>
        <div class="venture-viewport">
         <div class="venture-track">
-        <article class="venture-card">
+        <article class="venture-card venture-card--dark">
           <div class="card-img card-img--serval" role="img" aria-label="Serval brand artwork"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
@@ -1428,7 +1444,7 @@
           </div>
         </article>
 
-        <article class="venture-card">
+        <article class="venture-card venture-card--dark">
           <div class="card-img card-img--farmshots" role="img" aria-label="FarmShots brand artwork"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
@@ -1464,7 +1480,7 @@
           </div>
         </article>
 
-        <article class="venture-card">
+        <article class="venture-card venture-card--dark">
           <div class="card-img card-img--ivella" role="img" aria-label="Ivella mobile finance app"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
@@ -1572,7 +1588,7 @@
           </div>
         </article>
 
-        <article class="venture-card">
+        <article class="venture-card venture-card--dark">
           <div class="card-img card-img--nebula" role="img" aria-label="Nebula AI command bar product"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
@@ -1680,7 +1696,7 @@
           </div>
         </article>
 
-        <article class="venture-card">
+        <article class="venture-card venture-card--dark">
           <div class="card-img card-img--jailbreak" role="img" aria-label="Jailbreak game artwork"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
