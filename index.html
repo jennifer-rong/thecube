@@ -1064,7 +1064,15 @@
     background: linear-gradient(160deg, #0B2265 0%, #123A9E 55%, #1E5FD8 100%);
     color: #EAF1FF;
   }
-  .contact .eyebrow { color: rgba(234,241,255,0.72); }
+  .contact .eyebrow {
+    color: rgba(234,241,255,0.82);
+    font-family: var(--font-section-heading);
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    text-transform: none;
+  }
   .contact h2.section-title { color: #FFFFFF; }
   .contact-grid {
     display: grid;
@@ -1892,7 +1900,7 @@
 
   <section id="contact" class="contact">
     <div class="wrap">
-      <div class="eyebrow">Get In Touch</div>
+      <div class="eyebrow">Get in touch</div>
       <div class="contact-grid">
         <div class="seal" aria-hidden="true">
           <span class="seal-mark"></span>
