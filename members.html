@@ -66,8 +66,91 @@
   .page-title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.98; letter-spacing: -0.02em; margin: 0.8rem 0 0.6rem; color: var(--ink); }
   .page-sub { font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--steel); margin: 0; font-style: italic; }
 
+  /* tactile year navigator */
+  .year-nav {
+    position: relative;
+    overflow: hidden;
+    min-height: clamp(230px, 30vw, 320px);
+    display: grid;
+    place-items: center;
+    padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  }
+  .year-nav-inner { position: relative; z-index: 2; display: flex; align-items: center; gap: .9rem; }
+  .year-picker {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: .6rem;
+    border: 1px solid rgba(18,24,43,.12);
+    border-radius: 20px;
+    background: rgba(255,255,255,.28);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 8px 24px rgba(18,24,43,.07);
+    -webkit-backdrop-filter: blur(10px) saturate(1.08);
+    backdrop-filter: blur(10px) saturate(1.08);
+  }
+  .year-wheel {
+    width: clamp(128px, 18vw, 170px);
+    height: 144px;
+    overflow-y: auto;
+    padding: 46px 0;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+  }
+  .year-wheel::-webkit-scrollbar { display: none; }
+  .year-option {
+    width: 100%;
+    height: 52px;
+    display: block;
+    scroll-snap-align: center;
+    border: 0;
+    background: transparent;
+    color: var(--steel);
+    font-family: var(--font-body);
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-weight: 500;
+    letter-spacing: -.02em;
+    cursor: pointer;
+    opacity: .34;
+    transform: scale(.86);
+    transition: opacity .18s ease, transform .18s ease, color .18s ease;
+  }
+  .year-option[aria-selected="true"] { color: var(--ink); opacity: 1; transform: scale(1); }
+  .year-go {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(18,24,43,.15);
+    background: rgba(255,255,255,.48);
+    color: var(--ink);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.82), 0 5px 14px rgba(18,24,43,.1);
+    cursor: pointer;
+    transition: transform .16s ease, background .16s ease;
+  }
+  .year-go:hover { transform: translateX(2px); background: rgba(255,255,255,.7); }
+  .year-go:active { transform: translateX(2px) scale(.94); }
+  .year-go svg { width: 20px; height: 20px; }
+  .year-float {
+    position: absolute;
+    z-index: 0;
+    color: rgba(40,67,96,.055);
+    font-family: var(--font-body);
+    font-size: clamp(5rem, 15vw, 12rem);
+    font-weight: 500;
+    letter-spacing: -.07em;
+    line-height: .8;
+    pointer-events: none;
+    user-select: none;
+  }
+  .year-float--one { left: -1.5%; top: 12%; transform: rotate(-5deg); }
+  .year-float--two { right: 3%; top: 4%; transform: rotate(4deg); }
+  .year-float--three { left: 30%; bottom: -16%; transform: rotate(-2deg); }
+
   /* class sections */
-  section.class-block { padding: clamp(2.4rem, 5vw, 3.6rem) 0; border-top: 1px solid var(--rule); }
+  section.class-block { padding: clamp(2.4rem, 5vw, 3.6rem) 0; border-top: 1px solid var(--rule); scroll-margin-top: 6.5rem; }
   .class-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
   .class-title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.4rem); letter-spacing: -0.01em; margin: 0; color: var(--ink); }
   .class-note { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--steel); }
@@ -160,7 +243,25 @@
     </div>
   </section>
 
-  <section class="class-block">
+  <section class="year-nav" aria-label="Jump to class year">
+    <span class="year-float year-float--one" aria-hidden="true">2029</span>
+    <span class="year-float year-float--two" aria-hidden="true">2028</span>
+    <span class="year-float year-float--three" aria-hidden="true">2027</span>
+    <div class="year-nav-inner">
+      <div class="year-picker">
+        <div class="year-wheel" tabindex="0" aria-label="Select a class year">
+          <button class="year-option" type="button" data-target="class-2029" aria-selected="true">2029</button>
+          <button class="year-option" type="button" data-target="class-2028" aria-selected="false">2028</button>
+          <button class="year-option" type="button" data-target="class-2027" aria-selected="false">2027</button>
+        </div>
+        <button class="year-go" type="button" aria-label="Go to selected class year">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="class-block" id="class-2029">
     <div class="wrap">
       <div class="class-head">
         <h2 class="class-title">Class of 2029</h2>
@@ -191,7 +292,7 @@
     </div>
   </section>
 
-  <section class="class-block">
+  <section class="class-block" id="class-2028">
     <div class="wrap">
       <div class="class-head">
         <h2 class="class-title">Class of 2028</h2>
@@ -222,7 +323,7 @@
     </div>
   </section>
 
-  <section class="class-block">
+  <section class="class-block" id="class-2027">
     <div class="wrap">
       <div class="class-head">
         <h2 class="class-title">Class of 2027</h2>
@@ -257,5 +358,76 @@
     <div class="wrap">The Cube &mdash; Duke University</div>
   </footer>
 </main>
+<script>
+(function () {
+  var wheel = document.querySelector('.year-wheel');
+  var options = Array.prototype.slice.call(document.querySelectorAll('.year-option'));
+  var go = document.querySelector('.year-go');
+  if (!wheel || !options.length || !go) return;
+
+  var selected = options[0];
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function markSelected(option) {
+    selected = option;
+    options.forEach(function (item) {
+      item.setAttribute('aria-selected', item === option ? 'true' : 'false');
+    });
+  }
+
+  function centerOption(option, smooth) {
+    markSelected(option);
+    var wheelBox = wheel.getBoundingClientRect();
+    var optionBox = option.getBoundingClientRect();
+    wheel.scrollTo({
+      top: wheel.scrollTop + optionBox.top - wheelBox.top - (wheel.clientHeight - option.offsetHeight) / 2,
+      behavior: smooth && !reduced ? 'smooth' : 'auto'
+    });
+  }
+
+  options.forEach(function (option) {
+    option.addEventListener('click', function () { centerOption(option, true); });
+  });
+
+  var scrollFrame = 0;
+  wheel.addEventListener('scroll', function () {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(function () {
+      scrollFrame = 0;
+      var wheelBox = wheel.getBoundingClientRect();
+      var center = wheelBox.top + wheelBox.height / 2;
+      var closest = options[0];
+      var distance = Infinity;
+      options.forEach(function (option) {
+        var box = option.getBoundingClientRect();
+        var nextDistance = Math.abs(box.top + box.height / 2 - center);
+        if (nextDistance < distance) {
+          distance = nextDistance;
+          closest = option;
+        }
+      });
+      markSelected(closest);
+    });
+  }, { passive: true });
+
+  wheel.addEventListener('keydown', function (event) {
+    var index = options.indexOf(selected);
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      index += event.key === 'ArrowDown' ? 1 : -1;
+      index = Math.max(0, Math.min(options.length - 1, index));
+      centerOption(options[index], true);
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      go.click();
+    }
+  });
+
+  go.addEventListener('click', function () {
+    var target = document.getElementById(selected.getAttribute('data-target'));
+    if (target) target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  });
+})();
+</script>
 </body>
 </html>
