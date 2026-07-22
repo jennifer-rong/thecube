@@ -100,40 +100,24 @@
   .exec-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.2rem, 2.8vw, 2.4rem);
+    gap: clamp(1.4rem, 2.8vw, 2.5rem);
     align-items: start;
   }
   .exec-card {
-    position: relative;
-    padding: clamp(.65rem, 1.2vw, .85rem);
-    border-radius: 20px;
-    background: linear-gradient(145deg, rgba(255,255,255,.58), rgba(244,249,253,.3));
-    border: 1px solid rgba(255,255,255,.76);
-    box-shadow: 0 18px 44px rgba(55,84,115,.12), 0 1px 0 rgba(255,255,255,.9) inset;
-    -webkit-backdrop-filter: blur(18px) saturate(1.2);
-    backdrop-filter: blur(18px) saturate(1.2);
-    transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s ease;
-  }
-  .exec-card:nth-child(2) { margin-top: clamp(3rem, 7vw, 6rem); }
-  .exec-card:nth-child(3) { margin-top: clamp(.5rem, 2vw, 1.8rem); }
-  .exec-card:nth-child(4) { margin-top: clamp(4.5rem, 9vw, 7.5rem); }
-  .exec-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 24px 54px rgba(55,84,115,.17), 0 1px 0 rgba(255,255,255,.94) inset;
+    min-width: 0;
   }
   .exec-photo {
     width: 100%;
     aspect-ratio: 1;
-    border-radius: 14px;
+    border-radius: 8px;
     overflow: hidden;
     background:
       radial-gradient(circle at 50% 34%, rgba(255,255,255,.72), transparent 24%),
       linear-gradient(145deg, rgba(204,218,231,.86), rgba(233,239,245,.74));
-    border: 1px solid rgba(75,100,126,.12);
-    box-shadow: 0 1px 0 rgba(255,255,255,.72) inset;
+    border: 1px solid rgba(75,100,126,.16);
   }
   .exec-photo img { width: 100%; height: 100%; display: block; object-fit: cover; }
-  .exec-meta { padding: .95rem .3rem .35rem; text-align: center; }
+  .exec-meta { padding: .85rem 0 0; text-align: left; }
   .exec-name {
     margin: 0;
     color: var(--ink);
@@ -152,14 +136,10 @@
   }
   @media (max-width: 800px) {
     .exec-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .exec-card:nth-child(2), .exec-card:nth-child(4) { margin-top: 3rem; }
-    .exec-card:nth-child(3) { margin-top: 0; }
   }
   @media (max-width: 480px) {
     .exec-grid { gap: 1rem; }
-    .exec-card { border-radius: 16px; }
-    .exec-card:nth-child(2), .exec-card:nth-child(4) { margin-top: 2rem; }
-    .exec-photo { border-radius: 10px; }
+    .exec-photo { border-radius: 6px; }
   }
   @media (max-width: 560px) { nav.primary .nav-link { display: none; } }
 
