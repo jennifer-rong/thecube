@@ -1949,6 +1949,32 @@
   carousel.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') hovering = true; });
   carousel.addEventListener('pointerleave', function () { hovering = false; });
 
+  // Let native horizontal trackpad gestures own the carousel until their
+  // momentum has finished, then resume the auto-roll from that exact spot.
+  // Predominantly vertical gestures remain normal page scrolling.
+  var wheelFrame = 0;
+  var wheelEndTimer = 0;
+  viewport.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+
+    manualUntil = Date.now() + 220;
+    clearTimeout(wheelEndTimer);
+
+    if (!wheelFrame) {
+      wheelFrame = requestAnimationFrame(function () {
+        wheelFrame = 0;
+        normalize();
+        autoPosition = viewport.scrollLeft;
+      });
+    }
+
+    wheelEndTimer = setTimeout(function () {
+      normalize();
+      autoPosition = viewport.scrollLeft;
+      manualUntil = Date.now() + 450;
+    }, 160);
+  }, { passive: true });
+
   // drag to scrub back and forth (mouse and touch, via Pointer Events)
   var startX = 0, startScroll = 0, moved = 0, activeId = null, dragPointerType = 'mouse';
   viewport.addEventListener('pointerdown', function (e) {
