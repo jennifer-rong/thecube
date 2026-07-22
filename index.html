@@ -739,8 +739,8 @@
   .carousel-btn:hover { border-color: var(--sky-1); color: var(--sky-1); }
   .carousel-btn:active { transform: translateY(-50%) scale(0.94); }
   .carousel-btn svg { width: 22px; height: 22px; }
-  /* Company imagery uses per-card framing so portraits stay focused and
-     wide brand lockups remain fully visible. */
+  /* Company imagery always fills the vertical card; per-card positioning
+     chooses the most useful portion of each source image. */
   .venture-card .card-img {
     position: absolute;
     inset: 0;
@@ -752,18 +752,18 @@
     z-index: 0;
   }
   .card-img--serval { --img: url('assets/company/serval.jpeg'); --img-position: center 32%; }
-  .card-img--carpe { --img: url('assets/company/carpe.webp'); --img-size: 100% auto; --img-position: center top; --img-bg: #72B7DA; }
+  .card-img--carpe { --img: url('assets/company/carpe.webp'); --img-position: center top; --img-bg: #72B7DA; }
   .card-img--alleviate { --img: url('assets/company/alleviate.webp'); --img-position: 47% 25%; }
   .card-img--syntra { --img: url('assets/company/syntra.jpeg'); --img-position: center 25%; }
   .card-img--effigov { --img: url('assets/company/effigov.jpg'); --img-position: center 22%; }
   .card-img--farmshots { --img: url('assets/company/farmshots.jpeg'); --img-position: center 22%; }
-  .card-img--ivella { --img: url('assets/company/ivella.jpeg'); --img-size: contain; --img-position: center top; --img-bg: #7B3FC2; }
+  .card-img--ivella { --img: url('assets/company/ivella.jpeg'); --img-position: center top; --img-bg: #7B3FC2; }
   .card-img--octolane { --img: url('assets/company/octolane.jpeg'); --img-position: center 22%; }
-  .card-img--gradient { --img: url('assets/company/gradient-health.jpg'); --img-size: 100% auto; --img-position: center top; --img-bg: #F4F4F4; }
-  .card-img--nebula { --img: url('assets/company/nebula.jpg'); --img-size: 100% auto; --img-position: center top; --img-bg: #1D3944; }
-  .card-img--turbo { --img: url('assets/company/turbo-ai.png'); --img-size: 100% auto; --img-position: center top; --img-bg: #0E0D1C; }
-  .card-img--tomo { --img: url('assets/company/tomo.jpg'); --img-size: 100% auto; --img-position: center top; --img-bg: #111111; }
-  .card-img--jailbreak { --img: url('assets/company/jailbreak.webp'); --img-size: contain; --img-position: center top; --img-bg: #000000; }
+  .card-img--gradient { --img: url('assets/company/gradient-health.jpg'); --img-position: center top; --img-bg: #F4F4F4; }
+  .card-img--nebula { --img: url('assets/company/nebula.jpg'); --img-position: center top; --img-bg: #1D3944; }
+  .card-img--turbo { --img: url('assets/company/turbo-ai.png'); --img-position: center top; --img-bg: #0E0D1C; }
+  .card-img--tomo { --img: url('assets/company/tomo.jpg'); --img-position: center top; --img-bg: #111111; }
+  .card-img--jailbreak { --img: url('assets/company/jailbreak.webp'); --img-position: center top; --img-bg: #000000; }
   /* soft top scrim so the brand mark + tag stay legible over any photo */
   .venture-card .card-topveil {
     position: absolute;
