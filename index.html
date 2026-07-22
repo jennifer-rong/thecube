@@ -575,13 +575,13 @@
   .feature-title {
     position: relative;
     z-index: 1;
-    font-family: var(--font-heading);
-    font-weight: 700;
+    font-family: var(--font-ui);
+    font-weight: 500;
     font-size: clamp(1.28rem, 1.9vw, 1.56rem);
     letter-spacing: -0.005em;
     line-height: 1.15;
     color: var(--ink);
-    margin: 1.5rem 0 0;
+    margin: 0;
     text-wrap: balance;
   }
   .feature-title-rule {
@@ -596,7 +596,7 @@
   .feature-desc {
     position: relative;
     z-index: 1;
-    margin: 0;
+    margin: clamp(1.8rem, 3vw, 2.35rem) 0 0;
     max-width: 22ch;
     font-size: 0.92rem;
     line-height: 1.5;
@@ -734,15 +734,31 @@
   .carousel-btn:hover { border-color: var(--sky-1); color: var(--sky-1); }
   .carousel-btn:active { transform: translateY(-50%) scale(0.94); }
   .carousel-btn svg { width: 22px; height: 22px; }
-  /* card background: shared placeholder (the site's own glass-cube photo) until real photos are dropped in */
+  /* Company imagery uses per-card framing so portraits stay focused and
+     wide brand lockups remain fully visible. */
   .venture-card .card-img {
     position: absolute;
     inset: 0;
     background-image: var(--img, var(--cube-hero));
-    background-size: cover;
-    background-position: center;
+    background-size: var(--img-size, cover);
+    background-position: var(--img-position, center);
+    background-repeat: no-repeat;
+    background-color: var(--img-bg, var(--paper-raised));
     z-index: 0;
   }
+  .card-img--serval { --img: url('assets/company/serval.jpeg'); --img-position: center 32%; }
+  .card-img--carpe { --img: url('assets/company/carpe.webp'); --img-size: 100% auto; --img-position: center top; --img-bg: #72B7DA; }
+  .card-img--alleviate { --img: url('assets/company/alleviate.webp'); --img-position: 47% 25%; }
+  .card-img--syntra { --img: url('assets/company/syntra.jpeg'); --img-position: center 25%; }
+  .card-img--effigov { --img: url('assets/company/effigov.jpg'); --img-position: center 22%; }
+  .card-img--farmshots { --img: url('assets/company/farmshots.jpeg'); --img-position: center 22%; }
+  .card-img--ivella { --img: url('assets/company/ivella.jpeg'); --img-size: contain; --img-position: center top; --img-bg: #7B3FC2; }
+  .card-img--octolane { --img: url('assets/company/octolane.jpeg'); --img-position: center 22%; }
+  .card-img--gradient { --img: url('assets/company/gradient-health.jpg'); --img-size: 100% auto; --img-position: center top; --img-bg: #F4F4F4; }
+  .card-img--nebula { --img: url('assets/company/nebula.jpg'); --img-size: 100% auto; --img-position: center top; --img-bg: #1D3944; }
+  .card-img--turbo { --img: url('assets/company/turbo-ai.png'); --img-size: 100% auto; --img-position: center top; --img-bg: #0E0D1C; }
+  .card-img--tomo { --img: url('assets/company/tomo.jpg'); --img-size: 100% auto; --img-position: center top; --img-bg: #111111; }
+  .card-img--jailbreak { --img: url('assets/company/jailbreak.webp'); --img-size: contain; --img-position: center top; --img-bg: #000000; }
   /* soft top scrim so the brand mark + tag stay legible over any photo */
   .venture-card .card-topveil {
     position: absolute;
@@ -817,8 +833,8 @@
     backdrop-filter: blur(16px) saturate(1.5);
   }
   .card-name {
-    font-family: var(--font-heading);
-    font-weight: 700;
+    font-family: var(--font-ui);
+    font-weight: 500;
     font-size: clamp(1.2rem, 1.9vw, 1.44rem);
     line-height: 1.05;
     letter-spacing: -0.005em;
@@ -1034,7 +1050,7 @@
   :root {
     color-scheme: only light;
     --font-body: 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    --font-ui: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+    --font-ui: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   body {
     background-color: #F7F5EF;
@@ -1172,7 +1188,7 @@
 
   <section class="mission-band">
     <div class="wrap">
-      <h2 class="section-title mission-heading">Our Mission</h2>
+      <h2 class="section-title mission-heading">Our mission</h2>
       <p class="mission-statement"><span class="mission-hl">The Cube lowers the barriers to entrepreneurship at Duke</span> by giving students the skills, resources, and community to build ventures of all kinds. Our alumni have launched multimillion-dollar companies and been featured by Forbes, CNN, and more.</p>
     </div>
   </section>
@@ -1195,7 +1211,7 @@
        <div class="venture-viewport">
         <div class="venture-track">
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--serval" role="img" aria-label="Serval branded installation"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1231,7 +1247,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--carpe" role="img" aria-label="Carpe skincare products"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1267,7 +1283,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--alleviate" role="img" aria-label="Clinical laboratory researcher"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1303,7 +1319,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--syntra" role="img" aria-label="Syntra founders"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1339,7 +1355,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--effigov" role="img" aria-label="EffiGov founders at the Florida League of Cities"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1375,7 +1391,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--farmshots" role="img" aria-label="FarmShots satellite crop health map"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1411,7 +1427,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--ivella" role="img" aria-label="Ivella mobile finance app"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1447,7 +1463,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--octolane" role="img" aria-label="Octolane AI founders"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1483,7 +1499,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--gradient" role="img" aria-label="Gradient Health medical imaging platform"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1519,7 +1535,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--nebula" role="img" aria-label="Nebula AI command bar product"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1555,7 +1571,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--turbo" role="img" aria-label="Turbo AI product interface"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1591,7 +1607,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--tomo" role="img" aria-label="Tomo founder and brand mark"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
@@ -1627,7 +1643,7 @@
         </article>
 
         <article class="venture-card">
-          <div class="card-img"></div>
+          <div class="card-img card-img--jailbreak" role="img" aria-label="Jailbreak game artwork"></div>
           <div class="card-topveil"></div>
           <div class="card-topbar">
             <div class="card-brand">
