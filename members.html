@@ -110,7 +110,20 @@
     cursor: pointer;
     opacity: .18;
     transform: scale(.76);
-    transition: opacity .2s ease, transform .2s cubic-bezier(.2,.8,.2,1), color .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    transition: opacity .2s ease, transform .2s cubic-bezier(.2,.8,.2,1), color .2s ease, letter-spacing .2s ease;
+  }
+  .year-option::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    width: 16px;
+    height: 1px;
+    background: rgba(36,83,214,.7);
+    opacity: 0;
+    transform: translate(-7px, -50%) scaleX(.35);
+    transform-origin: right center;
+    transition: opacity .2s ease, transform .24s cubic-bezier(.2,.8,.2,1);
   }
   .year-option[data-depth="1"] { opacity: .52; transform: scale(.9); }
   .year-option[data-depth="2"] { opacity: .28; transform: scale(.82); }
@@ -123,16 +136,17 @@
   .year-option[aria-selected="true"] {
     color: var(--ink);
     opacity: 1;
-    transform: scale(1.03);
-    background:
-      linear-gradient(135deg, rgba(255,255,255,.74), rgba(228,238,249,.38));
-    border-color: rgba(255,255,255,.88);
-    box-shadow:
-      0 9px 24px rgba(36,58,87,.12),
-      0 1px 0 rgba(255,255,255,.92) inset,
-      0 -1px 0 rgba(121,151,184,.12) inset;
-    -webkit-backdrop-filter: blur(14px) saturate(1.25);
-    backdrop-filter: blur(14px) saturate(1.25);
+    transform: scale(1.01);
+    letter-spacing: 0;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .year-option[aria-selected="true"]::before {
+    opacity: 1;
+    transform: translate(0, -50%) scaleX(1);
   }
   .year-go {
     width: 52px;
