@@ -71,8 +71,32 @@
   .class-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
   .class-title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.4rem); letter-spacing: -0.01em; margin: 0; color: var(--ink); }
   .class-note { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--steel); }
-  .headshot-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(0.8rem, 1.6vw, 1.2rem); }
-  .headshot-slot { aspect-ratio: 3 / 4; border-radius: 12px; background: var(--paper-raised); border: 1px dashed var(--rule); }
+  .headshot-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(1rem, 1.8vw, 1.35rem); }
+  .member-card { min-width: 0; }
+  .member-photo {
+    aspect-ratio: 1;
+    border-radius: 7px;
+    background: rgba(255,255,255,.28);
+    border: 1px solid rgba(18,24,43,.13);
+  }
+  .member-name {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: .45rem;
+    padding: .42rem .08rem 0;
+    font-family: var(--font-body);
+    font-size: .72rem;
+    line-height: 1.2;
+    color: var(--steel);
+  }
+  .member-name span {
+    min-width: 0;
+    padding-bottom: .25rem;
+    border-bottom: 1px solid rgba(18,24,43,.11);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   @media (max-width: 900px) { .headshot-grid { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 560px) { .headshot-grid { grid-template-columns: repeat(3, 1fr); } nav.primary .nav-link { display: none; } }
 
@@ -143,8 +167,12 @@
         <span class="class-note">Headshots coming soon</span>
       </div>
       <div class="headshot-grid">
-        <div class="headshot-slot"></div><div class="headshot-slot"></div><div class="headshot-slot"></div>
-        <div class="headshot-slot"></div><div class="headshot-slot"></div><div class="headshot-slot"></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
       </div>
     </div>
   </section>
@@ -156,8 +184,12 @@
         <span class="class-note">Headshots coming soon</span>
       </div>
       <div class="headshot-grid">
-        <div class="headshot-slot"></div><div class="headshot-slot"></div><div class="headshot-slot"></div>
-        <div class="headshot-slot"></div><div class="headshot-slot"></div><div class="headshot-slot"></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
       </div>
     </div>
   </section>
@@ -169,8 +201,12 @@
         <span class="class-note">Headshots coming soon</span>
       </div>
       <div class="headshot-grid">
-        <div class="headshot-slot"></div><div class="headshot-slot"></div><div class="headshot-slot"></div>
-        <div class="headshot-slot"></div><div class="headshot-slot"></div><div class="headshot-slot"></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
+        <div class="member-card"><div class="member-photo"></div><div class="member-name"><span>First name</span><span>Last name</span></div></div>
       </div>
     </div>
   </section>
