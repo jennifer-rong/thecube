@@ -1889,7 +1889,7 @@
 })();
 
 /* Ventures carousel: auto-scroll (slows on hover), drag to scrub, arrow controls,
-   seamless loop by cloning the card set once. */
+   seamless bidirectional loop with the live position kept in the middle set. */
 (function () {
   var viewport = document.querySelector('.venture-viewport');
   var track = document.querySelector('.venture-track');
@@ -1900,13 +1900,15 @@
   var originals = Array.prototype.slice.call(track.children);
   var count = originals.length;
 
-  // clone the full set once so we can wrap without a visible jump
-  originals.forEach(function (card) {
-    var clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.tabIndex = -1;
-    track.appendChild(clone);
-  });
+  // Three identical sets leave a full set of drag room on either side.
+  for (var copy = 0; copy < 2; copy++) {
+    originals.forEach(function (card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.tabIndex = -1;
+      track.appendChild(clone);
+    });
+  }
 
   // width of one full set (distance to the first clone) — recomputed on resize
   var setWidth = 0;
@@ -1916,7 +1918,8 @@
   var BASE_SPEED = 0.75;   // px per frame — slightly faster
   var HOVER_FACTOR = 0.28; // unmistakably slower, but always moving
   var speedFactor = 1;
-  var autoPosition = viewport.scrollLeft;
+  viewport.scrollLeft = setWidth;
+  var autoPosition = setWidth;
   var lastFrame = 0;
   var hovering = false;
   var dragging = false;
@@ -1924,8 +1927,8 @@
 
   function normalize() {
     if (setWidth <= 0) return;
-    if (viewport.scrollLeft >= setWidth) viewport.scrollLeft -= setWidth;
-    else if (viewport.scrollLeft < 0) viewport.scrollLeft += setWidth;
+    while (viewport.scrollLeft >= setWidth * 2) viewport.scrollLeft -= setWidth;
+    while (viewport.scrollLeft < setWidth) viewport.scrollLeft += setWidth;
   }
 
   function tick(time) {
@@ -1936,8 +1939,8 @@
       var targetFactor = hovering ? HOVER_FACTOR : 1;
       speedFactor += (targetFactor - speedFactor) * Math.min(1, 0.045 * frameScale);
       autoPosition += BASE_SPEED * speedFactor * frameScale;
-      if (setWidth > 0 && autoPosition >= setWidth) autoPosition -= setWidth;
-      else if (setWidth > 0 && autoPosition < 0) autoPosition += setWidth;
+      if (setWidth > 0 && autoPosition >= setWidth * 2) autoPosition -= setWidth;
+      else if (setWidth > 0 && autoPosition < setWidth) autoPosition += setWidth;
       viewport.scrollLeft = autoPosition;
     }
     requestAnimationFrame(tick);
@@ -1963,8 +1966,16 @@
     if (!dragging || e.pointerId !== activeId) return;
     var dx = e.clientX - startX;
     moved = Math.max(moved, Math.abs(dx));
-    viewport.scrollLeft = startScroll - dx;
-    normalize();
+    var nextScroll = startScroll - dx;
+    while (setWidth > 0 && nextScroll < setWidth) {
+      startScroll += setWidth;
+      nextScroll += setWidth;
+    }
+    while (setWidth > 0 && nextScroll >= setWidth * 2) {
+      startScroll -= setWidth;
+      nextScroll -= setWidth;
+    }
+    viewport.scrollLeft = nextScroll;
     autoPosition = viewport.scrollLeft;
   });
   function endDrag(e) {
@@ -1983,9 +1994,11 @@
   function step() { return track.children[1].offsetLeft - track.children[0].offsetLeft; }
   function go(dir) {
     manualUntil = Date.now() + 1400;
-    if (dir < 0 && viewport.scrollLeft < step()) viewport.scrollLeft += setWidth; // pre-wrap for left
     viewport.scrollBy({ left: dir * step(), behavior: 'smooth' });
-    setTimeout(normalize, 450);
+    setTimeout(function () {
+      normalize();
+      autoPosition = viewport.scrollLeft;
+    }, 450);
   }
   document.querySelectorAll('.carousel-btn').forEach(function (btn) {
     btn.addEventListener('click', function () { go(parseInt(btn.getAttribute('data-dir'), 10)); });
@@ -1994,7 +2007,11 @@
   var t;
   window.addEventListener('resize', function () {
     clearTimeout(t);
-    t = setTimeout(function () { measure(); normalize(); }, 200);
+    t = setTimeout(function () {
+      measure();
+      normalize();
+      autoPosition = viewport.scrollLeft;
+    }, 200);
   });
 })();
 
