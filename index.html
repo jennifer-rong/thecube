@@ -202,7 +202,7 @@
     font-size: 1.08rem;
     letter-spacing: -0.01em;
   }
-  nav.primary { display: flex; align-items: center; gap: clamp(1.9rem, 3.4vw, 3.4rem); }
+  nav.primary { display: flex; align-items: center; gap: clamp(1.35rem, 2.4vw, 2.4rem); }
   nav.primary .nav-link {
     font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     font-size: 0.74rem;
@@ -215,7 +215,7 @@
     white-space: nowrap;
     transition: color 0.15s ease, border-color 0.15s ease;
   }
-  nav.primary .nav-link:hover { border-bottom-color: var(--sky-1); color: var(--sky-1); }
+  nav.primary .nav-link:hover, nav.primary .nav-link[aria-current] { border-bottom-color: var(--sky-1); color: var(--sky-1); }
 
   /* Glassy light-blue Join button */
   .nav-join {
@@ -1242,7 +1242,7 @@
       <span class="brand-word">The Cube</span>
     </a>
     <nav class="primary">
-      <a class="nav-link" href="#top">Home</a>
+      <a class="nav-link" href="#top" aria-current="page">Home</a>
       <a class="nav-link" href="members.html">Members</a>
       <a class="nav-link" href="executive-team.html">Executive Team</a>
       <a class="nav-join" href="#contact">
