@@ -178,10 +178,19 @@
   .headshot-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(1.1rem, 2vw, 1.6rem); }
   .member-card { min-width: 0; }
   .member-photo {
+    display: block;
+    width: 100%;
     aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
     border-radius: 7px;
     background: rgba(255,255,255,.28);
     border: 1px solid rgba(18,24,43,.13);
+  }
+  .member-photo-placeholder {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.5), rgba(204,220,234,.28)),
+      rgba(255,255,255,.28);
   }
   .member-name {
     display: grid;
@@ -600,6 +609,7 @@
     <div class="wrap">The Cube &mdash; Duke University</div>
   </footer>
 </main>
+<script src="assets/js/members-roster.js"></script>
 <script>
 (function () {
   var wheel = document.querySelector('.year-wheel');
