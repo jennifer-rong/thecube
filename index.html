@@ -2161,6 +2161,11 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var originals = Array.prototype.slice.call(track.children);
   var count = originals.length;
+  var startIndex = originals.findIndex(function (card) {
+    var name = card.querySelector('.card-name');
+    return name && name.textContent.trim() === 'Turbo AI';
+  });
+  if (startIndex < 0) startIndex = 0;
 
   // Three identical sets leave a full set of drag room on either side.
   for (var copy = 0; copy < 2; copy++) {
@@ -2180,8 +2185,9 @@
   var BASE_SPEED = 0.75;   // px per frame — slightly faster
   var HOVER_FACTOR = 0.28; // unmistakably slower, but always moving
   var speedFactor = 1;
-  viewport.scrollLeft = setWidth;
-  var autoPosition = setWidth;
+  var startOffset = originals[startIndex].offsetLeft - originals[0].offsetLeft;
+  viewport.scrollLeft = setWidth + startOffset;
+  var autoPosition = viewport.scrollLeft;
   var lastFrame = 0;
   var hovering = false;
   var dragging = false;
