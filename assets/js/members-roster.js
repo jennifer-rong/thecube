@@ -32,8 +32,6 @@
     var section = document.getElementById("class-" + year);
     if (!section) return;
     var grid = section.querySelector(".headshot-grid");
-    var note = section.querySelector(".class-note");
-    if (note) note.textContent = roster[year].length + " members";
     grid.innerHTML = roster[year].map(function (name) {
       var parts = splitName(name);
       var visual = unavailable.has(name)
