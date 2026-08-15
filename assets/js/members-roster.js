@@ -38,7 +38,7 @@
       var parts = splitName(name);
       var visual = unavailable.has(name)
         ? '<div class="member-photo member-photo-placeholder" role="img" aria-label="Headshot coming soon for ' + name + '"></div>'
-        : '<img class="member-photo" src="assets/members/' + slugify(name) + '.jpg" alt="' + name + '" width="400" height="400" loading="lazy" decoding="async">';
+        : '<img class="member-photo" src="assets/members/' + slugify(name) + '.jpg" alt="' + name + '" width="400" height="400" loading="eager" decoding="async">';
       return '<article class="member-card">' + visual +
         '<div class="member-name"><span>' + parts[0] + '</span><span>' + parts[1] + '</span></div></article>';
     }).join("");
