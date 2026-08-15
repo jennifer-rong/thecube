@@ -1391,24 +1391,23 @@
     position: relative;
     display: block;
     width: 100%;
-    margin: 0 0 var(--gallery-gap);
-    overflow: hidden;
+    margin: 0;
+    padding: 0 0 var(--gallery-gap);
+    overflow: visible;
     break-inside: avoid;
-    border-radius: 2px;
-    background: rgba(205,216,226,.34);
-    box-shadow: 0 4px 12px rgba(18,24,43,.07);
   }
-  .connect-collage-item--landscape { aspect-ratio: 4 / 3; }
-  .connect-collage-item--portrait { aspect-ratio: 3 / 4; }
   .connect-collage-item img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
+    border-radius: 2px;
+    background: rgba(205,216,226,.34);
+    box-shadow: 0 4px 12px rgba(18,24,43,.07);
     -webkit-user-drag: none;
-    transition: transform .7s cubic-bezier(.2,.75,.2,1);
   }
-  .connect-collage-item:hover img { transform: scale(1.018); }
+  .connect-collage-item--landscape img { aspect-ratio: 4 / 3; }
+  .connect-collage-item--portrait img { aspect-ratio: 3 / 4; }
   @media (max-width: 700px) {
     .connect-gallery-shell {
       width: calc(100% - 2rem);
@@ -1493,6 +1492,9 @@
           </figure>
           <figure class="connect-collage-item connect-collage-item--portrait">
             <img src="assets/gallery/cube-social-9174.jpg" alt="Cube members together at a community dinner" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--portrait">
+            <img src="assets/gallery/cube-social-6413.jpg" alt="Five Cube members together at a beach" loading="lazy" decoding="async">
           </figure>
           <figure class="connect-collage-item connect-collage-item--landscape">
             <img src="assets/gallery/cube-social-8311.jpg" alt="Cube members at a formal social event" loading="lazy" decoding="async">
