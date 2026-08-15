@@ -1368,7 +1368,7 @@
     height: clamp(20rem, 34vw, 26rem);
     overflow-y: auto;
     overscroll-behavior: contain;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
@@ -1516,6 +1516,7 @@
     </div>
     <div class="connect-gallery-shell">
       <div class="connect-gallery-viewport" id="connect-gallery" tabindex="0" aria-label="Build and connect photo gallery">
+        <!-- Add future photos as another figure here; the carousel clones this collage automatically. -->
         <div class="connect-collage">
           <figure class="connect-collage-item connect-collage-item--landscape">
             <img src="assets/gallery/cube-social-7196.jpg" alt="Cube members together at a social gathering" loading="lazy" decoding="async">
@@ -2140,20 +2141,62 @@
   var viewport = document.querySelector('.connect-gallery-viewport');
   var scrollbar = document.querySelector('.connect-scrollbar');
   var thumb = document.querySelector('.connect-scroll-thumb');
-  if (!viewport || !scrollbar || !thumb) return;
+  var collage = viewport && viewport.querySelector('.connect-collage');
+  if (!viewport || !scrollbar || !thumb || !collage) return;
 
   var thumbHeight = 54;
   var maxThumbTravel = 0;
+  var loopHeight = 0;
   var dragging = false;
   var dragStartY = 0;
   var dragStartScroll = 0;
+  var autoResumeAt = 0;
+  var lastFrame = 0;
+  var isVisible = true;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function cloneCollage() {
+    var clone = collage.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('img').forEach(function (image) {
+      image.alt = '';
+      image.loading = 'lazy';
+    });
+    return clone;
+  }
+
+  viewport.insertBefore(cloneCollage(), collage);
+  viewport.appendChild(cloneCollage());
+
+  function measureLoop() {
+    var previousLoopHeight = loopHeight;
+    var previousOffset = previousLoopHeight
+      ? ((viewport.scrollTop % previousLoopHeight) + previousLoopHeight) % previousLoopHeight
+      : 0;
+    var nextLoopHeight = collage.offsetHeight;
+    if (!nextLoopHeight) return;
+    loopHeight = nextLoopHeight;
+    var currentCycle = previousLoopHeight ? previousOffset / previousLoopHeight * loopHeight : 0;
+    viewport.scrollTop = loopHeight + currentCycle;
+    updateScrollbar();
+  }
+
+  function keepScrollSeamless() {
+    if (!loopHeight) return;
+    if (viewport.scrollTop < loopHeight * .5) viewport.scrollTop += loopHeight;
+    if (viewport.scrollTop >= loopHeight * 1.5) viewport.scrollTop -= loopHeight;
+  }
+
+  function pauseAutoScroll(duration) {
+    autoResumeAt = performance.now() + (duration || 2600);
+  }
 
   function updateScrollbar() {
-    var scrollRange = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
-    var visibleRatio = Math.min(1, viewport.clientHeight / viewport.scrollHeight);
+    if (!loopHeight) return;
+    var visibleRatio = Math.min(1, viewport.clientHeight / loopHeight);
     thumbHeight = Math.max(54, scrollbar.clientHeight * visibleRatio);
     maxThumbTravel = Math.max(0, scrollbar.clientHeight - thumbHeight);
-    var progress = scrollRange ? viewport.scrollTop / scrollRange : 0;
+    var progress = ((viewport.scrollTop % loopHeight) + loopHeight) % loopHeight / loopHeight;
 
     thumb.style.height = thumbHeight + 'px';
     thumb.style.transform = 'translate3d(-50%, ' + (progress * maxThumbTravel) + 'px, 0)';
@@ -2164,16 +2207,25 @@
     var bounds = scrollbar.getBoundingClientRect();
     var nextThumbTop = Math.max(0, Math.min(maxThumbTravel, clientY - bounds.top - thumbHeight / 2));
     var progress = maxThumbTravel ? nextThumbTop / maxThumbTravel : 0;
-    viewport.scrollTop = progress * Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+    viewport.scrollTop = loopHeight + progress * loopHeight;
   }
 
-  viewport.addEventListener('scroll', updateScrollbar, { passive: true });
+  viewport.addEventListener('scroll', function () {
+    keepScrollSeamless();
+    updateScrollbar();
+  }, { passive: true });
+  viewport.addEventListener('wheel', function () { pauseAutoScroll(); }, { passive: true });
+  viewport.addEventListener('touchstart', function () { pauseAutoScroll(); }, { passive: true });
+  viewport.addEventListener('pointerdown', function () { pauseAutoScroll(); }, { passive: true });
+  viewport.addEventListener('keydown', function () { pauseAutoScroll(); });
   scrollbar.addEventListener('pointerdown', function (event) {
+    pauseAutoScroll();
     if (event.target === thumb) return;
     scrollToRailPosition(event.clientY);
   });
   thumb.addEventListener('pointerdown', function (event) {
     dragging = true;
+    pauseAutoScroll();
     dragStartY = event.clientY;
     dragStartScroll = viewport.scrollTop;
     thumb.setPointerCapture(event.pointerId);
@@ -2181,8 +2233,7 @@
   });
   thumb.addEventListener('pointermove', function (event) {
     if (!dragging) return;
-    var scrollRange = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
-    viewport.scrollTop = dragStartScroll + (event.clientY - dragStartY) * (maxThumbTravel ? scrollRange / maxThumbTravel : 0);
+    viewport.scrollTop = dragStartScroll + (event.clientY - dragStartY) * (maxThumbTravel ? loopHeight / maxThumbTravel : 0);
   });
   function endThumbDrag(event) {
     if (!dragging) return;
@@ -2192,22 +2243,40 @@
   thumb.addEventListener('pointerup', endThumbDrag);
   thumb.addEventListener('pointercancel', endThumbDrag);
   scrollbar.addEventListener('keydown', function (event) {
+    pauseAutoScroll();
     var amount = 0;
     if (event.key === 'ArrowDown') amount = 72;
     if (event.key === 'ArrowUp') amount = -72;
     if (event.key === 'PageDown') amount = viewport.clientHeight * .8;
     if (event.key === 'PageUp') amount = viewport.clientHeight * -.8;
-    if (event.key === 'Home') viewport.scrollTo({ top: 0, behavior: 'smooth' });
-    if (event.key === 'End') viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
+    if (event.key === 'Home') viewport.scrollTo({ top: loopHeight, behavior: 'smooth' });
+    if (event.key === 'End') viewport.scrollTo({ top: loopHeight * 2 - viewport.clientHeight, behavior: 'smooth' });
     if (amount) viewport.scrollBy({ top: amount, behavior: 'smooth' });
     if (amount || event.key === 'Home' || event.key === 'End') event.preventDefault();
   });
 
   if ('ResizeObserver' in window) {
-    new ResizeObserver(updateScrollbar).observe(viewport);
+    new ResizeObserver(measureLoop).observe(collage);
   }
-  window.addEventListener('load', updateScrollbar, { once: true });
-  updateScrollbar();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      isVisible = entries[0].isIntersecting;
+    }, { threshold: .05 }).observe(viewport);
+  }
+
+  function autoScroll(frameTime) {
+    if (!lastFrame) lastFrame = frameTime;
+    var elapsed = Math.min(40, frameTime - lastFrame);
+    lastFrame = frameTime;
+    if (!reducedMotion && isVisible && !dragging && frameTime >= autoResumeAt && loopHeight) {
+      viewport.scrollTop += elapsed * .012;
+    }
+    requestAnimationFrame(autoScroll);
+  }
+
+  window.addEventListener('load', measureLoop, { once: true });
+  measureLoop();
+  requestAnimationFrame(autoScroll);
 })();
 
 (function () {
