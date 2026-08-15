@@ -1378,7 +1378,7 @@
   .connect-collage {
     columns: 3;
     column-gap: clamp(.42rem, .75vw, .62rem);
-    padding: clamp(3.5rem, 6vw, 4.75rem) 0;
+    padding: 0;
   }
   .connect-collage-item {
     position: relative;
@@ -1443,7 +1443,7 @@
       padding-right: 1rem;
     }
     .connect-gallery-viewport { height: 18rem; }
-    .connect-collage { columns: 2; padding-top: 3rem; padding-bottom: 3rem; }
+    .connect-collage { columns: 2; }
     .connect-scrollbar { top: 3rem; bottom: 3rem; }
   }
   @keyframes dukeMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -2152,8 +2152,9 @@
   var dragStartScroll = 0;
   var autoResumeAt = 0;
   var lastFrame = 0;
-  var isVisible = true;
+  var autoCarry = 0;
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var autoSpeed = reducedMotion ? .008 : .02;
 
   function cloneCollage() {
     var clone = collage.cloneNode(true);
@@ -2258,18 +2259,17 @@
   if ('ResizeObserver' in window) {
     new ResizeObserver(measureLoop).observe(collage);
   }
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      isVisible = entries[0].isIntersecting;
-    }, { threshold: .05 }).observe(viewport);
-  }
-
   function autoScroll(frameTime) {
     if (!lastFrame) lastFrame = frameTime;
     var elapsed = Math.min(40, frameTime - lastFrame);
     lastFrame = frameTime;
-    if (!reducedMotion && isVisible && !dragging && frameTime >= autoResumeAt && loopHeight) {
-      viewport.scrollTop += elapsed * .012;
+    if (!document.hidden && !dragging && frameTime >= autoResumeAt && loopHeight) {
+      autoCarry += elapsed * autoSpeed;
+      if (autoCarry >= 1) {
+        var scrollStep = Math.floor(autoCarry);
+        autoCarry -= scrollStep;
+        viewport.scrollTop += scrollStep;
+      }
     }
     requestAnimationFrame(autoScroll);
   }
