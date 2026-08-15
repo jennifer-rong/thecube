@@ -15,7 +15,8 @@
   var unavailable = new Set([
     "Juliana Gates","Kartikeye Gupta","Kayla Liang","Kaylyn Zhong","Michelle Li",
     "Nikhil Pesaladinne","Raphael Mukondiwa","Sarah Tandon","Ting Ting Li",
-    "Aaron Hsu","Anna Liu","Arvindh Manian","Aubteen Pour-Biazar"
+    "Aaron Hsu","Anna Liu","Arvindh Manian","Aubteen Pour-Biazar",
+    "Yihong Song"
   ]);
 
   function slugify(name) {
