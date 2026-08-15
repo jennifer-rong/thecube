@@ -1362,29 +1362,31 @@
     position: relative;
     width: min(1080px, calc(100% - clamp(2.5rem, 10vw, 9rem)));
     margin: clamp(2.2rem, 4vw, 3.5rem) auto 0;
-    padding-right: 1.35rem;
   }
   .connect-gallery-viewport {
     height: clamp(20rem, 34vw, 26rem);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scroll-behavior: auto;
+    overflow: hidden;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
   }
   .connect-gallery-viewport::-webkit-scrollbar { display: none; }
+  .connect-gallery-viewport.is-dragging { cursor: grabbing; }
   .connect-collage {
+    --gallery-gap: clamp(.42rem, .75vw, .62rem);
     columns: 3;
-    column-gap: clamp(.42rem, .75vw, .62rem);
+    column-gap: var(--gallery-gap);
     padding: 0;
   }
   .connect-collage-item {
     position: relative;
     display: block;
     width: 100%;
-    margin: 0 0 clamp(.42rem, .75vw, .62rem);
+    margin: 0 0 var(--gallery-gap);
     overflow: hidden;
     break-inside: avoid;
     border-radius: 2px;
@@ -1398,53 +1400,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    -webkit-user-drag: none;
     transition: transform .7s cubic-bezier(.2,.75,.2,1);
   }
   .connect-collage-item:hover img { transform: scale(1.018); }
-  .connect-scrollbar {
-    position: absolute;
-    top: clamp(3.5rem, 6vw, 4.75rem);
-    right: 0;
-    bottom: clamp(3.5rem, 6vw, 4.75rem);
-    width: 12px;
-    cursor: pointer;
-    outline: none;
-  }
-  .connect-scrollbar::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    background: rgba(18,24,43,.16);
-    transform: translateX(-50%);
-  }
-  .connect-scroll-thumb {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 3px;
-    min-height: 54px;
-    border-radius: 999px;
-    background: rgba(18,24,43,.48);
-    transform: translate3d(-50%, 0, 0);
-    box-shadow: 0 0 0 4px rgba(247,245,239,.52);
-    cursor: grab;
-    touch-action: none;
-  }
-  .connect-scroll-thumb:active { cursor: grabbing; }
-  .connect-scrollbar:focus-visible .connect-scroll-thumb {
-    background: rgba(26,91,214,.72);
-  }
   @media (max-width: 700px) {
     .connect-gallery-shell {
       width: calc(100% - 2rem);
-      padding-right: 1rem;
     }
     .connect-gallery-viewport { height: 18rem; }
     .connect-collage { columns: 2; }
-    .connect-scrollbar { top: 3rem; bottom: 3rem; }
   }
   @keyframes dukeMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
@@ -1515,7 +1480,7 @@
       </div>
     </div>
     <div class="connect-gallery-shell">
-      <div class="connect-gallery-viewport" id="connect-gallery" tabindex="0" aria-label="Build and connect photo gallery">
+      <div class="connect-gallery-viewport" id="connect-gallery" aria-label="Build and connect photo gallery" aria-roledescription="carousel">
         <!-- Add future photos as another figure here; the carousel clones this collage automatically. -->
         <div class="connect-collage">
           <figure class="connect-collage-item connect-collage-item--landscape">
@@ -1543,9 +1508,6 @@
             <img src="assets/gallery/cube-social-5342.jpg" alt="Cube members together at a house gathering" loading="lazy" decoding="async">
           </figure>
         </div>
-      </div>
-      <div class="connect-scrollbar" role="scrollbar" tabindex="0" aria-controls="connect-gallery" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Scroll photo gallery">
-        <span class="connect-scroll-thumb"></span>
       </div>
     </div>
   </section>
@@ -2139,18 +2101,14 @@
 
 (function () {
   var viewport = document.querySelector('.connect-gallery-viewport');
-  var scrollbar = document.querySelector('.connect-scrollbar');
-  var thumb = document.querySelector('.connect-scroll-thumb');
   var collage = viewport && viewport.querySelector('.connect-collage');
-  if (!viewport || !scrollbar || !thumb || !collage) return;
+  if (!viewport || !collage) return;
 
-  var thumbHeight = 54;
-  var maxThumbTravel = 0;
   var loopHeight = 0;
   var dragging = false;
-  var dragStartY = 0;
-  var dragStartScroll = 0;
-  var autoResumeAt = 0;
+  var lastPointerY = 0;
+  var lastPointerTime = 0;
+  var momentum = 0;
   var lastFrame = 0;
   var autoCarry = 0;
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2162,10 +2120,12 @@
     clone.querySelectorAll('img').forEach(function (image) {
       image.alt = '';
       image.loading = 'lazy';
+      image.draggable = false;
     });
     return clone;
   }
 
+  collage.querySelectorAll('img').forEach(function (image) { image.draggable = false; });
   viewport.insertBefore(cloneCollage(), collage);
   viewport.appendChild(cloneCollage());
 
@@ -2179,7 +2139,6 @@
     loopHeight = nextLoopHeight;
     var currentCycle = previousLoopHeight ? previousOffset / previousLoopHeight * loopHeight : 0;
     viewport.scrollTop = loopHeight + currentCycle;
-    updateScrollbar();
   }
 
   function keepScrollSeamless() {
@@ -2188,73 +2147,35 @@
     if (viewport.scrollTop >= loopHeight * 1.5) viewport.scrollTop -= loopHeight;
   }
 
-  function pauseAutoScroll(duration) {
-    autoResumeAt = performance.now() + (duration || 2600);
-  }
-
-  function updateScrollbar() {
-    if (!loopHeight) return;
-    var visibleRatio = Math.min(1, viewport.clientHeight / loopHeight);
-    thumbHeight = Math.max(54, scrollbar.clientHeight * visibleRatio);
-    maxThumbTravel = Math.max(0, scrollbar.clientHeight - thumbHeight);
-    var progress = ((viewport.scrollTop % loopHeight) + loopHeight) % loopHeight / loopHeight;
-
-    thumb.style.height = thumbHeight + 'px';
-    thumb.style.transform = 'translate3d(-50%, ' + (progress * maxThumbTravel) + 'px, 0)';
-    scrollbar.setAttribute('aria-valuenow', Math.round(progress * 100));
-  }
-
-  function scrollToRailPosition(clientY) {
-    var bounds = scrollbar.getBoundingClientRect();
-    var nextThumbTop = Math.max(0, Math.min(maxThumbTravel, clientY - bounds.top - thumbHeight / 2));
-    var progress = maxThumbTravel ? nextThumbTop / maxThumbTravel : 0;
-    viewport.scrollTop = loopHeight + progress * loopHeight;
-  }
-
-  viewport.addEventListener('scroll', function () {
-    keepScrollSeamless();
-    updateScrollbar();
-  }, { passive: true });
-  viewport.addEventListener('wheel', function () { pauseAutoScroll(); }, { passive: true });
-  viewport.addEventListener('touchstart', function () { pauseAutoScroll(); }, { passive: true });
-  viewport.addEventListener('pointerdown', function () { pauseAutoScroll(); }, { passive: true });
-  viewport.addEventListener('keydown', function () { pauseAutoScroll(); });
-  scrollbar.addEventListener('pointerdown', function (event) {
-    pauseAutoScroll();
-    if (event.target === thumb) return;
-    scrollToRailPosition(event.clientY);
-  });
-  thumb.addEventListener('pointerdown', function (event) {
+  viewport.addEventListener('scroll', keepScrollSeamless, { passive: true });
+  viewport.addEventListener('pointerdown', function (event) {
     dragging = true;
-    pauseAutoScroll();
-    dragStartY = event.clientY;
-    dragStartScroll = viewport.scrollTop;
-    thumb.setPointerCapture(event.pointerId);
+    momentum = 0;
+    lastPointerY = event.clientY;
+    lastPointerTime = performance.now();
+    viewport.classList.add('is-dragging');
+    viewport.setPointerCapture(event.pointerId);
     event.preventDefault();
   });
-  thumb.addEventListener('pointermove', function (event) {
+  viewport.addEventListener('pointermove', function (event) {
     if (!dragging) return;
-    viewport.scrollTop = dragStartScroll + (event.clientY - dragStartY) * (maxThumbTravel ? loopHeight / maxThumbTravel : 0);
+    var pointerTime = performance.now();
+    var pointerDelta = lastPointerY - event.clientY;
+    var elapsed = Math.max(8, pointerTime - lastPointerTime);
+    viewport.scrollTop += pointerDelta;
+    momentum = Math.max(-2.4, Math.min(2.4, pointerDelta / elapsed));
+    lastPointerY = event.clientY;
+    lastPointerTime = pointerTime;
+    event.preventDefault();
   });
-  function endThumbDrag(event) {
+  function endGalleryDrag(event) {
     if (!dragging) return;
     dragging = false;
-    if (thumb.hasPointerCapture(event.pointerId)) thumb.releasePointerCapture(event.pointerId);
+    viewport.classList.remove('is-dragging');
+    if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
   }
-  thumb.addEventListener('pointerup', endThumbDrag);
-  thumb.addEventListener('pointercancel', endThumbDrag);
-  scrollbar.addEventListener('keydown', function (event) {
-    pauseAutoScroll();
-    var amount = 0;
-    if (event.key === 'ArrowDown') amount = 72;
-    if (event.key === 'ArrowUp') amount = -72;
-    if (event.key === 'PageDown') amount = viewport.clientHeight * .8;
-    if (event.key === 'PageUp') amount = viewport.clientHeight * -.8;
-    if (event.key === 'Home') viewport.scrollTo({ top: loopHeight, behavior: 'smooth' });
-    if (event.key === 'End') viewport.scrollTo({ top: loopHeight * 2 - viewport.clientHeight, behavior: 'smooth' });
-    if (amount) viewport.scrollBy({ top: amount, behavior: 'smooth' });
-    if (amount || event.key === 'Home' || event.key === 'End') event.preventDefault();
-  });
+  viewport.addEventListener('pointerup', endGalleryDrag);
+  viewport.addEventListener('pointercancel', endGalleryDrag);
 
   if ('ResizeObserver' in window) {
     new ResizeObserver(measureLoop).observe(collage);
@@ -2263,13 +2184,15 @@
     if (!lastFrame) lastFrame = frameTime;
     var elapsed = Math.min(40, frameTime - lastFrame);
     lastFrame = frameTime;
-    if (!document.hidden && !dragging && frameTime >= autoResumeAt && loopHeight) {
-      autoCarry += elapsed * autoSpeed;
-      if (autoCarry >= 1) {
-        var scrollStep = Math.floor(autoCarry);
+    if (!document.hidden && !dragging && loopHeight) {
+      autoCarry += elapsed * (autoSpeed + momentum);
+      if (Math.abs(autoCarry) >= 1) {
+        var scrollStep = autoCarry > 0 ? Math.floor(autoCarry) : Math.ceil(autoCarry);
         autoCarry -= scrollStep;
         viewport.scrollTop += scrollStep;
       }
+      momentum *= Math.pow(.9, elapsed / 16.67);
+      if (Math.abs(momentum) < .002) momentum = 0;
     }
     requestAnimationFrame(autoScroll);
   }
