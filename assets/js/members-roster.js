@@ -38,18 +38,25 @@
       var parts = splitName(name);
       var visual = unavailable.has(name)
         ? '<div class="member-photo member-photo-placeholder" role="img" aria-label="Headshot coming soon for ' + name + '"></div>'
-        : '<img class="member-photo" src="assets/members/' + slugify(name) + '.jpg" alt="' + name + '" width="400" height="400" loading="eager" decoding="async">';
+        : '<img class="member-photo" src="assets/members/' + slugify(name) + '.jpg" alt="' + name + '" width="400" height="400" loading="lazy" decoding="async">';
       return '<article class="member-card">' + visual +
         '<div class="member-name"><span>' + parts[0] + '</span><span>' + parts[1] + '</span></div></article>';
     }).join("");
     grid.querySelectorAll("img.member-photo").forEach(function (image) {
       image.addEventListener("error", function () {
+        if (!image.dataset.retried) {
+          image.dataset.retried = "true";
+          var originalSource = image.getAttribute("src");
+          image.removeAttribute("src");
+          requestAnimationFrame(function () { image.setAttribute("src", originalSource); });
+          return;
+        }
         var placeholder = document.createElement("div");
         placeholder.className = "member-photo member-photo-placeholder";
         placeholder.setAttribute("role", "img");
         placeholder.setAttribute("aria-label", image.alt + " headshot coming soon");
         image.replaceWith(placeholder);
-      }, { once: true });
+      });
     });
   });
 }());
