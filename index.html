@@ -453,14 +453,18 @@
     text-wrap: balance;
   }
   .section-head { margin-bottom: 2.4rem; max-width: 60ch; }
-  /* Left-column editorial copy ends at the page midpoint. */
-  .built-head,
-  .exp-intro {
-    width: calc(50% - clamp(.75rem, 2vw, 1.5rem));
+  .split-section-head {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 1.3fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+    width: 100%;
     max-width: none;
   }
+  .split-section-head > .section-title { margin-top: .6rem; }
+  .split-section-head > p { margin: 0; }
   .built-blurb {
-    margin: 0.9rem 0 0;
+    margin: 0;
     font-family: var(--font-body);
     font-size: clamp(0.98rem, 1.3vw, 1.08rem);
     line-height: 1.6;
@@ -492,9 +496,9 @@
     z-index: 1;
     min-height: clamp(21rem, 35vw, 29rem);
     display: grid;
-    grid-template-columns: minmax(240px, .8fr) minmax(320px, 1fr);
-    align-items: center;
-    gap: clamp(2.5rem, 7vw, 6rem);
+    grid-template-columns: minmax(260px, 1fr) 1.3fr;
+    align-items: start;
+    gap: clamp(2rem, 5vw, 4rem);
   }
   .mission-band .mission-heading {
     align-self: start;
@@ -506,11 +510,11 @@
     letter-spacing: -.025em;
   }
   .mission-band .mission-statement {
-    align-self: end;
-    justify-self: end;
+    align-self: start;
+    justify-self: stretch;
     max-width: 38rem;
-    margin: 0;
-    padding-bottom: clamp(.75rem, 2vw, 1.5rem);
+    margin: clamp(.75rem, 2vw, 1.5rem) 0 0;
+    padding-bottom: 0;
     font-size: clamp(1.22rem, 1.85vw, 1.52rem);
     font-weight: 500;
     line-height: 1.5;
@@ -998,11 +1002,10 @@
   .card-arrow svg { width: 13px; height: 13px; }
 
   /* ---------- Experience: clean logo wall ---------- */
-  .exp-intro p { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: var(--ink); margin: 0.6rem 0 0; }
+  .exp-intro p { font-size: clamp(1.02rem, 1.6vw, 1.2rem); color: var(--ink); margin: 0; }
 
   @media (max-width: 720px) {
-    .built-head,
-    .exp-intro { width: 100%; }
+    .split-section-head { grid-template-columns: 1fr; gap: 1rem; }
   }
 
   .logo-wall {
@@ -1073,11 +1076,11 @@
   .contact h2.section-title { color: #FFFFFF; }
   .contact-grid {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: minmax(260px, 1fr) 1.3fr;
     gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
-    margin-top: 2.4rem;
+    align-items: start;
   }
+  .contact-title-col { display: flex; flex-direction: column; align-items: flex-start; gap: 1.75rem; }
   .seal { width: 96px; height: 106px; flex: 0 0 auto; }
   .seal-mark {
     width: 96px; height: 106px;
@@ -1514,7 +1517,7 @@
 
   <section id="built">
     <div class="wrap">
-      <div class="section-head built-head">
+      <div class="section-head built-head split-section-head">
         <h2 class="section-title">What we've built</h2>
         <p class="built-blurb">Cube alumni have built companies across industries, raising more than $169M in funding along the way. This is a snapshot of what our community has gone on to build.</p>
       </div>
@@ -2023,7 +2026,7 @@
 
   <section class="rule-top">
     <div class="wrap">
-      <div class="section-head exp-intro">
+      <div class="section-head exp-intro split-section-head">
         <h2 class="section-title">Our Experiences</h2>
         <p>We're proud to have contributed at the following companies, from multi-billion dollar public firms to private startups.</p>
       </div>
@@ -2051,10 +2054,12 @@
 
   <section id="contact" class="contact">
     <div class="wrap">
-      <div class="eyebrow">Get in touch</div>
       <div class="contact-grid">
-        <div class="seal" aria-hidden="true">
-          <span class="seal-mark"></span>
+        <div class="contact-title-col">
+          <div class="eyebrow">Get in touch</div>
+          <div class="seal" aria-hidden="true">
+            <span class="seal-mark"></span>
+          </div>
         </div>
         <div class="contact-list">
           <p class="line">Email us at <a href="mailto:dukethecube@gmail.com">dukethecube@gmail.com</a></p>
