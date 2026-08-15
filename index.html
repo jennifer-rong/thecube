@@ -1356,6 +1356,99 @@
   .duke-ventures { padding: .75rem 0 0; }
   .duke-marquee-track { animation: none; will-change: transform; }
   .whatwedo.rule-top { margin-top: clamp(2.5rem, 5vw, 4rem); }
+
+  /* Build and connect: vertically scrolling editorial photo collage. */
+  .connect-gallery-shell {
+    position: relative;
+    width: min(1180px, calc(100% - clamp(2.5rem, 8vw, 7rem)));
+    margin: clamp(2.5rem, 5vw, 4.5rem) auto 0;
+    padding-right: 1.35rem;
+  }
+  .connect-gallery-viewport {
+    height: clamp(32rem, 68vh, 46rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, #000 91%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  }
+  .connect-gallery-viewport::-webkit-scrollbar { display: none; }
+  .connect-collage {
+    columns: 2;
+    column-gap: clamp(.8rem, 1.8vw, 1.5rem);
+    padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  }
+  .connect-collage-item {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0 0 clamp(.8rem, 1.8vw, 1.5rem);
+    overflow: hidden;
+    break-inside: avoid;
+    border-radius: 4px;
+    background: rgba(205,216,226,.34);
+    box-shadow: 0 12px 28px rgba(18,24,43,.09);
+  }
+  .connect-collage-item--landscape { aspect-ratio: 4 / 3; }
+  .connect-collage-item--portrait { aspect-ratio: 3 / 4; }
+  .connect-collage-item:nth-child(3n + 2) { width: 90%; margin-left: auto; }
+  .connect-collage-item:nth-child(4n) { width: 94%; }
+  .connect-collage-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .7s cubic-bezier(.2,.75,.2,1);
+  }
+  .connect-collage-item:hover img { transform: scale(1.018); }
+  .connect-scrollbar {
+    position: absolute;
+    top: clamp(4.5rem, 8vw, 6.5rem);
+    right: 0;
+    bottom: clamp(4.5rem, 8vw, 6.5rem);
+    width: 12px;
+    cursor: pointer;
+    outline: none;
+  }
+  .connect-scrollbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(18,24,43,.16);
+    transform: translateX(-50%);
+  }
+  .connect-scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 3px;
+    min-height: 54px;
+    border-radius: 999px;
+    background: rgba(18,24,43,.48);
+    transform: translate3d(-50%, 0, 0);
+    box-shadow: 0 0 0 4px rgba(247,245,239,.52);
+    cursor: grab;
+    touch-action: none;
+  }
+  .connect-scroll-thumb:active { cursor: grabbing; }
+  .connect-scrollbar:focus-visible .connect-scroll-thumb {
+    background: rgba(26,91,214,.72);
+  }
+  @media (max-width: 700px) {
+    .connect-gallery-shell {
+      width: calc(100% - 2rem);
+      padding-right: 1rem;
+    }
+    .connect-gallery-viewport { height: 34rem; }
+    .connect-collage { columns: 1; padding-top: 4rem; padding-bottom: 4rem; }
+    .connect-collage-item:nth-child(n) { width: 100%; margin-left: 0; }
+    .connect-scrollbar { top: 4rem; bottom: 4rem; }
+  }
   @keyframes dukeMarquee { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
   .contact {
@@ -1422,6 +1515,39 @@
         <div class="whatwedo-copy">
           <p>The Cube helps Duke students take ideas from sketch to launch through practical support, workshops, founder talks, and community events.</p>
         </div>
+      </div>
+    </div>
+    <div class="connect-gallery-shell">
+      <div class="connect-gallery-viewport" id="connect-gallery" tabindex="0" aria-label="Build and connect photo gallery">
+        <div class="connect-collage">
+          <figure class="connect-collage-item connect-collage-item--landscape">
+            <img src="assets/company/octolane-card.webp" alt="Students connecting at an entrepreneurship event" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--portrait">
+            <img src="assets/company/ivella-card.webp" alt="Student venture presentation" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--landscape">
+            <img src="assets/company/syntra-card.webp" alt="Student founders on Duke's campus" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--portrait">
+            <img src="assets/company/tomo-card.webp" alt="Founder talk and community workshop" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--landscape">
+            <img src="assets/company/effigov-card.webp" alt="Students presenting their venture" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--portrait">
+            <img src="assets/company/carpe-card.webp" alt="Student-built consumer product showcase" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--landscape">
+            <img src="assets/company/alleviate-health-card.webp" alt="Hands-on health technology development" loading="lazy" decoding="async">
+          </figure>
+          <figure class="connect-collage-item connect-collage-item--portrait">
+            <img src="assets/company/gradient-health-card.webp" alt="Duke venture community showcase" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      </div>
+      <div class="connect-scrollbar" role="scrollbar" tabindex="0" aria-controls="connect-gallery" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Scroll photo gallery">
+        <span class="connect-scroll-thumb"></span>
       </div>
     </div>
   </section>
@@ -2011,6 +2137,80 @@
 
     show(0);
   });
+})();
+
+(function () {
+  var viewport = document.querySelector('.connect-gallery-viewport');
+  var scrollbar = document.querySelector('.connect-scrollbar');
+  var thumb = document.querySelector('.connect-scroll-thumb');
+  if (!viewport || !scrollbar || !thumb) return;
+
+  var thumbHeight = 54;
+  var maxThumbTravel = 0;
+  var dragging = false;
+  var dragStartY = 0;
+  var dragStartScroll = 0;
+
+  function updateScrollbar() {
+    var scrollRange = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+    var visibleRatio = Math.min(1, viewport.clientHeight / viewport.scrollHeight);
+    thumbHeight = Math.max(54, scrollbar.clientHeight * visibleRatio);
+    maxThumbTravel = Math.max(0, scrollbar.clientHeight - thumbHeight);
+    var progress = scrollRange ? viewport.scrollTop / scrollRange : 0;
+
+    thumb.style.height = thumbHeight + 'px';
+    thumb.style.transform = 'translate3d(-50%, ' + (progress * maxThumbTravel) + 'px, 0)';
+    scrollbar.setAttribute('aria-valuenow', Math.round(progress * 100));
+  }
+
+  function scrollToRailPosition(clientY) {
+    var bounds = scrollbar.getBoundingClientRect();
+    var nextThumbTop = Math.max(0, Math.min(maxThumbTravel, clientY - bounds.top - thumbHeight / 2));
+    var progress = maxThumbTravel ? nextThumbTop / maxThumbTravel : 0;
+    viewport.scrollTop = progress * Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+  }
+
+  viewport.addEventListener('scroll', updateScrollbar, { passive: true });
+  scrollbar.addEventListener('pointerdown', function (event) {
+    if (event.target === thumb) return;
+    scrollToRailPosition(event.clientY);
+  });
+  thumb.addEventListener('pointerdown', function (event) {
+    dragging = true;
+    dragStartY = event.clientY;
+    dragStartScroll = viewport.scrollTop;
+    thumb.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  });
+  thumb.addEventListener('pointermove', function (event) {
+    if (!dragging) return;
+    var scrollRange = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+    viewport.scrollTop = dragStartScroll + (event.clientY - dragStartY) * (maxThumbTravel ? scrollRange / maxThumbTravel : 0);
+  });
+  function endThumbDrag(event) {
+    if (!dragging) return;
+    dragging = false;
+    if (thumb.hasPointerCapture(event.pointerId)) thumb.releasePointerCapture(event.pointerId);
+  }
+  thumb.addEventListener('pointerup', endThumbDrag);
+  thumb.addEventListener('pointercancel', endThumbDrag);
+  scrollbar.addEventListener('keydown', function (event) {
+    var amount = 0;
+    if (event.key === 'ArrowDown') amount = 72;
+    if (event.key === 'ArrowUp') amount = -72;
+    if (event.key === 'PageDown') amount = viewport.clientHeight * .8;
+    if (event.key === 'PageUp') amount = viewport.clientHeight * -.8;
+    if (event.key === 'Home') viewport.scrollTo({ top: 0, behavior: 'smooth' });
+    if (event.key === 'End') viewport.scrollTo({ top: viewport.scrollHeight, behavior: 'smooth' });
+    if (amount) viewport.scrollBy({ top: amount, behavior: 'smooth' });
+    if (amount || event.key === 'Home' || event.key === 'End') event.preventDefault();
+  });
+
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(updateScrollbar).observe(viewport);
+  }
+  window.addEventListener('load', updateScrollbar, { once: true });
+  updateScrollbar();
 })();
 
 (function () {
