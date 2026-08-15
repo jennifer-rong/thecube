@@ -478,42 +478,44 @@
     overflow: hidden;
     background: transparent;
     border: 0;
-    padding: clamp(3.75rem, 7vw, 5.5rem) 0 clamp(1.5rem, 3vw, 2.25rem);
+    padding: clamp(2.75rem, 5vw, 4rem) 0 clamp(2.25rem, 4vw, 3.25rem);
   }
   .mission-band::before {
     content: "";
     position: absolute;
     z-index: -1;
-    inset: -4rem 0;
-    background: url("assets/backgrounds/mission-blue-halo.jpg") center 52% / cover no-repeat;
-    opacity: .96;
+    inset: -1.5rem 0;
+    background:
+      radial-gradient(ellipse 72% 88% at 58% 48%, rgba(145,198,239,.32) 0%, rgba(194,222,243,.16) 46%, transparent 76%),
+      url("assets/backgrounds/mission-blue-halo.jpg") center 52% / cover no-repeat;
+    opacity: 1;
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
   }
   .mission-layout {
     position: relative;
     z-index: 1;
-    min-height: clamp(21rem, 35vw, 29rem);
+    min-height: clamp(14rem, 24vw, 18rem);
     display: grid;
     grid-template-columns: minmax(260px, 1fr) 1.3fr;
-    align-items: start;
+    align-items: center;
     gap: clamp(2rem, 5vw, 4rem);
   }
   .mission-band .mission-heading {
-    align-self: start;
+    align-self: center;
     max-width: none;
-    margin: clamp(.75rem, 2vw, 1.5rem) 0 0;
+    margin: 0;
     font-size: clamp(2rem, 3.8vw, 2.9rem);
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -.025em;
   }
   .mission-band .mission-statement {
-    align-self: start;
+    align-self: center;
     justify-self: stretch;
     max-width: 38rem;
-    margin: clamp(.75rem, 2vw, 1.5rem) 0 0;
+    margin: 0;
     padding-bottom: 0;
     font-size: clamp(1.22rem, 1.85vw, 1.52rem);
     font-weight: 500;
@@ -523,9 +525,9 @@
     text-wrap: pretty;
   }
   @media (max-width: 720px) {
-    .mission-band { padding: 3.75rem 0 1.75rem; }
+    .mission-band { padding: 3rem 0; }
     .mission-band::before { inset: -2rem -35%; background-position: 61% 50%; }
-    .mission-layout { min-height: 25rem; grid-template-columns: 1fr; gap: 2rem; }
+    .mission-layout { min-height: 0; grid-template-columns: 1fr; gap: 1.25rem; }
     .mission-band .mission-heading { margin-top: 0; font-size: clamp(2rem, 9vw, 2.7rem); }
     .mission-band .mission-statement { justify-self: start; padding-bottom: 0; }
   }
@@ -1176,7 +1178,7 @@
   .mission-band, .whatwedo, #built, .duke-ventures { background: transparent; }
   .rule-top, .mission-band, .whatwedo, #built, .duke-ventures { border-color: rgba(18,24,43,.09); }
   #built { padding-bottom: 0; }
-  .mission-statement, .built-blurb, .whatwedo-copy p, .exp-intro p {
+  .built-blurb, .whatwedo-copy p, .exp-intro p {
     font-size: clamp(1.02rem, 1.6vw, 1.2rem);
   }
 
