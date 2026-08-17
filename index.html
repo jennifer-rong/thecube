@@ -1425,79 +1425,6 @@
     nav.primary .nav-link { font-size: .75rem; letter-spacing: .025em; }
   }
 </style>
-<style id="teal-grounding-experiment">
-  /* Reversible teal grounding experiment — remove this style block to restore the prior design. */
-  :root {
-    --ground-teal: #42ADAF;
-    --ground-teal-deep: #267A7E;
-    --ground-teal-ink: #0B3034;
-    --ground-teal-soft: rgba(66, 173, 175, .15);
-    --ground-teal-pale: rgba(66, 173, 175, .08);
-  }
-
-  .mission-band {
-    background:
-      linear-gradient(180deg, transparent 0%, rgba(66, 173, 175, .04) 56%, rgba(66, 173, 175, .15) 100%);
-    box-shadow: inset 0 -14px 0 var(--ground-teal);
-  }
-
-  #built {
-    background:
-      linear-gradient(180deg, var(--ground-teal-soft) 0%, rgba(66, 173, 175, .045) 23%, transparent 48%);
-  }
-  #built .built-head {
-    position: relative;
-    grid-template-columns: minmax(260px, 1fr) 1.3fr;
-    padding: clamp(1.8rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3.2rem);
-    background:
-      linear-gradient(90deg, var(--ground-teal) 0%, var(--ground-teal) 39%, rgba(66, 173, 175, .16) 39%, rgba(66, 173, 175, .16) 100%);
-    box-shadow: clamp(.65rem, 1.4vw, 1.1rem) clamp(.65rem, 1.4vw, 1.1rem) 0 rgba(38, 122, 126, .16);
-  }
-  #built .built-head .section-title,
-  #built .built-head .built-blurb { color: var(--ground-teal-ink); }
-
-  .duke-ventures {
-    position: relative;
-    padding: clamp(1.2rem, 2.5vw, 2rem) 0;
-    background: var(--ground-teal-soft);
-    border-top: 1px solid rgba(38, 122, 126, .15);
-    border-bottom: 1px solid rgba(38, 122, 126, .18);
-  }
-
-  .whatwedo.rule-top {
-    margin-top: 0;
-    padding-top: clamp(3.2rem, 7vw, 5.2rem);
-    padding-bottom: clamp(3.6rem, 8vw, 6rem);
-    border-top: 0;
-    background: var(--ground-teal);
-  }
-  .whatwedo .section-title,
-  .whatwedo .whatwedo-copy p { color: var(--ground-teal-ink); }
-  .whatwedo .connect-gallery-shell {
-    padding: clamp(.6rem, 1vw, .9rem);
-    background: rgba(246, 248, 244, .2);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, .18);
-  }
-  .whatwedo .connect-collage-item img {
-    box-shadow: 0 5px 14px rgba(11, 48, 52, .14);
-  }
-
-  .experiences-section {
-    border-top: 0;
-    background:
-      linear-gradient(180deg, rgba(66, 173, 175, .18) 0%, rgba(66, 173, 175, .06) 20%, transparent 43%);
-  }
-
-  @media (max-width: 700px) {
-    .mission-band { box-shadow: inset 0 -10px 0 var(--ground-teal); }
-    #built .built-head {
-      grid-template-columns: 1fr;
-      background: var(--ground-teal);
-      box-shadow: .6rem .6rem 0 rgba(38, 122, 126, .16);
-    }
-    .whatwedo .connect-gallery-shell { padding: .45rem; }
-  }
-</style>
 </head>
 <body>
 
@@ -2107,7 +2034,7 @@
     </div>
   </section>
 
-  <section class="rule-top experiences-section">
+  <section class="rule-top">
     <div class="wrap">
       <div class="section-head exp-intro split-section-head">
         <h2 class="section-title">Our Experiences</h2>
