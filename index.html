@@ -186,13 +186,17 @@
     gap: 1rem;
     padding: 0.55rem 0.6rem 0.55rem 1.3rem;
     border-radius: 999px;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-brd);
-    box-shadow: var(--glass-shadow);
-    -webkit-backdrop-filter: blur(16px) saturate(1.5);
-    backdrop-filter: blur(16px) saturate(1.5);
+    background:
+      linear-gradient(115deg, rgba(255,255,255,0.075), rgba(255,255,255,0.015) 42%, rgba(63,104,181,0.1)),
+      rgba(7, 14, 29, 0.78);
+    border: 1px solid rgba(210, 225, 255, 0.18);
+    box-shadow:
+      0 14px 34px rgba(2, 7, 18, 0.32),
+      0 1px 0 rgba(255,255,255,0.09) inset;
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    backdrop-filter: blur(18px) saturate(1.25);
   }
-  .brand { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; color: var(--ink); flex-shrink: 0; }
+  .brand { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; color: #F2F5FC; flex-shrink: 0; }
   .brand-mark {
     width: 26px; height: 28px;
     display: block;
@@ -211,13 +215,13 @@
     letter-spacing: 0.07em;
     text-transform: uppercase;
     text-decoration: none;
-    color: var(--ink);
+    color: rgba(236, 242, 255, 0.84);
     padding-bottom: 2px;
     border-bottom: 1px solid transparent;
     white-space: nowrap;
     transition: color 0.15s ease, border-color 0.15s ease;
   }
-  nav.primary .nav-link:hover, nav.primary .nav-link[aria-current] { border-bottom-color: var(--sky-1); color: var(--sky-1); }
+  nav.primary .nav-link:hover, nav.primary .nav-link[aria-current] { border-bottom-color: #7CC6FF; color: #9BD5FF; }
 
   /* Glassy light-blue Join button */
   .nav-join {
@@ -229,21 +233,21 @@
     letter-spacing: 0.07em;
     text-transform: uppercase;
     text-decoration: none;
-    color: #0A2E52;
+    color: #F3F7FF;
     padding: 0.6rem 1.05rem;
     border-radius: 999px;
     background:
-      linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.05)),
-      linear-gradient(135deg, var(--sky-2), var(--sky-1));
-    border: 1px solid rgba(255,255,255,0.6);
-    box-shadow: 0 4px 14px rgba(30,144,255,0.35), 0 1px 0 rgba(255,255,255,0.7) inset;
+      linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.025)),
+      rgba(24, 73, 145, 0.72);
+    border: 1px solid rgba(171, 211, 255, 0.32);
+    box-shadow: 0 5px 16px rgba(2,10,26,0.3), 0 1px 0 rgba(255,255,255,0.12) inset;
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .nav-join:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,144,255,0.5), 0 1px 0 rgba(255,255,255,0.7) inset; }
+  .nav-join:hover { transform: translateY(-1px); box-shadow: 0 7px 20px rgba(2,10,26,0.4), 0 1px 0 rgba(255,255,255,0.16) inset; }
   .nav-join .arrow { transition: transform 0.15s ease; }
   .nav-join:hover .arrow { transform: translateX(3px); }
 
