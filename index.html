@@ -1532,7 +1532,7 @@
   }
   .hero-sub {
     max-width: 18ch;
-    margin: 0 0 2.6rem;
+    margin: 0 0 .7rem;
     color: rgba(246, 249, 255, .92);
     font-family: var(--font-body);
     font-size: clamp(1.5rem, 2.8vw, 2.2rem);
@@ -1541,6 +1541,16 @@
     letter-spacing: normal;
     text-wrap: balance;
     text-shadow: 0 2px 24px rgba(0, 7, 26, .35);
+  }
+  .hero-stat {
+    margin: 0 0 2.45rem;
+    color: rgba(239, 246, 255, .88);
+    font-family: var(--font-ui);
+    font-size: clamp(.82rem, 1.1vw, .95rem);
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 18px rgba(0, 7, 26, .35);
   }
   .hero-cta {
     gap: .75rem;
@@ -1615,6 +1625,7 @@
     <div class="wrap hero-inner">
       <div class="hero-copy">
         <p class="hero-sub fade-up d2">Duke's premier organization for student entrepreneurs</p>
+        <p class="hero-stat fade-up d2">$169M+ raised</p>
         <a class="hero-cta fade-up d3" href="#contact">
           Join Spring Rush
           <svg class="arrow" width="18" height="14" viewBox="0 0 24 18" fill="none" aria-hidden="true">
