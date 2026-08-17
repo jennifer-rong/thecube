@@ -175,7 +175,7 @@
 
   /* ---------- Masthead (floating glass pill) ---------- */
   .masthead {
-    position: fixed;
+    position: sticky;
     top: 0; left: 0; right: 0;
     z-index: 40;
     display: flex;
@@ -1441,26 +1441,26 @@
 <style id="hero-prismatic-experiment">
   /* Reversible hero experiment: animated, full-bleed prismatic navy. */
   .hero {
-    height: 100vh;
-    height: 100svh;
-    min-height: 100vh;
-    min-height: 100svh;
+    height: calc(100vh - 42px - 1.44rem);
+    height: calc(100svh - 42px - 1.44rem);
+    min-height: calc(100vh - 42px - 1.44rem);
+    min-height: calc(100svh - 42px - 1.44rem);
     align-items: stretch;
     padding: 0;
     isolation: isolate;
     background: #06142f;
   }
   .hero-media {
-    inset: -5%;
-    width: auto;
+    inset: 0;
+    width: 100%;
     z-index: 0;
     background-image: url("assets/backgrounds/hero-blue-ivory-grain-v4.jpg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover;
+    background-size: 100% 100%;
     -webkit-mask-image: none;
     mask-image: none;
-    animation: heroImageDrift 18s cubic-bezier(.45, 0, .35, 1) infinite alternate;
+    animation: none;
     transform: none;
   }
   .hero-media::before,
@@ -1493,8 +1493,8 @@
   .hero-inner {
     position: relative;
     z-index: 3;
-    height: 100vh;
-    height: 100svh;
+    height: calc(100vh - 42px - 1.44rem);
+    height: calc(100svh - 42px - 1.44rem);
     min-height: 0;
     box-sizing: border-box;
     display: flex;
@@ -1510,17 +1510,19 @@
   .hero-title {
     position: absolute;
     left: clamp(.75rem, 1.35vw, 1.5rem);
-    right: clamp(.75rem, 1.35vw, 1.5rem);
-    bottom: clamp(.55rem, 1.1vh, 1rem);
+    right: clamp(1rem, 1.8vw, 2rem);
+    bottom: clamp(1.1rem, 1.8vh, 1.75rem);
     z-index: 1;
     margin: 0;
     font-family: 'Zt Otez', 'Avenir Next', Avenir, var(--font-ui);
-    font-size: clamp(5.4rem, min(12vw, 21vh), 12.5rem);
+    font-size: clamp(5rem, min(10.8vw, 19vh), 11.5rem);
     font-weight: 400;
-    line-height: .9;
+    line-height: 1;
     letter-spacing: -.047em;
     white-space: nowrap;
     text-align: right;
+    padding-right: .18em;
+    box-sizing: border-box;
     color: rgba(255, 255, 255, .82);
     background: linear-gradient(152deg, rgba(255,255,255,.98) 3%, rgba(222,237,255,.72) 44%, rgba(255,255,255,.92) 70%, rgba(169,211,255,.62) 100%);
     -webkit-background-clip: text;
@@ -1575,14 +1577,14 @@
     .hero-title {
       left: .7rem;
       right: .7rem;
-      bottom: .55rem;
-      font-size: clamp(3.6rem, min(15vw, 15vh), 6.25rem);
-      line-height: .9;
+      bottom: 1rem;
+      font-size: clamp(3.25rem, min(13.5vw, 13vh), 5.75rem);
+      line-height: 1;
     }
   }
   @media (max-width: 520px) {
     .hero-inner { padding-top: 24vh; }
-    .hero-title { font-size: min(14.5vw, 12vh); left: .55rem; right: .55rem; }
+    .hero-title { font-size: min(13vw, 11vh); left: .55rem; right: .55rem; }
   }
 </style>
 </head>
