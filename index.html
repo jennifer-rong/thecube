@@ -174,11 +174,9 @@
     display: flex;
     justify-content: center;
     padding: 0;
-    background:
-      linear-gradient(105deg, rgba(255,255,255,0.055), transparent 40%, rgba(63,104,181,0.08)),
-      rgba(6, 13, 27, 0.88);
-    border-bottom: 1px solid rgba(210, 225, 255, 0.14);
-    box-shadow: 0 8px 24px rgba(2, 7, 18, 0.2);
+    background: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
     -webkit-backdrop-filter: blur(18px) saturate(1.2);
     backdrop-filter: blur(18px) saturate(1.2);
     pointer-events: none;
@@ -1502,18 +1500,22 @@
     bottom: -.025em;
     z-index: 1;
     margin: 0;
-    font-family: 'Avenir Next', Avenir, var(--font-ui);
-    font-size: clamp(5.4rem, 14.2vw, 14rem);
-    font-weight: 700;
-    line-height: .84;
-    letter-spacing: -.047em;
+    font-family: 'Avenir Next Condensed', 'Helvetica Neue Condensed', 'Arial Narrow', var(--font-ui);
+    font-size: clamp(5.8rem, 14.9vw, 14.8rem);
+    font-weight: 600;
+    font-stretch: condensed;
+    line-height: .8;
+    letter-spacing: -.052em;
     white-space: nowrap;
-    color: rgba(255, 255, 255, .82);
-    background: linear-gradient(152deg, rgba(255,255,255,.98) 3%, rgba(222,237,255,.72) 44%, rgba(255,255,255,.92) 70%, rgba(169,211,255,.62) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    color: transparent;
+    background: none;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 1px 0 rgba(255,255,255,.48)) drop-shadow(0 14px 30px rgba(0,7,30,.30));
+    -webkit-text-stroke: clamp(1.15px, .11vw, 2px) rgba(244, 249, 255, .78);
+    paint-order: stroke fill;
+    filter:
+      drop-shadow(0 0 1px rgba(255,255,255,.7))
+      drop-shadow(0 5px 14px rgba(165,207,255,.16))
+      drop-shadow(0 16px 28px rgba(0,5,24,.32));
   }
   .hero-sub {
     max-width: 18ch;
@@ -1562,13 +1564,13 @@
     .hero-title {
       right: .85rem;
       bottom: -.02em;
-      font-size: clamp(4.15rem, 17.6vw, 7.25rem);
-      line-height: .86;
+      font-size: clamp(4.4rem, 18.2vw, 7.6rem);
+      line-height: .82;
     }
   }
   @media (max-width: 520px) {
     .hero-inner { padding-top: 24vh; }
-    .hero-title { font-size: 17vw; right: .7rem; }
+    .hero-title { font-size: 17.7vw; right: .7rem; }
   }
 </style>
 </head>
