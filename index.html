@@ -197,9 +197,11 @@
   }
   .brand { display: flex; align-items: center; gap: 0.55rem; text-decoration: none; color: #F2F5FC; flex-shrink: 0; }
   .brand-mark {
-    width: 26px; height: 28px;
+    width: 39px; height: 42px;
     display: block;
     background: var(--cube-logo) center / contain no-repeat;
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: .94;
   }
   .brand-word {
     font-family: var(--font-body);
@@ -1574,9 +1576,8 @@
 
 <header class="masthead">
   <div class="masthead-inner">
-    <a class="brand" href="#top">
+    <a class="brand" href="#top" aria-label="The Cube home">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-word">The Cube</span>
     </a>
     <nav class="primary">
       <a class="nav-link" href="#top" aria-current="page">Home</a>
