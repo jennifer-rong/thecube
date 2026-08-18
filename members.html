@@ -141,14 +141,108 @@
   nav.primary .nav-link, .nav-join { font-size: .82rem; font-weight: 600; letter-spacing: .035em; }
   footer.site-foot { font-size: .76rem; font-weight: 600; letter-spacing: .035em; }
   @media (max-width: 560px) { nav.primary .nav-link { font-size: .75rem; letter-spacing: .025em; } }
+
+  /* Match the dark masthead established by the prismatic homepage hero. */
+  .masthead {
+    position: fixed;
+    padding: 0;
+    background: #000;
+    border: 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,.28);
+  }
+  .masthead-inner {
+    max-width: 1160px;
+    padding: .72rem clamp(1.25rem, 4vw, 3rem);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .brand { color: #F2F5FC; }
+  .brand-mark {
+    width: 39px;
+    height: 42px;
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: .94;
+  }
+  .brand-word { display: none; }
+  nav.primary .nav-link { color: rgba(236,242,255,.84); }
+  nav.primary .nav-link:hover,
+  nav.primary .nav-link[aria-current] { color: #9BD5FF; border-bottom-color: #7CC6FF; }
+  .nav-join {
+    color: #F3F7FF;
+    background: transparent;
+    border-color: rgba(235,243,255,.72);
+    box-shadow: none;
+  }
+  .nav-join:hover { box-shadow: 0 7px 20px rgba(2,10,26,.4); }
+  @media (max-width: 560px) {
+    .masthead-inner { padding-left: 1rem; padding-right: 1.25rem; }
+  }
+</style>
+<style id="continuous-blue-dark-theme">
+  :root {
+    color-scheme: dark;
+    --paper: #07101F;
+    --paper-raised: #0B1830;
+    --ink: #F2F6FF;
+    --steel: #A7B5CB;
+    --signal: #79BBFF;
+    --sky-1: #4AA4FF;
+    --sky-2: #9ED6FF;
+    --rule: rgba(167,198,235,.18);
+  }
+  html { color-scheme: dark; background: #030811; }
+  body {
+    background:
+      radial-gradient(ellipse 84% 38% at 8% 9%, rgba(35,91,170,.34), transparent 70%),
+      radial-gradient(ellipse 76% 34% at 92% 48%, rgba(19,68,139,.28), transparent 72%),
+      linear-gradient(150deg, #050B16 0%, #0A1D38 48%, #050B16 100%);
+    color: var(--ink);
+  }
+  .page-header {
+    background:
+      radial-gradient(ellipse 74% 100% at 18% 20%, rgba(47,112,199,.40), transparent 66%),
+      linear-gradient(140deg, #081427 0%, #0B2A56 55%, #071429 100%);
+    border-bottom: 1px solid rgba(166,201,239,.15);
+  }
+  .page-title { color: #F4F7FE; }
+  .page-sub { color: #AFC0D8; }
+  section.class-block {
+    border-color: var(--rule);
+    background:
+      radial-gradient(ellipse 60% 90% at 92% 4%, rgba(24,76,148,.20), transparent 72%),
+      linear-gradient(150deg, rgba(5,11,22,.86), rgba(8,25,49,.88));
+  }
+  section.class-block:nth-of-type(odd) {
+    background:
+      radial-gradient(ellipse 58% 88% at 7% 14%, rgba(31,87,163,.20), transparent 72%),
+      linear-gradient(150deg, rgba(8,24,47,.90), rgba(5,11,21,.92));
+  }
+  .class-title,
+  .member-name { color: #EEF5FF; }
+  .member-photo {
+    background: rgba(8,21,43,.76);
+    border-color: rgba(160,200,242,.20);
+    box-shadow: 0 14px 32px rgba(0,4,16,.30);
+  }
+  .member-photo-placeholder {
+    background: linear-gradient(145deg, rgba(34,77,127,.62), rgba(7,24,51,.78));
+  }
+  footer.site-foot {
+    color: #91A6C1;
+    border-color: var(--rule);
+    background: #030811;
+  }
 </style>
 </head>
 <body>
 <header class="masthead">
   <div class="masthead-inner">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="The Cube home">
       <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-word">The Cube</span>
     </a>
     <nav class="primary">
       <a class="nav-link" href="index.html">Home</a>
