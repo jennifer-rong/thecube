@@ -5,8 +5,7 @@
 <meta name="color-scheme" content="only light">
 <title>The Cube &mdash; A Prospectus for Student Enterprise</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="assets/backgrounds/hero-blue-ivory-grain-v4.jpg" fetchpriority="high">
-<link rel="preload" as="image" href="assets/brand/the-cube-wordmark-transparent-v2.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/backgrounds/hero-blue-arc-grain.jpg" fetchpriority="high">
 <link rel="icon" type="image/svg+xml" href="assets/brand/cube-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
@@ -575,9 +574,6 @@
     grid-template-columns: minmax(280px, 1fr) minmax(400px, 48vw);
     height: clamp(30rem, 50vw, 41rem);
     align-items: stretch;
-    /* Foreground travels further than the background, as in Our mission. */
-    transform: translate3d(0, var(--connect-fg-shift), 0);
-    will-change: transform;
     /* Match the gallery's right edge to the projected edge of the
        Our mission glass window instead of letting it touch the viewport. */
     padding-right: max(0rem, calc((100vw - 1160px) / 2 + clamp(1.25rem, 4vw, 3rem) - 2.5rem));
@@ -1516,8 +1512,8 @@
     isolation: isolate;
     /* Keep the artwork underneath the scroll fade so the hero never reveals a
        flat navy band while it hands off to Our Mission. */
-    background-color: #06142f;
-    background-image: url("assets/backgrounds/hero-blue-ivory-grain-v4.jpg");
+    background-color: #0A0B2B;
+    background-image: url("assets/backgrounds/hero-blue-arc-grain.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -1526,7 +1522,7 @@
     inset: 0;
     width: 100%;
     z-index: 0;
-    background-image: url("assets/backgrounds/hero-blue-ivory-grain-v4.jpg");
+    background-image: url("assets/backgrounds/hero-blue-arc-grain.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -1544,7 +1540,7 @@
   }
   .hero-media::before {
     inset: 0;
-    background: linear-gradient(90deg, rgba(1, 7, 28, .24) 0%, rgba(1, 7, 28, .04) 48%, rgba(5, 30, 86, .02) 100%);
+    background: linear-gradient(90deg, rgba(1, 7, 28, .12) 0%, rgba(1, 7, 28, .02) 48%, rgba(5, 30, 86, .01) 100%);
   }
   .hero-media::after {
     display: none;
@@ -1556,8 +1552,8 @@
     z-index: 1;
     pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(2, 9, 27, .35) 0%, rgba(2, 9, 27, .06) 50%, rgba(2, 9, 27, .18) 100%),
-      linear-gradient(180deg, rgba(2, 8, 24, .20) 0%, transparent 24%, transparent 68%, rgba(2, 8, 24, .27) 100%);
+      linear-gradient(90deg, rgba(2, 9, 27, .18) 0%, rgba(2, 9, 27, .03) 50%, rgba(2, 9, 27, .09) 100%),
+      linear-gradient(180deg, rgba(2, 8, 24, .10) 0%, transparent 24%, transparent 68%, rgba(2, 8, 24, .14) 100%);
   }
   .hero::after {
     display: none;
@@ -1642,7 +1638,7 @@
     .hero-sub { max-width: 22ch; font-size: clamp(1.55rem, 7vw, 2.25rem); }
     .hero-media { left: 0; width: 100%; background-position: center; }
     .hero::before {
-      background: linear-gradient(180deg, rgba(2,8,24,.28), transparent 37%, rgba(2,8,24,.24));
+      background: linear-gradient(180deg, rgba(2,8,24,.16), transparent 37%, rgba(2,8,24,.14));
     }
     .hero-title {
       left: .7rem;
@@ -2220,7 +2216,12 @@
     background: #000;
     pointer-events: none;
   }
-  .whatwedo-copy-panel { background: transparent; }
+  .whatwedo-copy-panel {
+    background: transparent;
+    /* Only the copy parallaxes; the gallery stays put. */
+    transform: translate3d(0, var(--connect-fg-shift), 0);
+    will-change: transform;
+  }
   .whatwedo-copy-panel::before { content: none; }
   .whatwedo .section-title,
   .whatwedo-copy p,
