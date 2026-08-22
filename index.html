@@ -1131,11 +1131,13 @@
     align-items: start;
   }
   .contact-title-col { display: flex; flex-direction: column; align-items: flex-start; gap: 1.75rem; }
-  .seal { width: 96px; height: 106px; flex: 0 0 auto; }
+  .seal { width: 192px; height: 212px; flex: 0 0 auto; }
   .seal-mark {
-    width: 96px; height: 106px;
+    width: 192px; height: 212px;
     display: block;
-    background: url('assets/brand/the-cube-mark-gradient-optimized.png') center / contain no-repeat;
+    /* same white monochrome treatment as the nav mark */
+    background: var(--cube-logo) center / contain no-repeat;
+    filter: grayscale(1) brightness(0) invert(1);
   }
   .contact-list { display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; }
   .contact-list .line { font-size: clamp(1.05rem, 1.8vw, 1.28rem); color: #EAF1FF; margin: 0; }
