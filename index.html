@@ -833,18 +833,19 @@
     flex: 0 0 auto;
     width: clamp(240px, 24vw, 320px);
     aspect-ratio: 1 / 1;
-    border-radius: 21px;
-    overflow: hidden;
-    background: var(--paper-raised);
-    isolation: isolate;
-    box-shadow: 0 10px 30px rgba(18,24,43,0.14);
-    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    border-radius: 0;
+    /* No background, shadow or overflow here: this element is only the 3D
+       stage. Painting it would show a lit rectangle at the 90deg midpoint of
+       the flip, and overflow:hidden would flatten/clip the rotating faces. */
+    background: transparent;
+    box-shadow: none;
+    transition: transform 0.28s ease;
     will-change: transform;
   }
-  .venture-card:hover {
-    transform: scale(1.05);
-    z-index: 3;
-    box-shadow: 0 24px 50px rgba(18,24,43,0.24);
+  .venture-card:hover { z-index: 3; }
+  .venture-card:hover .card-img,
+  .venture-card:hover .card-pane {
+    box-shadow: 0 24px 50px rgba(0,0,0,0.42);
   }
 
   /* carousel controls — sitting on the left/right edges of the carousel */
@@ -876,11 +877,14 @@
   .venture-card .card-img {
     position: absolute;
     inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
     background-image: var(--img, var(--cube-hero));
     background-size: var(--img-size, 105% auto);
     background-position: var(--img-position, center -18px);
     background-repeat: no-repeat;
     background-color: var(--img-bg, var(--paper-raised));
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30);
     z-index: 0;
   }
   .card-img--serval { --img: url('assets/company/serval-card.webp'); --img-size: cover; --img-position: center; --img-bg: #FBFAFC; }
@@ -972,73 +976,76 @@
     backdrop-filter: blur(16px) saturate(1.5);
   }
   .card-name {
-    font-family: var(--font-ui);
+    font-family: var(--font-section-heading);
     font-weight: 500;
-    font-size: clamp(1.2rem, 1.9vw, 1.44rem);
-    line-height: 1.05;
-    letter-spacing: -0.005em;
-    color: var(--ink);
+    font-size: clamp(1.18rem, 1.85vw, 1.4rem);
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+    color: #F4F8FF;
     margin: 0;
   }
   .card-name-rule {
     display: block;
-    width: 24px; height: 3px;
-    margin: 0.5rem 0 0.8rem;
-    background: var(--signal);
-    border-radius: 2px;
+    width: 100%; height: 1px;
+    margin: 0.85rem 0 0;
+    background: rgba(180, 205, 240, 0.20);
+    border-radius: 0;
   }
   .card-stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.55rem;
-    margin-bottom: 0.75rem;
+    gap: 0 clamp(0.9rem, 2vw, 1.4rem);
+    margin: auto 0 0;
+    padding-top: 0.9rem;
   }
-  .card-stat {
-    padding: 0.5rem 0.65rem;
-    border: 1px solid var(--rule);
-    border-radius: 10px;
-    background: color-mix(in srgb, var(--paper) 55%, transparent);
+  .card-stat { padding: 0; border: none; border-radius: 0; background: none; }
+  .card-stat + .card-stat {
+    padding-left: clamp(0.9rem, 2vw, 1.4rem);
+    border-left: 1px solid rgba(180, 205, 240, 0.16);
   }
   .card-stat-label {
     display: block;
     font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.07em;
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    color: var(--steel);
-    margin-bottom: 0.2rem;
+    color: rgba(167, 190, 222, 0.72);
+    margin-bottom: 0.3rem;
   }
   .card-stat-value {
-    font-family: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 800;
-    font-size: clamp(0.96rem, 1.5vw, 1.14rem);
-    color: var(--ink);
+    font-family: var(--font-section-heading);
+    font-weight: 500;
+    font-size: clamp(1.02rem, 1.6vw, 1.24rem);
+    letter-spacing: -0.01em;
+    color: #F4F8FF;
     font-variant-numeric: tabular-nums;
   }
   .card-foot {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 0.6rem;
-    padding-top: 0.7rem;
-    border-top: 1px solid var(--rule);
+    gap: 0.75rem;
+    padding-top: 0.9rem;
+    border-top: none;
   }
   .card-foot-desc {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.74rem;
-    line-height: 1.3;
-    color: var(--ink);
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(206, 219, 240, 0.86);
   }
-  .card-foot-icon, .card-arrow {
+  .card-foot-icon { display: none; }
+  .card-arrow {
     flex: 0 0 auto;
     display: grid;
     place-items: center;
-    border-radius: 50%;
-    border: 1px solid color-mix(in srgb, var(--sky-1) 45%, transparent);
-    color: var(--signal);
+    border: none;
+    border-radius: 0;
+    color: rgba(167, 190, 222, 0.75);
+    transition: color 0.18s ease, transform 0.18s ease;
   }
+  .venture-card:hover .card-arrow { color: #F4F8FF; transform: translate(2px, -2px); }
   .card-foot-icon { width: 20px; height: 20px; }
   .card-foot-icon svg { width: 11px; height: 11px; }
   .card-arrow { width: 26px; height: 26px; }
@@ -1356,8 +1363,9 @@
   }
 
   .venture-viewport { padding: 30px 0 52px; }
-  .venture-card { box-shadow: 0 6px 12px rgba(18,24,43,.12); }
-  .venture-card:hover { box-shadow: 0 10px 18px rgba(18,24,43,.18); }
+  .venture-card { box-shadow: none; }
+  .venture-card .card-img,
+  .venture-card .card-pane { box-shadow: 0 6px 12px rgba(18,24,43,.12); }
   .card-topbar { justify-content: flex-end; }
   .card-brand { display: none; }
   .card-pane {
@@ -1381,11 +1389,7 @@
   .card-foot { padding-top: .34rem; }
   .card-foot-desc { position: relative; display: -webkit-box; flex: 1 1 auto; min-width: 0; height: 2.44em; padding-left: 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: .7rem; line-height: 1.22; color: var(--ink); }
   .card-foot-icon { display: none; }
-  .venture-card--dark .card-pane {
-    background: rgba(8,13,24,.5);
-    border-color: rgba(255,255,255,.3);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 6px 16px rgba(0,0,0,.18);
-  }
+
   .venture-card--dark .card-name,
   .venture-card--dark .card-stat-value,
   .venture-card--dark .card-foot-desc { color: #fff; }
@@ -1459,7 +1463,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 21px;
+    border-radius: 0;
     background: rgba(205,216,226,.34);
     box-shadow: 0 4px 12px rgba(18,24,43,.07);
     -webkit-user-drag: none;
@@ -1920,12 +1924,19 @@
   }
   #built .section-title,
   #built .built-blurb { color: #EFF5FF; }
+  /* The card itself stays unpainted so nothing is visible edge-on mid-flip;
+     border, fill and shadow ride on the two faces instead. */
   .venture-card {
-    border: 1px solid rgba(158, 202, 250, .18);
-    background: #071225;
-    box-shadow: 0 20px 52px rgba(0, 3, 12, .46), 0 0 0 1px rgba(117, 180, 242, .04) inset;
+    border: none;
+    background: transparent;
+    box-shadow: none;
   }
-  .venture-card:hover {
+  .venture-card .card-img,
+  .venture-card .card-pane {
+    box-shadow: 0 20px 52px rgba(0, 3, 12, .46), 0 0 0 1px rgba(117, 180, 242, .06) inset;
+  }
+  .venture-card:hover .card-img,
+  .venture-card:hover .card-pane {
     box-shadow: 0 30px 72px rgba(0, 3, 14, .62), 0 0 30px rgba(47, 132, 226, .12);
   }
   /* Intentionally empty until artwork and descriptions are supplied. */
@@ -1986,18 +1997,30 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: clamp(1.25rem, 2.2vw, 1.8rem);
+    justify-content: flex-start;
+    padding: clamp(1.3rem, 2.3vw, 1.75rem);
     border-radius: inherit;
     transform: rotateY(180deg);
     overflow: hidden;
-    background:
-      radial-gradient(circle at 82% 12%, rgba(83, 160, 245, .2), transparent 38%),
-      linear-gradient(145deg, rgba(15, 37, 74, .98), rgba(3, 10, 25, .98));
-    border: 1px solid rgba(177, 215, 255, .24);
-    box-shadow: inset 0 1px 0 rgba(232, 244, 255, .13);
+    /* Flat ink ground with the site's own grain, rather than a corner glow. */
+    background-color: #060D1A;
+    background-image: url('assets/backgrounds/built-grain-monochrome-optimized.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: luminosity;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
+  }
+  /* hairline frame drawn inside, so it never sits proud of the rotating face */
+  .venture-card .card-pane::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(180, 205, 240, 0.14);
+    pointer-events: none;
   }
   .venture-card.is-flipped .card-img {
     transform: rotateY(-180deg);
