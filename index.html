@@ -243,7 +243,7 @@
     text-decoration: none;
     color: #F3F7FF;
     padding: 0.6rem 1.05rem;
-    border-radius: 999px;
+    border-radius: 0;
     background: transparent;
     border: 1px solid rgba(235, 243, 255, .72);
     box-shadow: none;
@@ -1964,7 +1964,7 @@
   .card-foot-desc { color: #F3F7FF; }
   .card-stat-label { color: #A8B9D1; }
   .card-stat {
-    background: rgba(116, 169, 228, .08);
+    background: transparent;
     border-color: rgba(160, 199, 239, .15);
   }
   .card-foot { border-color: rgba(169, 202, 239, .17); }
@@ -2035,7 +2035,16 @@
   .venture-card .card-stats {
     margin: .8rem 0 .75rem;
   }
-  .venture-card .card-stat-label { color: #A8B9D1; }
+  .venture-card .card-stat-label {
+    color: #9FB2CC;
+    font-family: var(--font-body);
+    font-size: .76rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin-bottom: .22rem;
+  }
   .venture-card .card-stat-value,
   .venture-card .card-foot-desc { color: #F3F7FF; }
   .venture-card .card-stat + .card-stat,
@@ -2050,16 +2059,27 @@
   }
   .venture-card .card-arrow { display: none; }
   .card-visit {
-    align-self: flex-start;
-    margin-top: .9rem;
+    align-self: stretch;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    padding: .62rem 1rem;
     color: #F7FAFF;
     font-family: var(--font-ui);
     font-size: .78rem;
     font-weight: 500;
     line-height: 1.2;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: .25em;
+    text-decoration: none;
+    border: 1px solid rgba(198, 220, 248, .42);
+    border-radius: 0;
+    background: transparent;
+    transition: background .18s ease, border-color .18s ease;
+  }
+  .venture-card:hover .card-visit {
+    background: rgba(198, 220, 248, .10);
+    border-color: rgba(226, 239, 255, .70);
   }
   .venture-card:focus-visible {
     outline: 2px solid #A5D8FF;
@@ -2530,11 +2550,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$127M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Series B</span>
               </div>
             </div>
@@ -2566,11 +2586,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$7.4M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">STATUS</span>
+                <span class="card-stat-label">Status</span>
                 <span class="card-stat-value">Acquired</span>
               </div>
             </div>
@@ -2602,11 +2622,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$4.3M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2638,11 +2658,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$10M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2674,11 +2694,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$500K</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2706,11 +2726,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$10.5M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2737,11 +2757,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$3.25M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2768,11 +2788,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$18M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Series A</span>
               </div>
             </div>
@@ -2803,11 +2823,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$3.1M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2839,11 +2859,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$5.7M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2876,11 +2896,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$750K</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2912,11 +2932,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">RAISED</span>
+                <span class="card-stat-label">Raised</span>
                 <span class="card-stat-value">$5M</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">LATEST ROUND</span>
+                <span class="card-stat-label">Latest round</span>
                 <span class="card-stat-value">Seed</span>
               </div>
             </div>
@@ -2948,11 +2968,11 @@
             <span class="card-name-rule"></span>
             <div class="card-stats">
               <div class="card-stat">
-                <span class="card-stat-label">LIFETIME VISITS</span>
+                <span class="card-stat-label">Lifetime visits</span>
                 <span class="card-stat-value">8B+</span>
               </div>
               <div class="card-stat">
-                <span class="card-stat-label">PLATFORM</span>
+                <span class="card-stat-label">Platform</span>
                 <span class="card-stat-value">Roblox</span>
               </div>
             </div>
