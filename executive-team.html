@@ -254,22 +254,11 @@
   }
   .page-title { color: #F4F7FE; }
   .page-sub { color: #AFC0D8; }
-  /* Same monochrome grain as What we've built on the home page. */
+  /* Flat dark, matching the members page class bands. */
   .team-body {
-    background: #08090A;
+    background: #050B16;
   }
-  .team-body::before {
-    inset: 0;
-    left: 0;
-    top: 0;
-    width: auto;
-    aspect-ratio: auto;
-    border-radius: 0;
-    filter: grayscale(1) saturate(0) contrast(1.06);
-    background:
-      linear-gradient(180deg, rgba(5, 6, 7, .34), rgba(8, 9, 10, .18) 42%, rgba(4, 5, 6, .46)),
-      url("assets/backgrounds/built-grain-monochrome-optimized.jpg") center / cover no-repeat;
-  }
+  .team-body::before,
   .team-body::after { display: none; }
   .exec-photo {
     background: linear-gradient(145deg, rgba(31,72,121,.74), rgba(7,22,46,.82));
