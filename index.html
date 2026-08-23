@@ -1456,6 +1456,9 @@
     grid-auto-rows: clamp(7rem, 16vw, 15rem);
     grid-auto-flow: dense;
     gap: var(--gallery-gap);
+    /* the carousel stacks repeats of this grid, so carry the same gap across
+       the seam - without it those two rows of images touch */
+    margin-bottom: var(--gallery-gap);
     padding: 0;
   }
   .connect-collage-item {
@@ -3302,7 +3305,10 @@
     var previousOffset = previousLoopHeight
       ? ((viewport.scrollTop % previousLoopHeight) + previousLoopHeight) % previousLoopHeight
       : 0;
-    var nextLoopHeight = collage.offsetHeight;
+    var repeats = viewport.querySelectorAll('.connect-collage');
+    var nextLoopHeight = repeats.length > 1
+      ? repeats[1].offsetTop - repeats[0].offsetTop
+      : collage.offsetHeight;
     if (!nextLoopHeight) return;
     loopHeight = nextLoopHeight;
     var currentCycle = previousLoopHeight ? previousOffset / previousLoopHeight * loopHeight : 0;
