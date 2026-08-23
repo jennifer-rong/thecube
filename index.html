@@ -5,7 +5,7 @@
 <meta name="color-scheme" content="only light">
 <title>The Cube &mdash; A Prospectus for Student Enterprise</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="assets/backgrounds/hero-blue-arc-grain.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/backgrounds/hero-glacier-light.jpg" fetchpriority="high">
 <link rel="icon" type="image/svg+xml" href="assets/brand/cube-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
@@ -1512,8 +1512,8 @@
     isolation: isolate;
     /* Keep the artwork underneath the scroll fade so the hero never reveals a
        flat navy band while it hands off to Our Mission. */
-    background-color: #0A0B2B;
-    background-image: url("assets/backgrounds/hero-blue-arc-grain.jpg");
+    background-color: #DCEBF8;
+    background-image: url("assets/backgrounds/hero-glacier-light.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -1522,7 +1522,7 @@
     inset: 0;
     width: 100%;
     z-index: 0;
-    background-image: url("assets/backgrounds/hero-blue-arc-grain.jpg");
+    background-image: url("assets/backgrounds/hero-glacier-light.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -1540,7 +1540,7 @@
   }
   .hero-media::before {
     inset: 0;
-    background: linear-gradient(90deg, rgba(1, 7, 28, .12) 0%, rgba(1, 7, 28, .02) 48%, rgba(5, 30, 86, .01) 100%);
+    background: none;
   }
   .hero-media::after {
     display: none;
@@ -1552,8 +1552,7 @@
     z-index: 1;
     pointer-events: none;
     background:
-      linear-gradient(90deg, rgba(2, 9, 27, .18) 0%, rgba(2, 9, 27, .03) 50%, rgba(2, 9, 27, .09) 100%),
-      linear-gradient(180deg, rgba(2, 8, 24, .10) 0%, transparent 24%, transparent 68%, rgba(2, 8, 24, .14) 100%);
+      linear-gradient(90deg, rgba(255, 255, 255, .16) 0%, transparent 46%, transparent 100%);
   }
   .hero::after {
     display: none;
@@ -1618,30 +1617,30 @@
   .hero-sub {
     max-width: 18ch;
     margin: 0 0 .7rem;
-    color: rgba(246, 249, 255, .92);
+    color: #111111;
     font-family: var(--font-body);
     font-size: clamp(1.5rem, 2.8vw, 2.2rem);
     font-weight: 400;
     line-height: 1.25;
     letter-spacing: normal;
     text-wrap: balance;
-    text-shadow: 0 2px 24px rgba(0, 7, 26, .35);
+    text-shadow: none;
   }
   .hero-cta {
     gap: .75rem;
     padding: 0 0 .55rem;
-    color: #fff;
-    border-bottom-color: rgba(255, 255, 255, .48);
+    color: #111111;
+    border-bottom-color: rgba(17, 17, 17, .42);
     font-family: var(--font-ui);
     font-size: .9rem;
     font-weight: 600;
     letter-spacing: .065em;
     text-transform: uppercase;
-    text-shadow: 0 2px 18px rgba(0, 7, 26, .35);
+    text-shadow: none;
   }
   .hero-cta:hover {
-    color: #fff;
-    border-bottom-color: #fff;
+    color: #111111;
+    border-bottom-color: #111111;
   }
   @keyframes heroImageDrift {
     from { background-position: 48% 50%; transform: translate3d(0, 0, 0) scale(1.01); }
@@ -1657,7 +1656,7 @@
     .hero-sub { max-width: 22ch; font-size: clamp(1.55rem, 7vw, 2.25rem); }
     .hero-media { left: 0; width: 100%; background-position: center; }
     .hero::before {
-      background: linear-gradient(180deg, rgba(2,8,24,.16), transparent 37%, rgba(2,8,24,.14));
+      background: linear-gradient(180deg, rgba(255,255,255,.20), transparent 40%);
     }
     .hero-title {
       left: .7rem;
@@ -2119,12 +2118,12 @@
     .venture-card .card-pane { transition-duration: .01ms; }
   }
   .carousel-btn {
-    color: #EAF4FF;
-    background: rgba(5, 17, 39, .78);
-    border-color: rgba(164, 204, 247, .26);
+    color: #111111;
+    background: rgba(255, 255, 255, .86);
+    border-color: rgba(17, 17, 17, .18);
     box-shadow: 0 12px 30px rgba(0, 3, 12, .48), inset 0 1px rgba(255, 255, 255, .08);
   }
-  .carousel-btn:hover { color: #A5D8FF; background: rgba(12, 42, 82, .88); }
+  .carousel-btn:hover { color: #111111; background: rgba(255, 255, 255, .96); }
   .built-summary { min-width: 0; }
   .venture-backers {
     width: 100%;
@@ -2212,10 +2211,10 @@
     margin-top: 0;
     position: relative;
     overflow: hidden;
-    background-color: #020817;
+    background-color: #DCEBF8;
     background-image:
-      linear-gradient(90deg, rgba(2, 8, 23, .16), rgba(2, 8, 23, .02)),
-      url("assets/backgrounds/build-connect-blue-sweep.jpg");
+      linear-gradient(90deg, rgba(255, 255, 255, .30), rgba(255, 255, 255, .04)),
+      url("assets/backgrounds/build-connect-glacier.jpg");
     background-position: center calc(50% + var(--connect-bg-shift));
     background-size: cover;
     background-repeat: no-repeat;
@@ -2227,7 +2226,7 @@
     display: block;
     width: 100%;
     height: clamp(4rem, 8vw, 7rem);
-    background: #000;
+    background: #F4F4F5;
     pointer-events: none;
   }
   .whatwedo-copy-panel {
@@ -2240,13 +2239,13 @@
   .whatwedo .section-title,
   .whatwedo-copy p,
   .whatwedo .feature-title,
-  .whatwedo .feature-desc { color: #F1F6FF; }
+  .whatwedo .feature-desc { color: #111111; }
   .whatwedo-copy p,
   .whatwedo .feature-desc { color: #BAC8DC; }
   .whatwedo-copy-panel .section-title,
-  .whatwedo-copy-panel .whatwedo-copy p { color: #FFFFFF; }
+  .whatwedo-copy-panel .whatwedo-copy p { color: #111111; }
   .whatwedo-copy-panel .section-title {
-    text-shadow: 0 2px 24px rgba(0, 7, 28, .28);
+    text-shadow: none;
   }
   .whatwedo-copy-panel .whatwedo-copy p {
     color: rgba(241, 247, 255, .88);
@@ -2291,7 +2290,7 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    background: #0B0B0C;
+    background: #F4F4F5;
     border-top-color: rgba(255, 255, 255, .11);
     padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 5vw, 4rem);
   }
@@ -2301,7 +2300,7 @@
     z-index: 0;
     inset: -12% 0;
     background:
-      radial-gradient(68% 76% at 10% 10%, rgba(129, 129, 129, .25), transparent 58%),
+      radial-gradient(68% 76% at 10% 10%, rgba(17, 17, 17, .06), transparent 58%),
       radial-gradient(74% 84% at 91% 93%, rgba(76, 76, 76, .24), transparent 62%),
       linear-gradient(138deg, #090909 0%, #1A1A1A 47%, #080808 100%);
     transform: translate3d(0, var(--experiences-bg-shift, 0px), 0);
