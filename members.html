@@ -245,6 +245,35 @@
     border-color: var(--rule);
     background: #030811;
   }
+
+  /* Footer lockup: white cube mark beside the name, stacked on two lines. */
+  .site-foot .foot-inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(.85rem, 1.6vw, 1.15rem);
+  }
+  .foot-mark {
+    flex: 0 0 auto;
+    display: block;
+    width: 39px;
+    height: 42px;
+    background: var(--cube-logo) center / contain no-repeat;
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: .94;
+  }
+  .foot-lines {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.28;
+  }
+  .foot-line {
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: clamp(1.02rem, 1.7vw, 1.22rem);
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+  }
 </style>
 </head>
 <body>
@@ -576,7 +605,13 @@
   </section>
 
   <footer class="site-foot">
-    <div class="wrap">The Cube &mdash; Duke University</div>
+    <div class="wrap foot-inner">
+      <span class="foot-mark" aria-hidden="true"></span>
+      <span class="foot-lines">
+        <span class="foot-line">The Cube</span>
+        <span class="foot-line">Duke University</span>
+      </span>
+    </div>
   </footer>
 </main>
 <script src="assets/js/members-roster.js"></script>
