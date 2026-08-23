@@ -254,18 +254,23 @@
   }
   .page-title { color: #F4F7FE; }
   .page-sub { color: #AFC0D8; }
+  /* Same monochrome grain as What we've built on the home page. */
   .team-body {
-    background:
-      radial-gradient(ellipse 70% 72% at 8% 12%, rgba(35,94,177,.32), transparent 70%),
-      radial-gradient(ellipse 60% 76% at 94% 88%, rgba(15,59,127,.38), transparent 72%),
-      linear-gradient(150deg, #050B16 0%, #0A1E3B 52%, #050A14 100%);
+    background: #08090A;
   }
   .team-body::before {
-    background: radial-gradient(circle, rgba(55,126,213,.24), rgba(25,74,143,.10) 50%, transparent 74%);
+    inset: 0;
+    left: 0;
+    top: 0;
+    width: auto;
+    aspect-ratio: auto;
+    border-radius: 0;
+    filter: grayscale(1) saturate(0) contrast(1.06);
+    background:
+      linear-gradient(180deg, rgba(5, 6, 7, .34), rgba(8, 9, 10, .18) 42%, rgba(4, 5, 6, .46)),
+      url("assets/backgrounds/built-grain-monochrome-optimized.jpg") center / cover no-repeat;
   }
-  .team-body::after {
-    background: radial-gradient(circle, rgba(36,100,183,.24), rgba(17,55,116,.11) 50%, transparent 74%);
-  }
+  .team-body::after { display: none; }
   .exec-photo {
     background: linear-gradient(145deg, rgba(31,72,121,.74), rgba(7,22,46,.82));
     border-color: rgba(162,201,242,.20);
