@@ -5,7 +5,7 @@
 <meta name="color-scheme" content="only light">
 <title>The Cube &mdash; A Prospectus for Student Enterprise</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="assets/backgrounds/hero-glacier-light.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/backgrounds/hero-cream-blue.jpg" fetchpriority="high">
 <link rel="icon" type="image/svg+xml" href="assets/brand/cube-logo.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
@@ -1133,7 +1133,7 @@
     display: block;
     /* same white monochrome treatment as the nav mark */
     background: var(--cube-logo) center / contain no-repeat;
-    filter: grayscale(1) brightness(0) invert(1);
+    filter: grayscale(1) brightness(0);
   }
   .contact-list { display: flex; flex-direction: column; gap: 1.6rem; align-items: flex-start; }
   .contact-list .line { font-size: clamp(1.05rem, 1.8vw, 1.28rem); color: #EAF1FF; margin: 0; }
@@ -1512,8 +1512,8 @@
     isolation: isolate;
     /* Keep the artwork underneath the scroll fade so the hero never reveals a
        flat navy band while it hands off to Our Mission. */
-    background-color: #DCEBF8;
-    background-image: url("assets/backgrounds/hero-glacier-light.jpg");
+    background-color: #EFEBE5;
+    background-image: url("assets/backgrounds/hero-cream-blue.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -1522,7 +1522,7 @@
     inset: 0;
     width: 100%;
     z-index: 0;
-    background-image: url("assets/backgrounds/hero-glacier-light.jpg");
+    background-image: url("assets/backgrounds/hero-cream-blue.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
@@ -1942,10 +1942,10 @@
     inset: -5rem 0;
     pointer-events: none;
     background:
-      linear-gradient(180deg, rgba(244, 244, 245, .82), rgba(244, 244, 245, .88) 42%, rgba(244, 244, 245, .80)),
+      linear-gradient(180deg, rgba(244, 244, 245, .90), rgba(244, 244, 245, .93) 42%, rgba(244, 244, 245, .89)),
       url("assets/backgrounds/built-grain-monochrome-optimized.jpg") center calc(50% + var(--built-bg-shift)) / cover no-repeat;
-    /* Inverted so the same grain reads as texture on a light surface. */
-    filter: grayscale(1) saturate(0) invert(1) contrast(.96);
+    /* No invert: the wash above already lightens the grain to faint texture. */
+    filter: grayscale(1) saturate(0) contrast(.96);
     will-change: background-position;
   }
   #built > * {
@@ -2165,7 +2165,7 @@
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: grayscale(1) brightness(0) invert(1);
+    filter: grayscale(1) brightness(0);
     opacity: .62;
     transition: opacity .2s ease;
   }
@@ -2301,8 +2301,8 @@
     inset: -12% 0;
     background:
       radial-gradient(68% 76% at 10% 10%, rgba(17, 17, 17, .06), transparent 58%),
-      radial-gradient(74% 84% at 91% 93%, rgba(76, 76, 76, .24), transparent 62%),
-      linear-gradient(138deg, #090909 0%, #1A1A1A 47%, #080808 100%);
+      radial-gradient(74% 84% at 91% 93%, rgba(17, 17, 17, .05), transparent 62%),
+      linear-gradient(138deg, #F4F4F5 0%, #EDEDEE 47%, #F4F4F5 100%);
     transform: translate3d(0, var(--experiences-bg-shift, 0px), 0);
     will-change: transform;
   }
