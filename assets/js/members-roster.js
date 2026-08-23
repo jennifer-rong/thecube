@@ -13,10 +13,7 @@
   };
 
   var unavailable = new Set([
-    "Juliana Gates","Kartikeye Gupta","Kayla Liang","Kaylyn Zhong","Michelle Li",
-    "Nikhil Pesaladinne","Raphael Mukondiwa","Sarah Tandon","Ting Ting Li",
-    "Aaron Hsu","Anna Liu","Arvindh Manian","Aubteen Pour-Biazar",
-    "Yihong Song"
+    "Yihong Song"  // old site only had a silhouette placeholder
   ]);
 
   function slugify(name) {
