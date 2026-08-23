@@ -3596,6 +3596,22 @@
   var originals = Array.prototype.slice.call(track.children);
   var count = originals.length;
 
+  var SITES = {
+    'Serval': 'https://www.serval.com/',
+    'Carpe': 'https://mycarpe.com/',
+    'Alleviate Health': 'https://alleviatehealth.care/',
+    'Syntra': 'https://www.syntra.com/',
+    'EffiGov': 'https://www.effigov.com/',
+    'Lemon Slice': 'https://lemonslice.com/',
+    'EQORE': 'https://www.eqore.net/',
+    'Throne Science': 'https://thronescience.com/',
+    'Octolane AI': 'https://www.octolane.com/',
+    'Gradient Health': 'https://gradienthealth.io/',
+    'Turbo AI': 'https://www.turbo.ai/',
+    'Tomo': 'https://www.tomo.ai/',
+    'Jailbreak': 'https://www.roblox.com/games/606849621/Jailbreak'
+  };
+
   originals.forEach(function (card) {
     var nameNode = card.querySelector('.card-name');
     var pane = card.querySelector('.card-pane');
@@ -3607,9 +3623,18 @@
     card.setAttribute('aria-label', 'Show details for ' + companyName);
 
     if (pane && !pane.querySelector('.card-visit')) {
-      var visit = document.createElement('span');
+      var href = SITES[companyName];
+      // a real anchor where we have a URL, so middle-click and open-in-new-tab
+      // behave normally; plain span otherwise
+      var visit = document.createElement(href ? 'a' : 'span');
       visit.className = 'card-visit';
       visit.textContent = 'Visit \u2192';
+      if (href) {
+        visit.href = href;
+        visit.target = '_blank';
+        visit.rel = 'noopener noreferrer';
+        visit.setAttribute('aria-label', 'Visit ' + companyName + ' (opens in a new tab)');
+      }
       pane.appendChild(visit);
     }
   });
@@ -3710,6 +3735,9 @@
   var startX = 0, startScroll = 0, moved = 0, activeId = null, dragPointerType = 'mouse', pressedCard = null;
   viewport.addEventListener('pointerdown', function (e) {
     if (e.button !== undefined && e.button !== 0) return;
+    // let the Visit link own its click: no drag, no flip, and clear any stale
+    // drag distance so the click-swallower below does not cancel it
+    if (e.target.closest('.card-visit')) { pressedCard = null; moved = 0; return; }
     dragging = true; activeId = e.pointerId; moved = 0;
     pressedCard = e.target.closest('.venture-card');
     dragPointerType = e.pointerType || 'mouse';
