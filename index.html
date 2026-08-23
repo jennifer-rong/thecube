@@ -3741,11 +3741,21 @@
   viewport.addEventListener('click', function (e) { if (moved > 6) { e.stopPropagation(); e.preventDefault(); } }, true);
 
   function flipCard(card) {
-    var flipped = card.classList.toggle('is-flipped');
+    var kids = Array.prototype.slice.call(track.children);
+    var idx = kids.indexOf(card);
+    if (idx < 0) return;
+    var flipped = !card.classList.contains('is-flipped');
     var nameNode = card.querySelector('.card-name');
     var companyName = nameNode ? nameNode.textContent.trim() : 'company';
-    card.setAttribute('aria-pressed', String(flipped));
-    card.setAttribute('aria-label', (flipped ? 'Show image for ' : 'Show details for ') + companyName);
+    var label = (flipped ? 'Show image for ' : 'Show details for ') + companyName;
+    // The track holds three identical sets, so the same company appears three
+    // times. Flip every copy, or wrapping to another set snaps the card back
+    // to its unflipped face mid-scroll.
+    for (var i = idx % count; i < kids.length; i += count) {
+      kids[i].classList.toggle('is-flipped', flipped);
+      kids[i].setAttribute('aria-pressed', String(flipped));
+      kids[i].setAttribute('aria-label', label);
+    }
     manualUntil = Date.now() + 900;
   }
 
