@@ -1811,7 +1811,8 @@
   .mission-band .mission-heading,
   .mission-band .mission-statement { color: var(--ink); }
   .mission-layout {
-    grid-template-columns: minmax(235px, .8fr) minmax(0, 1.5fr);
+    /* Column split left to the shared rule (minmax(260px, 1fr) 1.3fr), so the
+       heading and copy line up with the other split sections. */
     align-items: center;
     transform: translate3d(0, var(--mission-fg-shift), 0);
     will-change: transform;
