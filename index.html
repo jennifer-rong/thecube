@@ -2367,6 +2367,15 @@
     html.built-choreo-ready #built .venture-backers,
     html.built-choreo-ready #built .venture-carousel { transform: none; opacity: 1; }
   }
+
+  /* The foreground parallax travels +/-72px, but the band only had 52px of
+     bottom padding, so the copy crowded (and overflowed) the lower edge on
+     scroll. Symmetric padding clear of that travel keeps "Our mission"
+     centred at rest and contained at both extremes. */
+  .mission-band {
+    padding-top: clamp(5.5rem, 8vw, 7.5rem);
+    padding-bottom: clamp(5.5rem, 8vw, 7.5rem);
+  }
 </style>
 </head>
 <body>
