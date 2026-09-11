@@ -2164,18 +2164,9 @@
     border-top: 0;
     padding: 0;
   }
-  .whatwedo.rule-top::after {
-    content: "";
-    /* Overlay the fade on the last strip of the section instead of appending
-       height, so the section ends exactly where the gallery does. */
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: clamp(1.25rem, 2.4vw, 2.25rem);
-    background: linear-gradient(180deg, rgba(247, 245, 239, 0), var(--paper) 78%);
-    pointer-events: none;
-  }
+  /* No trailing fade: it washed a pale band over the bottom row of photos.
+     The gallery runs clean to the section edge instead. */
+  .whatwedo.rule-top::after { content: none; }
   .whatwedo-copy-panel {
     background: transparent;
     /* Only the copy parallaxes; the gallery stays put. */
