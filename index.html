@@ -2372,6 +2372,46 @@
     padding-top: clamp(5.5rem, 8vw, 7.5rem);
     padding-bottom: clamp(5.5rem, 8vw, 7.5rem);
   }
+
+  /* Contact sits in a dark inset window on the light page, with a plain white
+     band beneath carrying the wordmark. */
+  .contact { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .contact-panel {
+    background: #0B1122;
+    border-radius: clamp(14px, 1.6vw, 22px);
+    padding: clamp(2.25rem, 4.5vw, 3.75rem);
+    color: #F2F6FF;
+  }
+  .contact-panel .contact-grid { align-items: center; }
+  .contact-panel .line { color: #C6D5E9; }
+  .contact-panel .line a { color: #FFFFFF; }
+  .contact-panel .line a:hover { color: #A8D4FF; }
+  /* the mark is black for the light page, so invert it back for the panel */
+  .contact-panel .seal-mark { filter: grayscale(1) brightness(0) invert(1); opacity: .95; }
+  .contact-panel .mailing-btn {
+    color: #FFFFFF;
+    border-color: rgba(235, 243, 255, .62);
+  }
+  .contact-panel .mailing-btn:hover {
+    background: rgba(235, 243, 255, .10);
+    border-color: #FFFFFF;
+  }
+
+  .wordmark-band {
+    background: #FFFFFF;
+    padding: clamp(2.25rem, 5vw, 4rem) 0 clamp(2.75rem, 5.5vw, 4.5rem);
+    border: 0;
+  }
+  .wordmark-band-text {
+    margin: 0;
+    /* same face as the hero wordmark */
+    font-family: 'Edition', 'Avenir Next', Avenir, var(--font-ui);
+    font-weight: 400;
+    font-size: clamp(3rem, 11vw, 9rem);
+    line-height: 1;
+    letter-spacing: -.047em;
+    color: #000000;
+  }
 </style>
 </head>
 <body>
@@ -3020,6 +3060,7 @@
 
   <section id="contact" class="contact">
     <div class="wrap">
+      <div class="contact-panel">
       <div class="contact-grid">
         <div class="contact-title-col">
           <div class="seal" aria-hidden="true">
@@ -3037,7 +3078,12 @@
           </a>
         </div>
       </div>
+      </div>
     </div>
+  </section>
+
+  <section class="wordmark-band" aria-hidden="true">
+    <div class="wrap"><p class="wordmark-band-text">The Cube</p></div>
   </section>
 </main>
 
