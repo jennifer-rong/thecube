@@ -29,11 +29,11 @@
     var section = document.getElementById("class-" + year);
     if (!section) return;
     var grid = section.querySelector(".headshot-grid");
-    grid.innerHTML = roster[year].map(function (name) {
+    grid.innerHTML = roster[year].map(function (name, index) {
       var parts = splitName(name);
       var visual = unavailable.has(name)
         ? '<div class="member-photo member-photo-placeholder" role="img" aria-label="Headshot coming soon for ' + name + '"></div>'
-        : '<img class="member-photo" src="assets/members/' + slugify(name) + '.jpg" alt="' + name + '" width="400" height="400" loading="lazy" decoding="async">';
+        : '<img class="member-photo" src="assets/members/' + slugify(name) + '.jpg" alt="' + name + '" width="400" height="400" loading="' + (Number(year) === 2029 && index < 5 ? 'eager' : 'lazy') + '" decoding="async">';
       return '<article class="member-card">' + visual +
         '<div class="member-name"><span>' + parts[0] + '</span><span>' + parts[1] + '</span></div></article>';
     }).join("");

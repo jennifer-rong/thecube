@@ -1,0 +1,189 @@
+/* Shared reading style across all three pages. */
+:root {
+  --font-body: 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --body-size: 1.125rem;
+  --body-leading: 1.65;
+  --body-color: #47536A;
+}
+body { font-family: var(--font-body); }
+body .mission-band .mission-statement,
+body #built .built-blurb,
+body .duke-ventures-blurb,
+body .whatwedo-copy-panel .whatwedo-copy p,
+body .experiences-section .exp-intro p,
+body .contact-panel .line,
+body .page-sub,
+body .exec-role,
+body .venture-card .card-foot-desc {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  font-weight: 400;
+  line-height: var(--body-leading);
+  letter-spacing: 0;
+  color: var(--body-color);
+}
+/* Mission belongs to the same reading grid as the following sections. */
+body .mission-band { background: var(--paper); padding-block: clamp(3rem, 5vw, 4rem); }
+body .mission-band::before,
+body .mission-band::after { content: none; }
+body .mission-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(2rem, 5vw, 4rem); }
+body .mission-band .mission-heading { font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1.2; letter-spacing: -.01em; }
+body .mission-fundraising { margin-top: 1.5rem; gap: .625rem; align-items: baseline; }
+body .mission-fundraising-number { font-size: 2rem; line-height: 1.2; font-weight: 500; }
+body .mission-fundraising-label { font-size: .875rem; line-height: 1.5; padding: 0; letter-spacing: .025em; text-transform: none; }
+/* Logos support the narrative without competing with the closing invitation. */
+body .experiences-section { padding-top: clamp(3rem, 5vw, 4rem); padding-bottom: 2.5rem; }
+body .experiences-section .logo-wall { gap: 1rem 2rem; margin-top: 2rem; }
+body .experiences-section .logo-tile { min-height: 4rem; }
+body .experiences-section .logo-img { max-width: 78%; max-height: 1.875rem; opacity: .58; }
+body .experiences-section .logo-tile:hover .logo-img { opacity: .8; }
+/* One expressive ending: the wordmark and contact information share a panel. */
+body .contact { padding-top: 1.5rem; padding-bottom: 3rem; }
+body .contact-panel {
+  padding: clamp(2rem, 5vw, 4rem);
+  border-radius: 8px;
+  background: radial-gradient(ellipse at 0% 100%, #2453D6 0%, transparent 65%), linear-gradient(120deg, #142E72, #081226 85%);
+}
+body .contact-panel .contact-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+body .contact-panel .contact-title-col { gap: 1.25rem; min-width: 0; }
+body .contact-panel .seal,
+body .contact-panel .seal-mark { width: 3rem; height: 3.3125rem; }
+body .contact-wordmark { margin: 0; font-family: 'Edition', var(--font-body); font-size: clamp(3rem, 5.6vw, 5rem); font-weight: 400; line-height: 1; letter-spacing: -.035em; color: #FFF; white-space: nowrap; }
+body .contact-panel .line { color: #D3DDF1; }
+body .contact-panel .contact-list { gap: 1rem; }
+body .contact-panel .mailing-btn { margin-top: 1rem; padding: 1rem 1.25rem; }
+@media (max-width: 780px) {
+  body .contact-panel .contact-grid { grid-template-columns: minmax(0, 1fr); }
+  body .contact-wordmark { font-size: clamp(2.75rem, 9vw, 4.5rem); }
+}
+@media (max-width: 720px) {
+  body .mission-layout { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  body .experiences-section .logo-wall { gap: .75rem 1.25rem; }
+  body .experiences-section .logo-img { max-width: 85%; max-height: 1.75rem; }
+}
+
+/* Dark contact area and oversized wordmark form one continuous footer. */
+body .contact { background: #080F23; border: 0; padding: clamp(3rem, 6vw, 5rem) 0 1rem; }
+body .contact-panel { background: transparent; padding: 0; border-radius: 0; color: #FFFFFF; }
+body .contact-panel .contact-grid { align-items: start; }
+body .contact-panel .section-title { margin: 0; color: #FFFFFF; }
+body .contact-panel .line { color: #C3CEE3; }
+body .contact-panel .line a { color: #FFFFFF; }
+body .contact-panel .line a:hover { color: #AED1FF; }
+body .contact-panel .mailing-btn { background: #FFFFFF; border-color: #FFFFFF; color: #0B2265; }
+body .contact-panel .mailing-btn:hover { background: #DCEAFF; border-color: #DCEAFF; color: #0B2265; }
+body .contact-panel a:focus-visible { outline-color: #AED1FF; }
+body .footer-wordmark {
+  margin: clamp(3rem, 7vw, 7rem) 0 0;
+  padding-inline: 2vw;
+  font-family: 'Edition', var(--font-body);
+  font-size: 17vw;
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.045em;
+  text-align: center;
+  white-space: nowrap;
+  color: #FFFFFF;
+}
+
+/* Outline treatment for the oversized footer wordmark. */
+body .footer-wordmark {
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, .12vw, 2px) #FFFFFF;
+}
+
+/* Pair the outlined wordmark with the navigation's original cube mark. */
+body .footer-brand-row { display: flex; align-items: center; gap: 3vw; margin-top: clamp(3rem, 7vw, 7rem); padding-inline: 3vw; }
+body .footer-brand-row .footer-wordmark { flex: 1; min-width: 0; margin: 0; padding: 0; font-size: 14vw; text-align: left; }
+body .footer-cube-mark { width: 13vw; height: auto; flex: 0 0 13vw; filter: grayscale(1) brightness(0) invert(1); }
+
+/* Text fallback until the supplied Anthropic logo file is available. */
+body .experiences-section .anthropic-wordmark { font-family: Arial, sans-serif; font-size: clamp(.875rem, 1.45vw, 1.25rem); font-weight: 700; letter-spacing: -.035em; color: #000; opacity: .58; }
+
+/* A compact outcomes panel beneath the mission introduction. */
+body .mission-stats-wrap { margin-top: clamp(2rem, 4vw, 3rem); }
+body .mission-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: 10px;
+  background: radial-gradient(ellipse at 100% 100%, rgba(36,83,214,.25), transparent 65%), #080F23;
+  color: #FFFFFF;
+}
+body .mission-stat { display: flex; flex-direction: column; align-items: center; gap: .65rem; padding-inline: 1rem; text-align: center; }
+body .mission-stat + .mission-stat { border-left: 1px solid rgba(255,255,255,.2); }
+body .mission-stat dd { order: -1; margin: 0; font-family: var(--font-body); font-size: clamp(2.25rem, 5.5vw, 4.5rem); font-weight: 500; line-height: 1.1; letter-spacing: -.04em; }
+body .mission-stat dt { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; color: #C3CEE3; }
+@media (max-width: 480px) {
+  body .mission-stats { padding: 1.75rem .75rem; }
+  body .mission-stat { padding-inline: .5rem; }
+  body .mission-stat dd { font-size: clamp(1.75rem, 8vw, 2.25rem); }
+  body .mission-stat dt { font-size: .875rem; }
+}
+
+/* Fine outlined lettering with a pointer-lit edge. */
+body .footer-brand-row { display: block; padding-inline: 3vw; }
+body .footer-brand-row .footer-wordmark {
+  position: relative;
+  width: 100%;
+  font-size: 17vw;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(209,223,255,.48);
+  cursor: default;
+}
+body .footer-wordmark::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-stroke: 1px #FFFFFF;
+  text-shadow: 0 0 8px rgba(169,205,255,.85), 0 0 26px rgba(77,140,255,.6);
+  -webkit-mask-image: radial-gradient(ellipse 240px 180px at var(--glow-x, 50%) var(--glow-y, 50%), #000 12%, transparent 100%);
+  mask-image: radial-gradient(ellipse 240px 180px at var(--glow-x, 50%) var(--glow-y, 50%), #000 12%, transparent 100%);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+body .footer-wordmark.is-illuminated::after { opacity: 1; }
+@media (hover: none) {
+  body .footer-brand-row .footer-wordmark { -webkit-text-stroke-color: rgba(209,223,255,.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body .footer-wordmark::after { transition: none; }
+}
+/* Backers form one compact line instead of four stretched grid cells. */
+body #built .venture-backers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .875rem 1.25rem;
+  margin-top: 1.5rem;
+}
+body #built .venture-backers-label {
+  flex: none;
+  margin: 0;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .055em;
+  color: #657188;
+}
+body #built .venture-backers-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .875rem 1.5rem;
+}
+body #built .venture-backer-logo { min-height: 2rem; padding: 0; flex: none; }
+body #built .venture-backer-logo img { display: block; width: auto; max-width: 100%; height: auto; max-height: 1.4rem; opacity: .65; }
+body #built .venture-backer-logo:nth-child(1) img { width: 1.4rem; max-height: 1.4rem; }
+body #built .venture-backer-logo:nth-child(2) img { width: 4.5rem; max-height: 1.75rem; }
+body #built .venture-backer-logo:nth-child(3) img { width: 3.25rem; max-height: 1.5rem; }
+body #built .venture-backer-logo:nth-child(4) img { width: 6.75rem; max-height: 1.4rem; }
+@media (max-width: 560px) {
+  body #built .venture-backers { display: block; }
+  body #built .venture-backers-label { margin-bottom: .65rem; }
+  body #built .venture-backers-logos { gap: .75rem 1rem; }
+}
