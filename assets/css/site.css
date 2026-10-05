@@ -1,30 +1,14 @@
   @font-face {
-    font-family: 'Playfair Display';
-    src: url(../fonts/playfair-display-7f077a28e9.ttf) format('truetype');
-    font-weight: 400 900;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Govind';
-    src: url(../fonts/govind-2789402f86.ttf) format('opentype');
-    font-weight: 400 900;
-    font-display: swap;
-  }
-  @font-face {
     font-family: 'Edition';
-    src: url('../fonts/edition-regular.ttf') format('truetype');
+    src: url('../fonts/edition-regular.woff2') format('woff2');
     font-style: normal;
     font-weight: 400;
     font-display: swap;
   }
   :root {
-    --font-display: 'Govind', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    --font-heading: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
-    --font-section-heading-previous: 'Playfair Display', Georgia, 'Times New Roman', Times, serif;
+    --font-display: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
     --font-section-heading: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-body: Georgia, 'Times New Roman', Times, serif;
-    --touch-img: url("../backgrounds/touch-texture.jpg");
-    --cube-hero: url("../backgrounds/cube-hero.jpg");
   }
   :root {
     --paper: #F3F2ED;
@@ -659,7 +643,6 @@
     place-items: center;
     padding: .35rem;
   }
-  .duke-logo-list .duke-logo-cell:nth-child(n + 6) { display: none; }
   .duke-logo-img {
     max-height: 20px;
     max-width: 96px;
@@ -762,7 +745,7 @@
     inset: 0;
     border-radius: inherit;
     overflow: hidden;
-    background-image: var(--img, var(--cube-hero));
+    background-image: var(--img);
     background-size: var(--img-size, 105% auto);
     background-position: var(--img-position, center -18px);
     background-repeat: no-repeat;
@@ -2418,3 +2401,121 @@
     .whatwedo.rule-top { padding-block: 2.5rem 1rem; }
     .experiences-section { padding-top: 2rem; }
   }
+
+  /* ---------- Card backs ---------- */
+  /* Three bands that fill the square: the name up top, one sentence set large
+     and centred in the space, and a full-width Visit bar along the foot. */
+  body #built .venture-card .card-pane {
+    padding: 0;
+    gap: 0;
+  }
+  body #built .venture-card .card-name {
+    margin: 0;
+    padding: clamp(1.1rem, 5.4vw, 1.5rem) clamp(1.1rem, 5.6vw, 1.6rem) clamp(.85rem, 4vw, 1.15rem);
+    font-size: clamp(1.4rem, 7vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    border-bottom: 1px solid rgba(19, 26, 43, .14);
+  }
+  body #built .venture-card .card-name-rule { display: none; }
+  /* The numbers sit in their own band between the name and the sentence. */
+  body #built .venture-card .card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 0;
+    padding: clamp(.65rem, 3.2vw, .9rem) 0;
+    border-bottom: 1px solid rgba(19, 26, 43, .14);
+  }
+  body #built .venture-card .card-stat { padding: 0 clamp(1.1rem, 5.6vw, 1.6rem); border: 0; }
+  body #built .venture-card .card-stat + .card-stat { border-left: 1px solid rgba(19, 26, 43, .14); }
+  body #built .venture-card .card-stat-label { font-size: .6rem; margin-bottom: .3rem; }
+  body #built .venture-card .card-stat-value { font-size: clamp(1.05rem, 5vw, 1.3rem); font-weight: 600; }
+  body #built .venture-card .card-foot {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    min-height: 0;
+    padding: clamp(.9rem, 4vw, 1.4rem) clamp(1.1rem, 5.6vw, 1.6rem);
+    border: 0;
+  }
+  body #built .venture-card .card-foot-desc {
+    display: block;
+    -webkit-line-clamp: unset;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    font-family: var(--font-section-heading);
+    font-weight: 500;
+    font-size: clamp(18px, 5.6vw, 26px);
+    line-height: 1.22;
+    letter-spacing: -.015em;
+    color: var(--ink);
+  }
+  body #built .venture-card .card-visit {
+    align-self: stretch;
+    justify-content: flex-start;
+    margin: 0;
+    padding: .95rem clamp(1.1rem, 5.6vw, 1.6rem);
+    border: 0;
+    border-top: 1px solid rgba(19, 26, 43, .14);
+    border-radius: 0;
+    background: transparent;
+    font-size: .8rem;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  body #built .venture-card .card-visit:hover,
+  body #built .venture-card .card-visit:focus-visible {
+    background: var(--duke);
+    color: #fff;
+  }
+  @media (min-width: 721px) {
+    body #built .venture-card .card-name { font-size: clamp(1.6rem, 2.1vw, 2rem); padding: 1.5rem 1.7rem 1.15rem; }
+    body #built .venture-card .card-foot { padding: 1.4rem 1.7rem; }
+    body #built .venture-card .card-foot-desc { font-size: clamp(24px, 2.35vw, 34px); line-height: 1.2; }
+    body #built .venture-card .card-visit { padding: 1.05rem 1.7rem; font-size: .85rem; }
+    body #built .venture-card .card-stats { padding: .95rem 0; }
+    body #built .venture-card .card-stat { padding: 0 1.7rem; }
+    body #built .venture-card .card-stat-label { font-size: .65rem; }
+    body #built .venture-card .card-stat-value { font-size: 1.4rem; }
+  }
+  /* Tablets: the card is still only about 320px wide, so ease the type back. */
+  @media (min-width: 721px) and (max-width: 1100px) {
+    body #built .venture-card .card-foot-desc { font-size: 21px; }
+    body #built .venture-card .card-foot { padding-block: 1rem; }
+  }
+
+  /* Phones: slimmer name, stat and Visit bands so a three-line sentence keeps
+     comfortable padding inside the square. */
+  @media (max-width: 720px) {
+    body #built .venture-card .card-name { font-size: clamp(1.25rem, 6.2vw, 1.6rem); padding-top: .95rem; padding-bottom: .7rem; }
+    body #built .venture-card .card-stats { padding-block: .55rem; }
+    body #built .venture-card .card-stat-value { font-size: clamp(1rem, 4.6vw, 1.2rem); }
+    body #built .venture-card .card-visit { padding-block: .7rem; }
+    body #built .venture-card .card-foot { padding-block: .75rem; }
+    body #built .venture-card .card-foot-desc { font-size: clamp(17px, 5.1vw, 24px); }
+  }
+  @media (max-width: 340px) {
+    body #built .venture-card { width: 86vw; }
+  }
+
+  /* ---------- Social links ---------- */
+  /* Bare logo with the account name to its right, lined up with the text above. */
+  .social-links { display: flex; flex-direction: column; gap: .35rem; align-items: flex-start; }
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .8rem;
+    min-height: 44px;
+    color: #D3DDF1;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  .social-icon { display: inline-flex; flex: none; }
+  .social-name { font-size: 1.05rem; letter-spacing: .01em; }
+  .social-link:hover,
+  .social-link:focus-visible { color: #FFFFFF; }
+  .social-link:hover .social-name,
+  .social-link:focus-visible .social-name { text-decoration: underline; text-underline-offset: 4px; }
+  .social-link:focus-visible { outline: 2px solid #9BD5FF; outline-offset: 4px; }

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page not found | The Cube</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<style>
+  @font-face { font-family: 'Edition'; src: url('/assets/fonts/edition-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem clamp(1.25rem, 6vw, 4rem);
+    background: linear-gradient(150deg, #050B16 0%, #0A1D38 48%, #050B16 100%);
+    color: #EEF5FF;
+    font-family: 'Avenir Next', Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  .code { margin: 0 0 .5rem; font-family: 'Edition', 'Avenir Next', sans-serif; font-size: clamp(5rem, 22vw, 11rem); line-height: 1; letter-spacing: -.04em; }
+  h1 { margin: 0 0 .75rem; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 600; }
+  p { margin: 0 0 2rem; max-width: 32rem; color: #C3CEE3; font-size: 1.1rem; line-height: 1.55; }
+  a.home {
+    align-self: flex-start;
+    padding: .9rem 1.4rem;
+    color: #F3F7FF;
+    border: 1px solid rgba(235, 243, 255, .72);
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  a.home:hover, a.home:focus-visible { background: #F3F7FF; color: #08142C; }
+</style>
+</head>
+<body>
+  <p class="code" aria-hidden="true">404</p>
+  <h1>That page doesn't exist.</h1>
+  <p>The link may be old or mistyped. The home page has everything we've got.</p>
+  <a class="home" href="/">Back to The Cube</a>
+</body>
+</html>
